@@ -1,5 +1,6 @@
 package com.abstractlabs.oefen.screen;
 
+import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Settings;
@@ -10,7 +11,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogicgames.superjumper.Animation;
 
 public class ScreenGame extends ScreenAdapter {
 	Oefen game;
