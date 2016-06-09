@@ -1,5 +1,6 @@
 package com.abstractlabs.oefen;
 
+import com.abstractlabs.oefen.entity.Tower;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -25,6 +26,10 @@ public class Oefen extends ApplicationAdapter {
 	private TextureRegion[] waterctexture;
 	private Animation waterc;
 	private TextureRegion currentWaterc;
+	private Texture towers;
+	private Tower towerGreen;
+	private Tower towerRed;
+	private Texture cards;
 	
 	private int[][] map = 
 		   {{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,5,5,5,4,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -53,6 +58,8 @@ public class Oefen extends ApplicationAdapter {
 	    spritesheet = new Texture(Gdx.files.internal("sprite_sheet_16.png"));
 	    background = new Texture(Gdx.files.internal("background.png"));
 	    towersplacement = new Texture(Gdx.files.internal("towersplacement.png"));
+	    towers = new Texture(Gdx.files.internal("towers.png"));
+	    cards = new Texture(Gdx.files.internal("cards.png"));
 	    
 	    font = new BitmapFont();
 	    
@@ -70,6 +77,9 @@ public class Oefen extends ApplicationAdapter {
         water = new Animation(0.5f, watertexture);
         waterc = new Animation(0.5f, waterctexture);
         stateTime = 0f;
+
+        towerGreen = new Tower(towers, 64, 64, 0, 64, 64, 56, 330, 64, 64, 3000, 0, 1, 0, 1);
+        towerRed = new Tower(towers, 64, 64, 0, 64, 64, 1016, 330, 64, 64, 3000, 1, 0, 0, 1);
 	}
 
 	@Override
@@ -112,10 +122,23 @@ public class Oefen extends ApplicationAdapter {
 	    		} else {
 		    		batch.draw(spritesheet, 24+k*32, (480+104)-(i*32)-32+2, 32, 32, xtile, ytile, 16, 16, xflip, yflip);
 	    		}
+//		    		batch.draw(currentWater, 24+k*64, (480+104)-(i*64)-32+2, 0, 0, 64, 64, 1, 1, 0);
+//	    		} else if(map[i][k] == 0) {
+//		    		batch.draw(currentWaterc, 24+k*64, (480+104)-(i*64)-32+2, 0, 0, 64, 64, 1, 1, 0);
+//	    		} else if(map[i][k] == 4) {
+//		    		batch.draw(currentWaterc, 24+k*64+32, (480+104)-(i*64)-32+32+2, 0, 0, 64, 64, 1, 1, 180);
+//	    		} else {
+//		    		batch.draw(spritesheet, 24+k*64, (480+104)-(i*64)-32+2, 64, 64, xtile, ytile, 16, 16, xflip, yflip);
+//	    		}
 		    }
 	    }
-        //batch.draw(currentWater, 50, 50); 
+        //batch.draw(currentWater, 50, 50);
+	    
+	    //batch.draw(tower.getTexture(), tower.getRectangle().x, tower.getRectangle().y);
 
+	    towerGreen.draw(batch);
+	    towerRed.draw(batch);
+	    
 	    //tower placement concept
 	    if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
 		    //batch.setColor(1, 1, 1, 0.2f);
@@ -123,7 +146,7 @@ public class Oefen extends ApplicationAdapter {
 		    
 		    for(int i=0; i<map.length; i++) {
 		    	for(int k=0; k<map[i].length; k++) {
-		    		if(map[i][k] == 1 && k<17) { //k>17 for red team
+		    		if(map[i][k] == 1 && k<17 /*&& (i!=7 && k!=1)*/) { //k>17 for red team
 		    		    batch.setColor(0, 1, 0, 0.2f);
 		    			batch.draw(spritesheet, 24+k*32, (480+104)-(i*32)-32+2, 32, 32, 0, 240, 16, 16, false, false);
 		    		    batch.setColor(1, 1, 1, 1f);
@@ -137,9 +160,15 @@ public class Oefen extends ApplicationAdapter {
 		    
 		    //batch.setColor(1, 1, 1, 1f);
 	    }
+	    
+	    if(Gdx.input.getX() > 0 && Gdx.input.getX() < 100 && Gdx.input.getY() > 0 && Gdx.input.getY() < 100) {
+		    font.draw(batch, Gdx.graphics.getFramesPerSecond()+" FPS", 50, 50);
+	    }
 
 	    font.setColor(1, 1, 0, 1);
 	    font.draw(batch, Gdx.graphics.getFramesPerSecond()+" FPS", 4, 15);
+
+		batch.draw(cards, 20, 20, 64, 64, 0, 0, 64, 64, false, false);
 	    
 	    batch.end();
 	    
