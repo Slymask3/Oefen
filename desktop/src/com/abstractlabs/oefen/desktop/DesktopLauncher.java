@@ -1,8 +1,8 @@
 package com.abstractlabs.oefen.desktop;
 
+import com.abstractlabs.oefen.Oefen;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.abstractlabs.oefen.Oefen;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
