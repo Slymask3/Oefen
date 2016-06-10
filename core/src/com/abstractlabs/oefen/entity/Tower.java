@@ -1,7 +1,6 @@
 package com.abstractlabs.oefen.entity;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Tower extends Entity {
 	private int hp;

@@ -1,6 +1,6 @@
 package com.abstractlabs.oefen;
 
-import com.abstractlabs.oefen.screen.ScreenGame;
+import com.abstractlabs.oefen.screen.ScreenMainMenu;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -12,7 +12,7 @@ public class Oefen extends Game {
 		batch = new SpriteBatch();
 		Settings.load();
 		Assets.load();
-		setScreen(new ScreenGame(this));
+		setScreen(new ScreenMainMenu(this));
 	}
 
 	@Override

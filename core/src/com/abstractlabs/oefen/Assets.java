@@ -7,8 +7,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
+	public static Texture backgroundMainMenu;
+	public static TextureRegion backgroundMainMenuRegion;
 	public static Texture backgroundIngame;
 	public static TextureRegion backgroundIngameRegion;
+	
+	public static Texture buttons;
+	public static TextureRegion play;
+	public static TextureRegion playHover;
+	public static TextureRegion playClick;
 
 	public static Texture tiles;
 	public static TextureRegion voidTile;
@@ -18,6 +25,7 @@ public class Assets {
 	public static Animation waterTile;
 	public static Animation waterCornerTile;
 	public static Animation bridgeTile;
+	public static Animation waterSideTile;
 	public static TextureRegion hoverTile;
 
 	public static Texture towers;
@@ -37,8 +45,16 @@ public class Assets {
 
 	public static void load () {
 		//Backgrounds
+		backgroundMainMenu = loadTexture("gfx/background_mainmenu.png");
+		backgroundMainMenuRegion = new TextureRegion(backgroundMainMenu, 0, 0, 1136, 640);
 		backgroundIngame = loadTexture("gfx/background_ingame.png");
 		backgroundIngameRegion = new TextureRegion(backgroundIngame, 0, 0, 1136, 640);
+
+		//Buttons
+		buttons = loadTexture("gfx/buttons.png");
+		play = new TextureRegion(buttons, 0, 0, 200, 53);
+		playHover = new TextureRegion(buttons, 200, 0, 200, 53);
+		playClick = new TextureRegion(buttons, 400, 0, 200, 53);
 
 		//Tiles
 		tiles = loadTexture("gfx/tiles.png");
@@ -62,6 +78,11 @@ public class Assets {
 				new TextureRegion(tiles, 1*16, 6*16, 16, 16), 
 				new TextureRegion(tiles, 2*16, 6*16, 16, 16), 
 				new TextureRegion(tiles, 3*16, 6*16, 16, 16));
+		waterSideTile = new Animation(0.5f, 
+				new TextureRegion(tiles, 0*16, 7*16, 16, 16), 
+				new TextureRegion(tiles, 1*16, 7*16, 16, 16), 
+				new TextureRegion(tiles, 2*16, 7*16, 16, 16), 
+				new TextureRegion(tiles, 3*16, 7*16, 16, 16));
 		hoverTile = new TextureRegion(tiles, 0*16, 15*16, 16, 16);
 
 		//Towers
