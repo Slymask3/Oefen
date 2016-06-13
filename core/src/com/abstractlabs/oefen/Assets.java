@@ -25,8 +25,15 @@ public class Assets {
 	public static Animation waterTile;
 	public static Animation waterCornerTile;
 	public static Animation bridgeTile;
+	public static Animation bridge2Tile;
 	public static Animation waterSideTile;
 	public static TextureRegion hoverTile;
+	public static TextureRegion gemBlue;
+	public static TextureRegion gemGreen;
+	public static TextureRegion gemGray;
+	public static TextureRegion gemPurple;
+	public static TextureRegion gemRed;
+	public static TextureRegion gemOrange;
 
 	public static Texture towers;
 	public static TextureRegion greenTower;
@@ -46,9 +53,9 @@ public class Assets {
 	public static void load () {
 		//Backgrounds
 		backgroundMainMenu = loadTexture("gfx/background_mainmenu.png");
-		backgroundMainMenuRegion = new TextureRegion(backgroundMainMenu, 0, 0, 1136, 640);
+		backgroundMainMenuRegion = new TextureRegion(backgroundMainMenu, 0, 0, Oefen.WIDTH, Oefen.HEIGHT);
 		backgroundIngame = loadTexture("gfx/background_ingame.png");
-		backgroundIngameRegion = new TextureRegion(backgroundIngame, 0, 0, 1136, 640);
+		backgroundIngameRegion = new TextureRegion(backgroundIngame, 0, 0, Oefen.WIDTH, Oefen.HEIGHT);
 
 		//Buttons
 		buttons = loadTexture("gfx/buttons.png");
@@ -59,31 +66,44 @@ public class Assets {
 		//Tiles
 		tiles = loadTexture("gfx/tiles.png");
 		voidTile = new TextureRegion(tiles, 0*16, 0*16, 16, 16);
-		grassTile = new TextureRegion(tiles, 1*16, 0*16, 16, 16);
+		grassTile = new TextureRegion(tiles, 5*16, 0*16, 16, 16);
 		dirtTile = new TextureRegion(tiles, 2*16, 0*16, 16, 16);
 		//bridgeTile = new TextureRegion(tiles, 3*16, 0*16, 16, 16);
-		dirtCornerTile = new TextureRegion(tiles, 4*16, 0*16, 16, 16);
+		dirtCornerTile = new TextureRegion(tiles, 6*16, 0*16, 16, 16);
 		waterTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*16, 4*16, 16, 16), 
-				new TextureRegion(tiles, 1*16, 4*16, 16, 16), 
-				new TextureRegion(tiles, 2*16, 4*16, 16, 16), 
-				new TextureRegion(tiles, 3*16, 4*16, 16, 16));
+				new TextureRegion(tiles, 0*16, 9*16, 16, 16), 
+				new TextureRegion(tiles, 1*16, 9*16, 16, 16), 
+				new TextureRegion(tiles, 2*16, 9*16, 16, 16), 
+				new TextureRegion(tiles, 3*16, 9*16, 16, 16));
 		waterCornerTile = new Animation(0.5f, 
 				new TextureRegion(tiles, 0*16, 5*16, 16, 16), 
 				new TextureRegion(tiles, 1*16, 5*16, 16, 16), 
 				new TextureRegion(tiles, 2*16, 5*16, 16, 16), 
 				new TextureRegion(tiles, 3*16, 5*16, 16, 16));
 		bridgeTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*16, 6*16, 16, 16), 
-				new TextureRegion(tiles, 1*16, 6*16, 16, 16), 
-				new TextureRegion(tiles, 2*16, 6*16, 16, 16), 
-				new TextureRegion(tiles, 3*16, 6*16, 16, 16));
-		waterSideTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*16, 7*16, 16, 16), 
-				new TextureRegion(tiles, 1*16, 7*16, 16, 16), 
-				new TextureRegion(tiles, 2*16, 7*16, 16, 16), 
-				new TextureRegion(tiles, 3*16, 7*16, 16, 16));
+				new TextureRegion(tiles, 0*16, 10*16, 16, 16), 
+				new TextureRegion(tiles, 1*16, 10*16, 16, 16), 
+				new TextureRegion(tiles, 2*16, 10*16, 16, 16), 
+				new TextureRegion(tiles, 3*16, 10*16, 16, 16));
+		bridge2Tile = new Animation(0.5f, 
+				new TextureRegion(tiles, 0*16, 11*16, 16, 16), 
+				new TextureRegion(tiles, 1*16, 11*16, 16, 16), 
+				new TextureRegion(tiles, 2*16, 11*16, 16, 16), 
+				new TextureRegion(tiles, 3*16, 11*16, 16, 16));
+		waterSideTile = new Animation(5.0f, 
+//				new TextureRegion(tiles, 0*16, 8*16, 16, 16), 
+//				new TextureRegion(tiles, 1*16, 8*16, 16, 16), 
+				new TextureRegion(tiles, 3*16, 8*16, 16, 16)); 
+//				new TextureRegion(tiles, 3*16, 8*16, 16, 16)); 
+//				new TextureRegion(tiles, 2*16, 8*16, 16, 16));
+//				new TextureRegion(tiles, 1*16, 8*16, 16, 16));
 		hoverTile = new TextureRegion(tiles, 0*16, 15*16, 16, 16);
+		gemBlue   = new TextureRegion(tiles, 0*16, 2*16, 16, 16);
+		gemGreen  = new TextureRegion(tiles, 1*16, 2*16, 16, 16);
+		gemGray   = new TextureRegion(tiles, 2*16, 2*16, 16, 16);
+		gemPurple = new TextureRegion(tiles, 3*16, 2*16, 16, 16);
+		gemRed    = new TextureRegion(tiles, 4*16, 2*16, 16, 16);
+		gemOrange = new TextureRegion(tiles, 5*16, 2*16, 16, 16);
 
 		//Towers
 		towers = loadTexture("gfx/towers.png");
