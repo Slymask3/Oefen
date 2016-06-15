@@ -1,49 +1,85 @@
 package com.abstractlabs.oefen.entity;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
-public class Entity {
-	private Rectangle rect;
-	private TextureRegion texture;
-	private float r;
-	private float g;
-	private float b;
-	private float a;
-	
-	public Entity(Texture texture, int size, int srcx, int srcy, int srcw, int srch, int posx, int posy, int scalew, int scaleh) {
-		this.rect = new Rectangle(posx, posy, scalew, scaleh);
-		TextureRegion[][] tmp = (new TextureRegion(texture)).split(size, size);
-		this.texture = tmp[srcx/size][srcy/size];
-		r = 1;
-		g = 1;
-		b = 1;
-		a = 1;
-	}
-	
-	public Entity(Texture texture, int size, int srcx, int srcy, int srcw, int srch, int posx, int posy, int scalew, int scaleh, float r, float g, float b, float a) {
-		this.rect = new Rectangle(posx, posy, scalew, scaleh);
-		TextureRegion[][] tmp = (new TextureRegion(texture)).split(size, size);
-		this.texture = tmp[srcy/size][srcx/size];
-		this.r = r;
-		this.g = g;
-		this.b = b;
-		this.a = a;
-	}
-	
-	public Rectangle getRectangle() {
-		return this.rect;
-	}
-	
-	public TextureRegion getTexture() {
-		return this.texture;
-	}
+public abstract class Entity extends Actor {
+	TextureRegion texture;
+    float x, y, width, height;
+    int[][] map = new int[17][36];
+	float xc;
+	float yc;
+	String team;
+	Rectangle hitbox;
+	Rectangle rangebox;
+	int range;
+	int hp;
+	int dmg;
+	int maxhp;
 
-	public void draw(SpriteBatch batch) {
-	    batch.setColor(r, g, b, a);
-		batch.draw(getTexture(), getRectangle().x, getRectangle().y, getRectangle().width, getRectangle().height);
-	    batch.setColor(1, 1, 1, 1);
-	}
+    public Entity(TextureRegion texture, float x, float y, float width, float height, int[][] map, String team, int hp, int dmg, int range) {
+    	this.texture = texture;
+    	this.x = x;
+    	this.y = y;
+    	this.width = width;
+    	this.height = height;
+    	this.xc = x;
+    	this.yc = y;
+    	this.team = team;
+    	this.hp = hp;
+    	this.dmg = dmg;
+    	this.maxhp = hp;
+    	this.range = range;
+
+    	this.hitbox = new Rectangle(x+(width/4), y, width/2, height/2);
+    	this.rangebox = new Rectangle((x+(width/2))-range, (y+(height/2))-range, range*2, range*2);
+    	
+    	int xp = 0;
+    	int yp = map.length-1;
+    	for(int i=0; i<map.length; i++) {
+	    	for(int k=0; k<map[i].length; k++) {
+	    		this.map[i][k] = map[yp][xp];
+	    		xp++;
+	    	}
+    		yp--;
+    		xp=0;
+    	}
+    }
+    
+    @Override
+    public void draw(Batch batch, float alpha){
+        batch.draw(texture, x, y, width, height);
+    }
+    
+    public String getTeam() {
+    	return this.team;
+    }
+    
+    public Rectangle getHitboxRectangle() {
+        return hitbox;
+    }
+    
+    public Rectangle getRangeRectangle() {
+        return rangebox;
+    }
+
+    public void setXY(float pX,float pY) {
+    	this.x = pX;
+    	this.y = pY;
+        setPosition(pX, pY);
+        hitbox.setX((int)pX+(width/4));
+        hitbox.setY((int)pY);
+        rangebox.setX(pX+(width/2)-range);
+        rangebox.setY(pY+(height/2)-range);
+    }
+    
+    public void damage(int amount) {
+    	this.hp -= amount;
+    }
+    
+    public boolean isDead() {
+    	return hp<=0?true:false;
+    }
 }

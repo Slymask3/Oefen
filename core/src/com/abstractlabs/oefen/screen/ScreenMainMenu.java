@@ -33,7 +33,7 @@ public class ScreenMainMenu extends ScreenAdapter {
     Skin skin;
     TextureAtlas buttonAtlas;
 	
-	public ScreenMainMenu (Oefen oefen) {
+	public ScreenMainMenu(Oefen oefen) {
 		this.game = oefen;
 
 		guiCam = new OrthographicCamera(Oefen.WIDTH, Oefen.HEIGHT);
