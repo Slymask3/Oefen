@@ -2,10 +2,12 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
+import com.abstractlabs.oefen.Map;
+import com.abstractlabs.oefen.entity.other.TempText;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 
-public abstract class Attacker extends Entity {
+public class Attacker extends Entity {
 	Animation texture;
     float speed;
     public boolean walking = false;
@@ -17,7 +19,7 @@ public abstract class Attacker extends Entity {
 
     public Attacker(Animation walkDown, Animation walkUp, Animation walkLeft, Animation walkRight, 
     				Animation attackDown, Animation attackUp, Animation attackLeft, Animation attackRight, 
-    				float x, float y, float speed, float width, float height, int[][] map, String team, int hp, int dmg, int range) {
+    				float x, float y, float speed, float width, float height, Map map, String team, int hp, int dmg, int range) {
     	super(walkDown.getKeyFrame(0, 0), x, y, width, height, map, team, hp, dmg, range);
     	this.texture = walkDown;
     	this.speed = speed;
@@ -36,13 +38,20 @@ public abstract class Attacker extends Entity {
     @Override
     public void draw(Batch batch, float alpha){
     	state += Gdx.graphics.getDeltaTime();
+    	
+    	if(this.team == "Blue") {
+    		batch.setColor(0.8f, 0.8f, 1, 1);
+    	} else {
+    		batch.setColor(1, 0.8f, 0.8f, 1);
+    	}
         batch.draw(texture.getKeyFrame(state, 0), x, y, width, height);
+		batch.setColor(1, 1, 1, 1);
         
         batch.setColor(1, 0, 0, 1);
-        batch.draw(Assets.hpbar, x, y+24);
+        batch.draw(Assets.hpbar, x, y+height);
         batch.setColor(0, 1, 0, 1);
         double php = (double)hp/maxhp;
-        batch.draw(Assets.hpbar, x, y+24, Math.round(php*32), 4);
+        batch.draw(Assets.hpbar, x, y+height, Math.round(php*32), 4);
         batch.setColor(1, 1, 1, 1);
     }
     
@@ -51,7 +60,7 @@ public abstract class Attacker extends Entity {
     public void act(float delta){
         if(walking){
         	int xcoord = (int) (((xc)-64)/32);
-        	int ycoord = (int) (((yc)-122)/32);
+        	int ycoord = (int) (((yc)-122-13)/32);
 //        	int xcoord = Math.round(((x)-64)/32);
 //        	int ycoord = Math.round(((y)-122)/32);
 //        	System.out.println("["+this.toString()+"] x="+x+" | y="+y+" | xc="+xcoord+" | yc="+ycoord+" | tile="+map[ycoord][xcoord]);
@@ -91,7 +100,7 @@ public abstract class Attacker extends Entity {
 	        	} else if(map[ycoord][xcoord] == 5) {
 	//                x+=speed;
 	                dir = 0;
-	                System.out.println("Walking Right");
+	                //System.out.println("Walking Right");
 	        	} else if(map[ycoord][xcoord] == 0 || map[ycoord][xcoord] == 20) {
 	        		dir = -1;
 	                //System.out.println("Stopped");
@@ -174,7 +183,7 @@ public abstract class Attacker extends Entity {
         	}
         	
         	tick++;
-        	System.out.println(tick);
+        	//System.out.println(tick);
         	if(tick >= 100 && target != null) {
         		tick = 0;
         		target.damage(dmg);
@@ -202,14 +211,51 @@ public abstract class Attacker extends Entity {
     @Override
     public void damage(int amount) {
     	this.hp -= amount;
+    	TempText temp = new TempText("-"+amount, x, y, 1f, 0f, 0f, mapObj);
+    	if(this.getParent() != null) {
+        	this.getParent().addActor(temp);
+    	}
     	if(hp <= 0) {
     		attacking = false;
     		walking = false;
     	}
-    	System.out.println("["+team+"] hp="+hp+" | maxhp="+maxhp+" | dmg by="+amount);
+    	//System.out.println("["+team+"] hp="+hp+" | maxhp="+maxhp+" | dmg by="+amount);
     }
     
-    public void setTarget(Attacker target) {
+    public void setTarget(Entity target) {
     	this.target = target;
+    }
+    
+    ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
+
+    public static String GOBLIN = "Goblin";
+    public static String FAIRY = "Fairy";
+    
+    public static Attacker createAttacker(String attacker, float x, float y, Map map, String team) {
+    	if(attacker == GOBLIN) {
+    		return new Attacker(Assets.goblinWalkDown, Assets.goblinWalkUp, Assets.goblinWalkLeft, Assets.goblinWalkRight,
+    				  Assets.goblinAttackDown, Assets.goblinAttackUp, Assets.goblinAttackLeft, Assets.goblinAttackRight, 
+    				  x, y, 
+    				  1f, //speed
+    				  32, //width
+    				  32, //height
+    				  map, team, 
+    				  30, //health
+    				  7, //damage
+    				  16); //range
+    	} else if(attacker == FAIRY) {
+    		return new Attacker(Assets.fairyWalkDown, Assets.fairyWalkUp, Assets.fairyWalkLeft, Assets.fairyWalkRight,
+  				  Assets.fairyWalkDown, Assets.fairyWalkUp, Assets.fairyWalkLeft, Assets.fairyWalkRight, 
+  				  x, y, 
+  				  1.5f, //speed
+  				  32, //width
+  				  48, //height
+  				  map, team, 
+  				  20, //health
+  				  12, //damage
+  				  32); //range
+    	} else {
+    		return null;
+    	}
     }
 }

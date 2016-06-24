@@ -17,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 public class ScreenMainMenu extends ScreenAdapter {
 	public Oefen game;
@@ -49,7 +48,7 @@ public class ScreenMainMenu extends ScreenAdapter {
 //		BitmapFont font12 = generator.generateFont(parameter); // font size 12 pixels
 //		generator.dispose(); // don't forget to dispose to avoid memory leaks!
 		
-		BitmapFont font2 = Font.createFont(Gdx.files.internal("gfx/sufrimeda.ttf"), 30);
+		//BitmapFont font2 = Font.createFont(Gdx.files.internal("gfx/sufrimeda.ttf"), 30);
 		
 		stage = new Stage();
         Gdx.input.setInputProcessor(stage);
@@ -59,7 +58,7 @@ public class ScreenMainMenu extends ScreenAdapter {
         buttonAtlas = new TextureAtlas(Gdx.files.internal("gfx/buttons.txt"));
         skin.addRegions(buttonAtlas);
         textButtonStyle = new TextButtonStyle();
-        textButtonStyle.font = font2;
+        textButtonStyle.font = Font.create(Font.sufrimeda, 30, 2);
         textButtonStyle.up = skin.getDrawable("up-button");
         textButtonStyle.down = skin.getDrawable("down-button");
         //textButtonStyle.checked = skin.getDrawable("checked-button");
