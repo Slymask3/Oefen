@@ -8,7 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,7 +27,7 @@ public class ScreenMainMenu extends ScreenAdapter {
 	Stage stage;
     TextButton button;
     TextButtonStyle textButtonStyle;
-    BitmapFont font;
+    //BitmapFont font;
     Skin skin;
     TextureAtlas buttonAtlas;
 	
@@ -52,7 +51,7 @@ public class ScreenMainMenu extends ScreenAdapter {
 		
 		stage = new Stage();
         Gdx.input.setInputProcessor(stage);
-        font = new BitmapFont(Gdx.files.internal("gfx/oefenfont2.fnt"));
+        //font = new BitmapFont(Gdx.files.internal("gfx/oefenfont2.fnt"));
         //font.getData().setScale(0.9f, 0.9f);
         skin = new Skin();
         buttonAtlas = new TextureAtlas(Gdx.files.internal("gfx/buttons.txt"));
@@ -125,7 +124,14 @@ public class ScreenMainMenu extends ScreenAdapter {
 	}
 
 	@Override
-	public void pause () {
+	public void pause() {
 		Settings.save();
+	}
+
+	@Override
+	public void dispose() {
+		stage.dispose();
+	    skin.dispose();
+	    buttonAtlas.dispose();
 	}
 }

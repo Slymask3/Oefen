@@ -1,9 +1,10 @@
 package com.abstractlabs.oefen.card;
 
 import com.abstractlabs.oefen.Assets;
+import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.ImprovedButton;
-import com.abstractlabs.oefen.Map;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -20,26 +21,63 @@ public abstract class Card extends ImprovedButton {
 	public static String TOWER = "Tower";
 	public static String SPELL = "Spell";
 
+	protected ScreenGame screen;
+	protected Cards card;
 	protected BitmapFont font;
 	protected float cost;
 	protected String type;
 	protected Color color;
 	protected TextureRegion front;
-	protected Map map;
 	protected String team;
+	protected float speed;
+	protected int hp, dmg, range, attackspeed;
 	
-	public Card(String type, TextureRegion texture, Sound sound, float cost, Map map, String team) {
+	public Card(ScreenGame screen, String type, Cards card, Sound sound, String team) {
 		super(new ImprovedButtonStyle(Assets.card, sound));
         //this.setPosition(x, y);
-        this.cost = cost;
+		this.card = card;
+        this.cost = card.getPrice();
         this.font = Font.create(Font.sufrimeda, 15, 1);
         this.font.setColor(1, 1, 0, 1);
         this.type = type;
-        this.color = type==Card.ATTACKER?new Color(1,0.3f,0.3f,1):type==Card.TOWER?new Color(0.5f,1,0.5f,1):new Color(0.5f,0.5f,1,1);
-        this.front = texture;
+        this.color = type==Card.ATTACKER?new Color(1,0.3f,0.3f,1):type==Card.TOWER?new Color(0.5f,0.5f,1,1):new Color(0,1,0,1);
+        this.front = card.getTexture();
         this.setColor(color);
-        this.map = map;
+        this.screen = screen;
         this.team = team;
+		this.speed = card.getMoveSpeed();
+		this.hp = card.getHealth();
+		this.dmg = card.getDamage();
+		this.range = card.getRange();
+		this.attackspeed = card.getAttackSpeed();
+	}
+	
+	public Cards getCardsObj() {
+		return this.card;
+	}
+	
+	public float getCost() {
+		return this.cost;
+	}
+	
+	public int getHealth() {
+		return this.hp;
+	}
+	
+	public int getDamage() {
+		return this.dmg;
+	}
+	
+	public int getRange() {
+		return this.range;
+	}
+	
+	public int getAttackSpeed() {
+		return this.attackspeed;
+	}
+	
+	public float getMoveSpeed() {
+		return this.speed;
 	}
 	
 	@Override
@@ -99,8 +137,17 @@ public abstract class Card extends ImprovedButton {
                 setHeight(originalHeight);
             }           
         }
+        
+        int nrh=front.getRegionHeight(), nrw=front.getRegionWidth();
+        if(front.getRegionHeight() > 48) {
+        	nrh = 48;
+        }
+        if(front.getRegionWidth() > 48) {
+        	nrw = 48;
+        }
+        
         batch.setColor(1, 1, 1, 1);
-        batch.draw(front, this.getX()+((64-front.getRegionWidth())/2), this.getY()+5+((64-front.getRegionHeight())/2));
-        this.font.draw(batch, Math.round(cost)+"", this.getX()+5, this.getY()+12);
+        batch.draw(front, this.getX()+((64-nrw)/2), this.getY()+5+((64-nrh)/2), nrw, nrh);
+        this.font.draw(batch, "$"+Math.round(cost), this.getX()+5, this.getY()+12);
     }
 }

@@ -2,8 +2,10 @@ package com.abstractlabs.oefen.entity.tower;
 
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Font;
-import com.abstractlabs.oefen.Map;
+import com.abstractlabs.oefen.Range;
+import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.entity.Tower;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -12,8 +14,8 @@ public class TowerMain extends Tower {
 	int yhp;
     BitmapFont font;
 	
-	public TowerMain(Map map, String team, float x, float y) {
-		super(Assets.mainTower, x, y, 32, 64, map, team, 1000, 10, 64);
+	public TowerMain(ScreenGame screen, String team, float x, float y) {
+		super(screen, Assets.mainTower, x, y, 32, 64, team, 1000, 10, 80, 20, Assets.arrow, 15, 3);
 		xhp = team=="Blue"?2:1218;
 		yhp = 122+13;
 		font = Font.create(Font.sufrimeda, 30, 2);
@@ -47,5 +49,12 @@ public class TowerMain extends Tower {
         font.setColor((float)(php2), (float)php, 0, 1);
         font.draw(batch, hp+"", xhp, 400, 60, 1, true);
         font.setColor(1, 1, 1, 1);
+        
+        if(Settings.showRangebox) {
+            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+        }
+		if(Settings.showHitbox) {
+	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+		}
     }
 }

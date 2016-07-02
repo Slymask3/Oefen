@@ -1,18 +1,19 @@
 package com.abstractlabs.oefen.entity.other;
 
-import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Map;
 import com.abstractlabs.oefen.entity.Entity;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Arrow extends Entity {
+public class Projectile extends Entity {
+	TextureRegion texture;
 	float xd, yd;
 	float width, height;
 	float xc, yc;
 	float tick;
 	
-	public Arrow(float width, float height, float x, float y, float xd, float yd, Map map) {
-		super(null, x, y, 15, 3, map, null, 0, 0, 0);
+	public Projectile(ScreenGame screen, TextureRegion texture, float width, float height, float x, float y, float xd, float yd) {
+		super(screen, texture, x, y, width, height);
 		this.xd = xd;
 		this.yd = yd;
 		this.width = width;
@@ -30,11 +31,13 @@ public class Arrow extends Entity {
 //		System.out.println("Math.abs(xd-x)="+Math.abs(xd-x)+" | Math.abs(yd-y)="+Math.abs(yd-y)+" | xd-x="+(xd-x)+" | yd-y="+(yd-y));
 		
 		this.tick = 0;
+		
+		this.texture = texture;
 	}
 	
 	@Override
     public void draw(Batch batch, float alpha) {
-        batch.draw(Assets.arrow, x, y, width/2, height/2, width, height, 1, 1, (float) (Math.atan2(yd-y, xd-x) * 180 / Math.PI));
+        batch.draw(texture, x, y, width/2, height/2, width, height, 1, 1, (float) (Math.atan2(yd-y, xd-x) * 180 / Math.PI));
     }
     
     @Override
@@ -63,7 +66,7 @@ public class Arrow extends Entity {
     	//System.out.println("x="+x+" | xd="+xd+" | y="+y+" | yd="+yd);
     	
     	tick++;
-    	if(tick >= 200) { //cleanup
+    	if(tick >= 100) { //cleanup
     		this.remove();
     	}
     }

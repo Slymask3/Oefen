@@ -6,6 +6,8 @@ import com.badlogic.gdx.files.FileHandle;
 public class Settings {
 	public static boolean soundEnabled = true;
 	public final static String file = ".oefen";
+	public static boolean showHitbox = false;
+	public static boolean showRangebox = false;
 
 	public static void load () {
 		try {

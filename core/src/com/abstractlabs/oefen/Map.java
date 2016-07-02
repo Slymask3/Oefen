@@ -6,13 +6,15 @@ public class Map {
 	private int[][] mapPath; //Used for the straight up path for walking, so entities know where they are allowed to go.
 	private int[][] mapTiles; //Used to display the tiles.
 	private int[][] mapOverlay; //Used if any overlay is added. (Thinking we could have a bridge be built like this)(Maybe later, like waterfall, trees?)
+	private int[][] mapTowers; //Used to tell the game where towers are allowed to be placed.
 	private int blueStart;
 	private int redStart;
 	
-	public Map(int[][] mapPath, int[][] mapTiles, int[][] mapOverlay, int blueStart, int redStart) {
+	public Map(int[][] mapPath, int[][] mapTiles, int[][] mapOverlay, int[][] mapTowers, int blueStart, int redStart) {
 		this.mapPath = mapPath;
 		this.mapTiles = mapTiles;
 		this.mapOverlay = mapOverlay;
+		this.mapTowers = mapTowers;
 		this.blueStart = blueStart;
 		this.redStart = redStart;
 	}
@@ -27,6 +29,10 @@ public class Map {
 	
 	public int[][] getOverlay() {
 		return this.mapOverlay;
+	}
+	
+	public int[][] getTowers() {
+		return this.mapTowers;
 	}
 	
 	public int getBlueStart() {
@@ -96,12 +102,32 @@ public class Map {
  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
  {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1}};
 	
-	public static Map map1 = new Map(mapPath1, mapTiles1, mapOverlay1, 8, 8);
+	private static int[][] mapTowers1 = 
+		{{0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,2,2,2,2,2,2,2,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,2,0,0,0,0,0,2,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,1,2,2,2,2,2,2,2,0,0,0,0,0,2,2,2,2,2,2,2,2,9,0,0,0,0,2,2,2,2,2,2,2,1,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,2,9,0,0,0,0,2,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,2,9,0,0,0,0,2,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,2,9,0,0,0,0,2,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,2,9,0,0,0,0,2,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,2,2,2,2,2,2,2,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0},
+		 {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,2,2,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0}};
+	
+	public static Map map1 = new Map(mapPath1, mapTiles1, mapOverlay1, mapTowers1, 8, 8);
 	
 	public static Map generateMap1() {
 		int[][] mapPath = Map.mapPath1;
 		int[][] mapTiles = Map.mapTiles1;
 		int[][] mapOverlay = Map.mapOverlay1;
+		int[][] mapTowers = Map.mapTowers1;
 		
 		Random rand = new Random();
         for(int i=0; i<mapTiles.length; i++) {
@@ -130,13 +156,14 @@ public class Map {
 	    	}
         }
         
-        return new Map(mapPath, mapTiles, mapOverlay, 8, 8);
+        return new Map(mapPath, mapTiles, mapOverlay, mapTowers, 8, 8);
 	}
 	
 	public static Map generateRandomMap() {
 		int[][] mapPath = new int[17][36];
 		int[][] mapTiles = new int[17][36];
 		int[][] mapOverlay = new int[17][36];
+		int[][] mapTowers = new int[17][36];
 		
 		Random rand = new Random();
 		
@@ -152,6 +179,7 @@ public class Map {
 				}
 				mapPath[i][k] = 0;
 				mapOverlay[i][k] = -1;
+				mapTowers[i][k] = k<18?0:9;
 			}
 		}
 		
@@ -160,6 +188,8 @@ public class Map {
 		mapTiles[start][3] = 1;
 		mapPath[start][3] = 1;
 		mapPath[start][2] = 1;
+		mapTowers[start][3] = 2;
+		mapTowers[start][2] = 1;
 		int blueStart = 16-start;
 		
 		for(int i=1; i<29; i++) {
@@ -169,12 +199,14 @@ public class Map {
 				if(temp == 0 && start != 0) { //turn up
 					mapTiles[start][3+i] = 2;
 					mapPath[start][3+i] = 2;
+					mapTowers[start][3+i] = 2;
 					int timesvertical = rand.nextInt(start);
 					timesvertical = timesvertical<2?2:timesvertical;
 					//System.out.println(timesvertical);
 					for(int k=1; k<timesvertical; k++) {
 						mapTiles[start-k][3+i] = 30;
 						mapPath[start-k][3+i] = 1;
+						mapTowers[start-k][3+i] = 2;
 						if(k==timesvertical-1) {
 							mapTiles[start-k][3+i] = 3;
 							mapPath[start-k][3+i] = 3;
@@ -184,6 +216,7 @@ public class Map {
 				} else if(temp == 1 && start != 16) { //turn down
 					mapTiles[start][3+i] = 4;
 					mapPath[start][3+i] = 4;
+					mapTowers[start][3+i] = 2;
 					int timesvertical = rand.nextInt(16-start);
 					if(timesvertical < 2) {
 						timesvertical = 2;
@@ -193,6 +226,7 @@ public class Map {
 					for(int k=1; k<timesvertical; k++) {
 						mapTiles[start+k][3+i] = 30;
 						mapPath[start+k][3+i] = 1;
+						mapTowers[start+k][3+i] = 2;
 						if(k==timesvertical-1) {
 							mapTiles[start+k][3+i] = 5;
 							mapPath[start+k][3+i] = 5;
@@ -202,16 +236,20 @@ public class Map {
 				} else {
 					mapTiles[start][3+i] = 1;
 					mapPath[start][3+i] = 1;
+					mapTowers[start][3+i] = 2;
 				}
 			} else {
 				mapTiles[start][3+i] = 1;
 				mapPath[start][3+i] = 1;
+				mapTowers[start][3+i] = 2;
 			}
 		}
 
 		mapTiles[start][32] = 1;
 		mapPath[start][32] = 1;
 		mapPath[start][33] = 1;
+		mapTowers[start][32] = 2;
+		mapTowers[start][33] = 8;
 		int redStart = 16-start;
 		
 		//Water
@@ -226,6 +264,7 @@ public class Map {
 					mapOverlay[i][k] = mapTiles[i][k];
 					mapTiles[i][k] = 7;
 				}
+				mapTowers[i][k] = 2;
 			}
 		}
 		for(int i=0; i<mapTiles.length; i++) {
@@ -236,6 +275,6 @@ public class Map {
 			}
 		}
 
-        return new Map(mapPath, mapTiles, mapOverlay, blueStart, redStart);
+        return new Map(mapPath, mapTiles, mapOverlay, mapTowers, blueStart, redStart);
 	}
 }

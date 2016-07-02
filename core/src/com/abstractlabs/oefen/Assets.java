@@ -53,14 +53,29 @@ public class Assets {
 	public static Animation waterTopRight;
 
 	public static Texture towers;
-	public static TextureRegion wtfisthis;
 	public static TextureRegion mainTower;
+	public static TextureRegion wtfisthis;
+	public static TextureRegion budhaGold;
+
+	public static Texture dummy;
+	public static Animation dummySpin;
+	public static Animation dummyDeath;
 
 	public static Texture cards;
 	public static TextureRegion card;
 	public static TextureRegion cardTeemo;
 	public static TextureRegion cardGoblin;
 	public static TextureRegion cardFairy;
+	public static TextureRegion cardGoblinDarkMage;
+	public static TextureRegion cardDummy;
+	public static TextureRegion cardSpiderRed;
+	public static TextureRegion cardCrystalBlue;
+	public static TextureRegion cardKnight;
+	public static TextureRegion cardBat;
+	public static TextureRegion cardGolem;
+	public static TextureRegion cardExplosion;
+	public static TextureRegion cardMage;
+	public static TextureRegion cardBrainmonster;
 	
 	public static Texture goblin;
 	public static Animation goblinWalkUp;
@@ -72,11 +87,77 @@ public class Assets {
 	public static Animation goblinAttackLeft;
 	public static Animation goblinAttackRight;
 	
+	public static Texture goblinDarkMage;
+	public static Animation goblinDarkMageWalkUp;
+	public static Animation goblinDarkMageWalkDown;
+	public static Animation goblinDarkMageWalkLeft;
+	public static Animation goblinDarkMageWalkRight;
+	public static Animation goblinDarkMageAttackUp;
+	public static Animation goblinDarkMageAttackDown;
+	public static Animation goblinDarkMageAttackLeft;
+	public static Animation goblinDarkMageAttackRight;
+	
+	public static Texture spiderRed;
+	public static Animation spiderRedWalkUp;
+	public static Animation spiderRedWalkDown;
+	public static Animation spiderRedWalkLeft;
+	public static Animation spiderRedWalkRight;
+	public static Animation spiderRedAttackUp;
+	public static Animation spiderRedAttackDown;
+	public static Animation spiderRedAttackLeft;
+	public static Animation spiderRedAttackRight;
+	
 	public static Texture fairy;
 	public static Animation fairyWalkUp;
 	public static Animation fairyWalkDown;
 	public static Animation fairyWalkLeft;
 	public static Animation fairyWalkRight;
+	
+	public static Texture crystalBlue;
+	public static Animation crystalBlueSpin;
+	
+	public static Texture knight;
+	public static Animation knightWalkUp;
+	public static Animation knightWalkDown;
+	public static Animation knightWalkLeft;
+	public static Animation knightWalkRight;
+	public static Animation knightAttackUp;
+	public static Animation knightAttackDown;
+	public static Animation knightAttackLeft;
+	public static Animation knightAttackRight;
+	
+	public static Texture bat;
+	public static Animation batWalkUp;
+	public static Animation batWalkDown;
+	public static Animation batWalkLeft;
+	public static Animation batWalkRight;
+	
+	public static Texture golem;
+	public static Animation golemWalkUp;
+	public static Animation golemWalkDown;
+	public static Animation golemWalkLeft;
+	public static Animation golemWalkRight;
+	public static Animation golemAttackUp;
+	public static Animation golemAttackDown;
+	public static Animation golemAttackLeft;
+	public static Animation golemAttackRight;
+	public static Animation golemDeath;
+	
+	public static Texture mage;
+	public static Animation mageIdleUp;
+	public static Animation mageIdleDown;
+	public static Animation mageIdleLeft;
+	public static Animation mageIdleRight;
+	public static Animation mageWalkUp;
+	public static Animation mageWalkDown;
+	public static Animation mageWalkLeft;
+	public static Animation mageWalkRight;
+	
+	public static Texture brainmonster;
+	public static Animation brainmonsterWalkUp;
+	public static Animation brainmonsterWalkDown;
+	public static Animation brainmonsterWalkLeft;
+	public static Animation brainmonsterWalkRight;
 	
 	public static TextureRegion hpbar;
 	
@@ -86,8 +167,26 @@ public class Assets {
 	public static Texture bloodSheet;
 	public static Animation blood;
 	
-	public static Texture arrowSheet;
+	public static Texture projectiles;
+	public static TextureRegion fireball;
+	public static TextureRegion bullet;
 	public static TextureRegion arrow;
+	public static TextureRegion katana;
+	public static TextureRegion ninjastar;
+	public static TextureRegion kunai;
+	public static TextureRegion arcaneOrb;
+	public static TextureRegion heatOrb;
+	public static TextureRegion gasOrb;
+	
+	public static Texture explosionSheet;
+	public static Animation explosion;
+	
+	public static Texture checkbox;
+	public static TextureRegion unchecked;
+	public static TextureRegion checked;
+	
+	public static Texture ui;
+	public static TextureRegion cardinfo;
 	
 	public static Sound clickSound;
 
@@ -191,8 +290,26 @@ public class Assets {
 		
 		//Towers
 		towers = loadTexture("gfx/towers.png");
-		wtfisthis = new TextureRegion(towers, 0*32, 0*32, 32, 32);
+		dummy = loadTexture("gfx/dummy.png");
 		mainTower = new TextureRegion(towers, 0*32, 1*32, 32, 64);
+		wtfisthis = new TextureRegion(towers, 0*32, 0*32, 32, 32);
+		budhaGold = new TextureRegion(towers, 2*32, 0*32, 32, 32);
+		dummySpin = new Animation(0.3f, 
+				new TextureRegion(dummy, 0*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 1*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 2*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 3*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 4*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 5*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 6*64, 0*64, 64, 64), 
+				new TextureRegion(dummy, 7*64, 0*64, 64, 64));
+		dummyDeath = new Animation(0.3f, 
+				new TextureRegion(dummy, 0*64, 1*64, 64, 64), 
+				new TextureRegion(dummy, 1*64, 1*64, 64, 64), 
+				new TextureRegion(dummy, 2*64, 1*64, 64, 64), 
+				new TextureRegion(dummy, 3*64, 1*64, 64, 64), 
+				new TextureRegion(dummy, 4*64, 1*64, 64, 64), 
+				new TextureRegion(dummy, 5*64, 1*64, 64, 64));
 
 		//Attackers
 		goblin = loadTexture("gfx/goblin.png");
@@ -289,6 +406,390 @@ public class Assets {
 				new TextureRegion(fairy, 0*32, 3*48, 32, 48), 
 				new TextureRegion(fairy, 1*32, 3*48, 32, 48), 
 				new TextureRegion(fairy, 2*32, 3*48, 32, 48));
+		goblinDarkMage = loadTexture("gfx/goblinDarkMage.png");
+		goblinDarkMageWalkUp = new Animation(0.5f, 
+				new TextureRegion(goblinDarkMage, 0*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 8*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 8*64, 8*64, 64, 64));
+		goblinDarkMageWalkLeft = new Animation(0.5f, 
+				new TextureRegion(goblinDarkMage, 0*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 9*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 8*64, 9*64, 64, 64));
+		goblinDarkMageWalkDown = new Animation(0.5f, 
+				new TextureRegion(goblinDarkMage, 0*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 10*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 8*64, 10*64, 64, 64));
+		goblinDarkMageWalkRight = new Animation(0.3f, 
+				new TextureRegion(goblinDarkMage, 0*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 11*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 8*64, 11*64, 64, 64));
+		goblinDarkMageAttackUp = new Animation(0.2f, 
+				new TextureRegion(goblinDarkMage, 0*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 4*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 4*64, 64, 64));
+		goblinDarkMageAttackLeft = new Animation(0.2f, 
+				new TextureRegion(goblinDarkMage, 0*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 5*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 5*64, 64, 64));
+		goblinDarkMageAttackDown = new Animation(0.2f, 
+				new TextureRegion(goblinDarkMage, 0*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 6*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 6*64, 64, 64));
+		goblinDarkMageAttackRight = new Animation(0.2f, 
+				new TextureRegion(goblinDarkMage, 0*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 1*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 2*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 3*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 4*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 5*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 6*64, 7*64, 64, 64), 
+				new TextureRegion(goblinDarkMage, 7*64, 7*64, 64, 64));
+		spiderRed = loadTexture("gfx/spiderRed.png");
+		spiderRedWalkUp = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 4*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 5*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 6*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 7*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 8*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 9*64, 0*64, 64, 64));
+		spiderRedWalkLeft = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 4*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 5*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 6*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 7*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 8*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 9*64, 1*64, 64, 64));
+		spiderRedWalkDown = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 4*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 5*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 6*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 7*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 8*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 9*64, 2*64, 64, 64));
+		spiderRedWalkRight = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 4*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 5*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 6*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 7*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 8*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 9*64, 3*64, 64, 64));
+		spiderRedAttackUp = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 0*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 1*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 2*64, 0*64, 64, 64), 
+				new TextureRegion(spiderRed, 3*64, 0*64, 64, 64));
+		spiderRedAttackLeft = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 0*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 1*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 2*64, 1*64, 64, 64), 
+				new TextureRegion(spiderRed, 3*64, 1*64, 64, 64));
+		spiderRedAttackDown = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 0*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 1*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 2*64, 2*64, 64, 64), 
+				new TextureRegion(spiderRed, 3*64, 2*64, 64, 64));
+		spiderRedAttackRight = new Animation(0.1f, 
+				new TextureRegion(spiderRed, 0*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 1*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 2*64, 3*64, 64, 64), 
+				new TextureRegion(spiderRed, 3*64, 3*64, 64, 64));
+		crystalBlue = loadTexture("gfx/crystalBlue.png");
+		crystalBlueSpin = new Animation(0.1f, 
+				new TextureRegion(crystalBlue, 0*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 1*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 2*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 3*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 4*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 5*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 6*32, 0*32, 32, 32), 
+				new TextureRegion(crystalBlue, 7*32, 0*32, 32, 32));
+		knight = loadTexture("gfx/knight.png");
+		knightWalkUp = new Animation(0.5f, 
+				new TextureRegion(knight, 0*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 6*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 7*64, 8*64, 64, 64), 
+				new TextureRegion(knight, 8*64, 8*64, 64, 64));
+		knightWalkLeft = new Animation(0.5f, 
+				new TextureRegion(knight, 0*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 6*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 7*64, 9*64, 64, 64), 
+				new TextureRegion(knight, 8*64, 9*64, 64, 64));
+		knightWalkDown = new Animation(0.5f, 
+				new TextureRegion(knight, 0*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 6*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 7*64, 10*64, 64, 64), 
+				new TextureRegion(knight, 8*64, 10*64, 64, 64));
+		knightWalkRight = new Animation(0.3f, 
+				new TextureRegion(knight, 0*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 6*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 7*64, 11*64, 64, 64), 
+				new TextureRegion(knight, 8*64, 11*64, 64, 64));
+		knightAttackUp = new Animation(0.2f, 
+				new TextureRegion(knight, 0*64, 12*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 12*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 12*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 12*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 12*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 12*64, 64, 64));
+		knightAttackLeft = new Animation(0.2f, 
+				new TextureRegion(knight, 0*64, 13*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 13*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 13*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 13*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 13*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 13*64, 64, 64));
+		knightAttackDown = new Animation(0.2f, 
+				new TextureRegion(knight, 0*64, 14*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 14*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 14*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 14*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 14*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 14*64, 64, 64));
+		knightAttackRight = new Animation(0.2f, 
+				new TextureRegion(knight, 0*64, 15*64, 64, 64), 
+				new TextureRegion(knight, 1*64, 15*64, 64, 64), 
+				new TextureRegion(knight, 2*64, 15*64, 64, 64), 
+				new TextureRegion(knight, 3*64, 15*64, 64, 64), 
+				new TextureRegion(knight, 4*64, 15*64, 64, 64), 
+				new TextureRegion(knight, 5*64, 15*64, 64, 64));
+		bat = loadTexture("gfx/bat.png");
+		batWalkDown = new Animation(0.1f, 
+				new TextureRegion(bat, 1*32, 0*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 0*32, 32, 32), 
+				new TextureRegion(bat, 3*32, 0*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 0*32, 32, 32));
+		batWalkRight = new Animation(0.1f, 
+				new TextureRegion(bat, 1*32, 1*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 1*32, 32, 32), 
+				new TextureRegion(bat, 3*32, 1*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 1*32, 32, 32));
+		batWalkUp = new Animation(0.1f, 
+				new TextureRegion(bat, 1*32, 2*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 2*32, 32, 32), 
+				new TextureRegion(bat, 3*32, 2*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 2*32, 32, 32));
+		batWalkLeft = new Animation(0.1f, 
+				new TextureRegion(bat, 1*32, 3*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 3*32, 32, 32), 
+				new TextureRegion(bat, 3*32, 3*32, 32, 32), 
+				new TextureRegion(bat, 2*32, 3*32, 32, 32));
+		golem = loadTexture("gfx/golem.png");
+		golemWalkUp = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 0*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 0*64, 64, 64));
+		golemWalkLeft = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 1*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 1*64, 64, 64));
+		golemWalkDown = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 2*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 2*64, 64, 64));
+		golemWalkRight = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 3*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 3*64, 64, 64));
+		golemAttackUp = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 4*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 4*64, 64, 64));
+		golemAttackLeft = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 5*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 5*64, 64, 64));
+		golemAttackDown = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 6*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 6*64, 64, 64));
+		golemAttackRight = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 7*64, 64, 64), 
+				new TextureRegion(golem, 6*64, 7*64, 64, 64));
+		golemDeath = new Animation(0.3f, 
+				new TextureRegion(golem, 0*64, 9*64, 64, 64), 
+				new TextureRegion(golem, 1*64, 9*64, 64, 64), 
+				new TextureRegion(golem, 2*64, 9*64, 64, 64), 
+				new TextureRegion(golem, 3*64, 9*64, 64, 64), 
+				new TextureRegion(golem, 4*64, 9*64, 64, 64), 
+				new TextureRegion(golem, 5*64, 9*64, 64, 64));
+		mage = loadTexture("gfx/mage.png");
+		mageIdleUp = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 0*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 0*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 0*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 0*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 0*32, 16, 32));
+		mageIdleDown= new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 1*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 1*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 1*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 1*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 1*32, 16, 32));
+		mageIdleLeft = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 2*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 2*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 2*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 2*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 2*32, 16, 32));
+		mageIdleRight = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 3*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 3*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 3*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 3*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 3*32, 16, 32));
+		mageWalkUp = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 5*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 6*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 7*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 8*16, 4*32, 16, 32), 
+				new TextureRegion(mage, 9*16, 4*32, 16, 32));
+		mageWalkDown = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 5*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 6*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 7*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 8*16, 5*32, 16, 32), 
+				new TextureRegion(mage, 9*16, 5*32, 16, 32));
+		mageWalkLeft = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 5*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 6*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 7*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 8*16, 6*32, 16, 32), 
+				new TextureRegion(mage, 9*16, 6*32, 16, 32));
+		mageWalkRight = new Animation(0.2f, 
+				new TextureRegion(mage, 0*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 1*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 2*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 3*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 4*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 5*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 6*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 7*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 8*16, 7*32, 16, 32), 
+				new TextureRegion(mage, 9*16, 7*32, 16, 32));
+		brainmonster = loadTexture("gfx/brainmonster.png");
+		brainmonsterWalkDown = new Animation(0.1f, 
+				new TextureRegion(brainmonster, 0*32, 0*49, 32, 49), 
+				new TextureRegion(brainmonster, 1*32, 0*49, 32, 49), 
+				new TextureRegion(brainmonster, 2*32, 0*49, 32, 49));
+		brainmonsterWalkUp = new Animation(0.1f, 
+				new TextureRegion(brainmonster, 0*32, 1*49, 32, 49), 
+				new TextureRegion(brainmonster, 1*32, 1*49, 32, 49), 
+				new TextureRegion(brainmonster, 2*32, 1*49, 32, 49));
+		brainmonsterWalkLeft = new Animation(0.1f, 
+				new TextureRegion(brainmonster, 0*32, 2*49, 32, 49), 
+				new TextureRegion(brainmonster, 1*32, 2*49, 32, 49), 
+				new TextureRegion(brainmonster, 2*32, 2*49, 32, 49));
+		brainmonsterWalkRight = new Animation(0.1f, 
+				new TextureRegion(brainmonster, 0*32, 3*49, 32, 49), 
+				new TextureRegion(brainmonster, 1*32, 3*49, 32, 49), 
+				new TextureRegion(brainmonster, 2*32, 3*49, 32, 49));
 		
 		//Other
 		hpbar = new TextureRegion(tiles, 0, 480, 32, 4);
@@ -296,8 +797,17 @@ public class Assets {
 		hp = loadTexture("gfx/mainhp.png");
 		mainhp = new TextureRegion(hp, 0, 0, 60, 544);
 		
-		arrowSheet = loadTexture("gfx/arrow.png");
-		arrow = new TextureRegion(arrowSheet, 0, 0, 31, 5);
+		//Projectiles
+		projectiles = loadTexture("gfx/projectiles.png");
+		fireball = new TextureRegion(projectiles, 0*32, 0*32, 32, 32);
+		bullet = new TextureRegion(projectiles, 1*32, 0*32, 32, 32);
+		arrow = new TextureRegion(projectiles, 2*32, 0*32, 31, 5);
+		katana = new TextureRegion(projectiles, 3*32, 0*32, 26, 5);
+		ninjastar = new TextureRegion(projectiles, 4*32, 0*32, 6, 6);
+		kunai = new TextureRegion(projectiles, 5*32, 0*32, 12, 6);
+		arcaneOrb = new TextureRegion(projectiles, 6*32, 0*32, 32, 32);
+		heatOrb = new TextureRegion(projectiles, 7*32, 0*32, 32, 32);
+		gasOrb = new TextureRegion(projectiles, 0*32, 1*32, 32, 32);
 		
 		//Particles
 		bloodSheet = loadTexture("gfx/blood.png");
@@ -318,6 +828,21 @@ public class Assets {
 				new TextureRegion(bloodSheet, 1*32, 3*32, 32, 32), 
 				new TextureRegion(bloodSheet, 2*32, 3*32, 32, 32), 
 				new TextureRegion(bloodSheet, 3*32, 3*32, 32, 32));
+		
+		//Spells
+		explosionSheet = loadTexture("gfx/explosion.png");
+		explosion = new Animation(0.1f,
+				new TextureRegion(explosionSheet, 0*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 1*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 2*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 3*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 4*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 5*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 6*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 7*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 8*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 9*89, 0*89, 89, 89),
+				new TextureRegion(explosionSheet, 10*89, 0*89, 89, 89));
 
 		//Cards
 		cards = loadTexture("gfx/cards.png");
@@ -325,12 +850,53 @@ public class Assets {
 		cardTeemo = new TextureRegion(cards, 0*64, 0*64, 64, 64);
 		cardGoblin = new TextureRegion(goblin, 0*64, 2*64, 64, 64);
 		cardFairy = new TextureRegion(fairy, 1*32, 0*48, 32, 48);
+		cardGoblinDarkMage = new TextureRegion(goblinDarkMage, 0*64, 2*64, 64, 64);
+		cardDummy = new TextureRegion(dummy, 0*64, 0*64, 64, 64);
+		cardSpiderRed = new TextureRegion(spiderRed, 0*64, 4*64, 64, 64);
+		cardCrystalBlue = new TextureRegion(crystalBlue, 0*32, 0*32, 32, 32);
+		cardKnight = new TextureRegion(knight, 0*64, 2*64, 64, 64);
+		cardBat = new TextureRegion(bat, 3*32, 0*32, 32, 32);
+		cardGolem = new TextureRegion(golem, 0*64, 0*64, 64, 64);
+		cardExplosion = new TextureRegion(explosionSheet, 4*89, 0*89, 89, 89);
+		cardMage = new TextureRegion(mage, 0*16, 1*32, 16, 32);
+		cardBrainmonster = new TextureRegion(brainmonster, 0*32, 0*49, 32, 49);
+
+		//Checkbox
+		checkbox = loadTexture("gfx/checkbox.png");
+		unchecked = new TextureRegion(checkbox, 0*26, 0*29, 26, 29);
+		checked = new TextureRegion(checkbox, 1*26, 0*29, 26, 29);
+
+		//UI
+		ui = loadTexture("gfx/cardinfo.png");
+		cardinfo = new TextureRegion(ui, 0, 0, 128, 80);
 
 		//Sounds
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
 	}
 
-	public static void playSound (Sound sound) {
+	public static void playSound(Sound sound) {
 		if (Settings.soundEnabled) sound.play(0.2f);
+	}
+	
+	public static void dispose() {
+		backgroundMainMenu.dispose();
+		backgroundIngame.dispose();
+		buttons.dispose();
+		tiles.dispose();
+		towers.dispose();
+		dummy.dispose();
+		cards.dispose();
+		goblin.dispose();
+		goblinDarkMage.dispose();
+		spiderRed.dispose();
+		fairy.dispose();
+		crystalBlue.dispose();
+		knight.dispose();
+		golem.dispose();
+		mage.dispose();
+		bloodSheet.dispose();
+		projectiles.dispose();
+		checkbox.dispose();
+		clickSound.dispose();
 	}
 }

@@ -1,8 +1,8 @@
 package com.abstractlabs.oefen.entity.other;
 
 import com.abstractlabs.oefen.Font;
-import com.abstractlabs.oefen.Map;
 import com.abstractlabs.oefen.entity.Entity;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -12,8 +12,8 @@ public class TempText extends Entity {
     private int tick;
     private BitmapFont font;
 	
-	public TempText(String text, float x, float y, float r, float g, float b, Map map) {
-		super(null, x, y, 0, 0, map, null, 0, 0, 0);
+	public TempText(ScreenGame screen, String text, float x, float y, float r, float g, float b) {
+		super(screen, x, y);
 		this.text = text;
 		this.r = r;
 		this.g = g;

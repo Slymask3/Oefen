@@ -2,25 +2,34 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Map;
+import com.abstractlabs.oefen.Cards;
+import com.abstractlabs.oefen.Range;
+import com.abstractlabs.oefen.Settings;
+import com.abstractlabs.oefen.entity.attacker.Crystal;
+import com.abstractlabs.oefen.entity.other.Projectile;
 import com.abstractlabs.oefen.entity.other.TempText;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Attacker extends Entity {
-	Animation texture;
-    float speed;
-    public boolean walking = false;
-    public boolean attacking = false;
-    float state = 0;
-	int dir;
-	Entity target;
-	Animation walkDown, walkUp, walkLeft, walkRight, attackDown, attackUp, attackLeft, attackRight;
+	protected Animation texture;
+	protected float speed;
+    protected boolean walking = false;
+    protected boolean attacking = false;
+    protected float state = 0;
+    protected int dir;
+	protected Entity target;
+	protected Animation walkDown, walkUp, walkLeft, walkRight, attackDown, attackUp, attackLeft, attackRight;
+    protected int tick;
+    protected TextureRegion projectile;
+    protected int pw, ph;
 
-    public Attacker(Animation walkDown, Animation walkUp, Animation walkLeft, Animation walkRight, 
+    public Attacker(ScreenGame screen, Animation walkDown, Animation walkUp, Animation walkLeft, Animation walkRight, 
     				Animation attackDown, Animation attackUp, Animation attackLeft, Animation attackRight, 
-    				float x, float y, float speed, float width, float height, Map map, String team, int hp, int dmg, int range) {
-    	super(walkDown.getKeyFrame(0, 0), x, y, width, height, map, team, hp, dmg, range);
+    				float x, float y, float speed, float width, float height, String team, int hp, int dmg, int range, int attackspeed) {
+    	super(screen, walkDown.getKeyFrame(0, 0), x, y, width, height, team, hp, dmg, range, attackspeed);
     	this.texture = walkDown;
     	this.speed = speed;
     	this.dir = team=="Blue"?0:1;
@@ -35,6 +44,30 @@ public class Attacker extends Entity {
     	this.attackRight = attackRight;
     }
     
+    public Attacker(ScreenGame screen, Animation walkDown, Animation walkUp, Animation walkLeft, Animation walkRight, 
+			Animation attackDown, Animation attackUp, Animation attackLeft, Animation attackRight, 
+			float x, float y, float speed, float width, float height, String team, int hp, int dmg, int range, int attackspeed,
+			TextureRegion projectile, int pw, int ph) {
+    	this(screen, walkDown, walkUp, walkLeft, walkRight, attackDown, attackUp, attackLeft, attackRight, x, y, speed, width, height, team, hp, dmg, range, attackspeed);
+		this.projectile = projectile;
+		this.pw = pw;
+		this.ph = ph;
+	}
+    
+    public Attacker(ScreenGame screen, Animation animation, 
+			float x, float y, float speed, float width, float height, String team, int hp, int dmg, int range, int attackspeed,
+			TextureRegion projectile, int pw, int ph) {
+    	this(screen, animation, animation, animation, animation, animation, animation, animation, animation, x, y, speed, width, height, team, hp, dmg, range, attackspeed);
+		this.projectile = projectile;
+		this.pw = pw;
+		this.ph = ph;
+	}
+    
+    public Attacker(ScreenGame screen, Animation animation, 
+			float x, float y, float speed, float width, float height, String team, int hp, int dmg, int range, int attackspeed) {
+    	this(screen, animation, animation, animation, animation, animation, animation, animation, animation, x, y, speed, width, height, team, hp, dmg, range, attackspeed);
+	}
+    
     @Override
     public void draw(Batch batch, float alpha){
     	state += Gdx.graphics.getDeltaTime();
@@ -44,7 +77,7 @@ public class Attacker extends Entity {
     	} else {
     		batch.setColor(1, 0.8f, 0.8f, 1);
     	}
-        batch.draw(texture.getKeyFrame(state, 0), x, y, width, height);
+        batch.draw(texture.getKeyFrame(state, 0), x+((32-width)/2), y, width, height);
 		batch.setColor(1, 1, 1, 1);
         
         batch.setColor(1, 0, 0, 1);
@@ -53,9 +86,15 @@ public class Attacker extends Entity {
         double php = (double)hp/maxhp;
         batch.draw(Assets.hpbar, x, y+height, Math.round(php*32), 4);
         batch.setColor(1, 1, 1, 1);
+        
+        if(Settings.showRangebox) {
+            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+        }
+		if(Settings.showHitbox) {
+	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+		}
     }
     
-    int tick;
     @Override
     public void act(float delta){
         if(walking){
@@ -185,6 +224,13 @@ public class Attacker extends Entity {
         	tick++;
         	//System.out.println(tick);
         	if(tick >= 100 && target != null) {
+        		
+        		if(projectile != null) {
+        			//System.out.println("requesting projectile");
+        			Projectile arrow = getProjectile();
+            		this.getStage().addActor(arrow);
+        		}
+        		
         		tick = 0;
         		target.damage(dmg);
         		if(target.isDead()) {
@@ -193,6 +239,10 @@ public class Attacker extends Entity {
         			target = null;
         		}
         	}
+        }
+        
+        if(isDead()) {
+        	this.remove();
         }
     }
     
@@ -211,7 +261,7 @@ public class Attacker extends Entity {
     @Override
     public void damage(int amount) {
     	this.hp -= amount;
-    	TempText temp = new TempText("-"+amount, x, y, 1f, 0f, 0f, mapObj);
+    	TempText temp = new TempText(screen, "-"+amount, x, y, 1f, 0f, 0f);
     	if(this.getParent() != null) {
         	this.getParent().addActor(temp);
     	}
@@ -226,34 +276,73 @@ public class Attacker extends Entity {
     	this.target = target;
     }
     
+    public Projectile getProjectile() {
+		//System.out.println("getProjectile() in attacker called");
+    	return new Projectile(screen, projectile, pw, ph, getX()+(getWidth()/2), y+(height/4), target.getX()+(target.getWidth()/2), target.getY()+(target.getHeight()/2));
+    }
+    
+    public void setMoveSpeed(float speed) {
+    	this.speed = speed;
+    }
+    
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
 
-    public static String GOBLIN = "Goblin";
-    public static String FAIRY = "Fairy";
+//    public static String GOBLIN = "Goblin";
+//    public static String FAIRY = "Fairy";
+//    public static String GOBLINDARKMAGE = "Dark Mage Goblin";
+//    public static String SPIDERRED = "SpiderRed";
+//    public static String CRYSTALBLUE = "CrystalBlue";
+//    public static String KNIGHT = "Knight";
+//    public static String BAT = "Bat";
+//    public static String GOLEM = "Golem";
+//    public static String MAGE = "Mage";
     
-    public static Attacker createAttacker(String attacker, float x, float y, Map map, String team) {
-    	if(attacker == GOBLIN) {
-    		return new Attacker(Assets.goblinWalkDown, Assets.goblinWalkUp, Assets.goblinWalkLeft, Assets.goblinWalkRight,
+    public static Attacker createAttacker(ScreenGame screen, Cards attacker, float x, float y, String team) {
+    	if(attacker == Cards.goblin) {
+    		return new Attacker(screen, Assets.goblinWalkDown, Assets.goblinWalkUp, Assets.goblinWalkLeft, Assets.goblinWalkRight,
     				  Assets.goblinAttackDown, Assets.goblinAttackUp, Assets.goblinAttackLeft, Assets.goblinAttackRight, 
-    				  x, y, 
-    				  1f, //speed
-    				  32, //width
-    				  32, //height
-    				  map, team, 
-    				  30, //health
-    				  7, //damage
-    				  16); //range
-    	} else if(attacker == FAIRY) {
-    		return new Attacker(Assets.fairyWalkDown, Assets.fairyWalkUp, Assets.fairyWalkLeft, Assets.fairyWalkRight,
+    				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.fairy) {
+    		return new Attacker(screen, Assets.fairyWalkDown, Assets.fairyWalkUp, Assets.fairyWalkLeft, Assets.fairyWalkRight,
   				  Assets.fairyWalkDown, Assets.fairyWalkUp, Assets.fairyWalkLeft, Assets.fairyWalkRight, 
-  				  x, y, 
-  				  1.5f, //speed
-  				  32, //width
-  				  48, //height
-  				  map, team, 
-  				  20, //health
-  				  12, //damage
-  				  32); //range
+				  x, y, attacker.getMoveSpeed(), 24, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.goblinDarkMage) {
+    		return new Attacker(screen, Assets.goblinDarkMageWalkDown, Assets.goblinDarkMageWalkUp, Assets.goblinDarkMageWalkLeft, Assets.goblinDarkMageWalkRight,
+    				  Assets.goblinDarkMageAttackDown, Assets.goblinDarkMageAttackUp, Assets.goblinDarkMageAttackLeft, Assets.goblinDarkMageAttackRight, 
+    				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+    				  Assets.fireball, 16, 16);
+      	} else if(attacker == Cards.spiderRed) {
+    		return new Attacker(screen, Assets.spiderRedWalkDown, Assets.spiderRedWalkUp, Assets.spiderRedWalkLeft, Assets.spiderRedWalkRight,
+  				  Assets.spiderRedAttackDown, Assets.spiderRedAttackUp, Assets.spiderRedAttackLeft, Assets.spiderRedAttackRight, 
+				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.crystalBlue) {
+    		return new Crystal(screen, Assets.crystalBlueSpin,
+  				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.knight) {
+    		return new Attacker(screen, Assets.knightWalkDown, Assets.knightWalkUp, Assets.knightWalkLeft, Assets.knightWalkRight,
+    				  Assets.knightAttackDown, Assets.knightAttackUp, Assets.knightAttackLeft, Assets.knightAttackRight, 
+    				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+      	} else if(attacker == Cards.bat) {
+    		return new Attacker(screen, Assets.batWalkDown, Assets.batWalkUp, Assets.batWalkLeft, Assets.batWalkRight,
+  				  Assets.batWalkDown, Assets.batWalkUp, Assets.batWalkLeft, Assets.batWalkRight, 
+				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.golem) {
+    		Attacker a = new Attacker(screen, Assets.golemWalkDown, Assets.golemWalkUp, Assets.golemWalkLeft, Assets.golemWalkRight,
+  				  Assets.golemAttackDown, Assets.golemAttackUp, Assets.golemAttackLeft, Assets.golemAttackRight, 
+				  x, y, attacker.getMoveSpeed(), 64, 64, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    		a.setDeath(Assets.golemDeath, 1, 1, 1);
+//    		a.setDeath(Assets.blood, 0.5f, 0.5f, 0.5f);
+    		return a;
+    	} else if(attacker == Cards.mage) {
+    		return new Attacker(screen, Assets.mageWalkDown, Assets.mageWalkUp, Assets.mageWalkLeft, Assets.mageWalkRight,
+  				  Assets.mageIdleDown, Assets.mageIdleUp, Assets.mageIdleLeft, Assets.mageIdleRight, 
+  				  x, y, attacker.getMoveSpeed(), 16, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+				  Assets.arcaneOrb, 16, 16);
+    	} else if(attacker == Cards.brainmonster) {
+    		return new Attacker(screen, Assets.brainmonsterWalkDown, Assets.brainmonsterWalkUp, Assets.brainmonsterWalkLeft, Assets.brainmonsterWalkRight,
+  				  Assets.brainmonsterWalkDown, Assets.brainmonsterWalkUp, Assets.brainmonsterWalkLeft, Assets.brainmonsterWalkRight, 
+  				  x, y, attacker.getMoveSpeed(), 16, 25, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+				  Assets.gasOrb, 16, 16);
     	} else {
     		return null;
     	}

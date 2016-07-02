@@ -1,25 +1,22 @@
 package com.abstractlabs.oefen.card;
 
-import com.abstractlabs.oefen.Map;
+import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.entity.Attacker;
+import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class CardAttacker extends Card {
-	private String attacker;
 	private float attackerX;
 	private float attackerY;
 	
-	public CardAttacker(TextureRegion texture, Sound sound, float cost, Map map, String team, String attacker) {
-		super(Card.ATTACKER, texture, sound, cost, map, team);
-		this.attacker = attacker;
-		this.map = map;
-		this.team = team;
+	public CardAttacker(ScreenGame screen, Cards card, Sound sound, String team) {
+		super(screen, Card.ATTACKER, card, sound, team);
+		this.team = team;	
 		this.attackerX = team=="Blue"?64+2*32:64+33*32;
-		this.attackerY = team=="Blue"?122+13+(map.getBlueStart())*32+10:122+13+(map.getRedStart())*32+10;
+		this.attackerY = team=="Blue"?122+13+(screen.getMap().getBlueStart())*32+10:122+13+(screen.getMap().getRedStart())*32+10;
 	}
 
 	public Attacker createAttacker() {
-		return Attacker.createAttacker(attacker, attackerX, attackerY, map, team);
+		return Attacker.createAttacker(screen, card, attackerX, attackerY, team);
 	}
 }
