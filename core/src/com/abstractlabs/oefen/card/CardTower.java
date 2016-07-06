@@ -47,7 +47,7 @@ public class CardTower extends Card {
 					if(Gdx.input.getX() >= 64+k*32 && Gdx.input.getX() < 64+k*32+32 && Oefen.HEIGHT-Gdx.input.getY() >= (480+184)-(i*32)-32+2+13 && Oefen.HEIGHT-Gdx.input.getY() < (480+184)-(i*32)-32+2+13+32) {
 						Range.drawCircle(batch, 64+k*32+16, (480+184)-(i*32)-32+2+13+16, range, 0, 0, 1);
 						batch.setColor(1, 1, 1, 0.5f);
-						batch.draw(front, 64+k*32, (480+184)-(i*32)-32+2+13, 32, 32);
+						batch.draw(front, 64+k*32, (480+184)-(i*32)-32+2+13);
 						batch.setColor(1, 1, 1, 1);
 						onTile = true;
 					}

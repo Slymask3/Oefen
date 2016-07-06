@@ -3,6 +3,7 @@ package com.abstractlabs.oefen.entity;
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Cards;
+import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.entity.other.Projectile;
@@ -11,6 +12,7 @@ import com.abstractlabs.oefen.entity.tower.BuddhaGold;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Tower extends Entity {
@@ -34,6 +36,10 @@ public class Tower extends Entity {
     	this.animation = null;
     }
 
+    public Tower(ScreenGame screen) {
+    	super(screen, null, 0, 0, 0, 0, "No", 0, 0, 0, 0);
+    }
+
     public Tower(ScreenGame screen, TextureRegion texture, float x, float y, float width, float height, String team, int hp, int dmg, int range, int attackspeed, TextureRegion projectile, float pw, float ph) {
     	super(screen, texture, x, y, width, height, team, hp, dmg, range, attackspeed);
     	this.target = null;
@@ -41,7 +47,7 @@ public class Tower extends Entity {
     	this.pw = pw;
     	this.ph = ph;
     }
-    
+    BitmapFont font = Font.create(Font.sufrimeda, 30);
     @Override
     public void draw(Batch batch, float alpha){
     	state += Gdx.graphics.getDeltaTime();
@@ -59,10 +65,10 @@ public class Tower extends Entity {
         batch.setColor(1, 1, 1, 1);
         
         batch.setColor(1, 0, 0, 1);
-        batch.draw(Assets.hpbar, x, y+32);
+        batch.draw(Assets.hpbar, x, y+height);
         batch.setColor(0, 1, 0, 1);
         double php = (double)hp/maxhp;
-        batch.draw(Assets.hpbar, x, y+32, Math.round(php*32), 4);
+        batch.draw(Assets.hpbar, x, y+height, Math.round(php*32), 4);
         batch.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
@@ -71,6 +77,8 @@ public class Tower extends Entity {
 		if(Settings.showHitbox) {
 			Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
+		
+		//font.draw(batch, this.getZIndex()+"", x+16, y+16);
     }
     
     int tick;
@@ -105,7 +113,7 @@ public class Tower extends Entity {
     	this.hp -= amount;
     	TempText temp = new TempText(screen, "-"+amount, x, y, 1f, 0f, 0f);
     	if(!this.isDead()) {
-        	this.getParent().addActor(temp);
+        	screen.getStage().addActor(temp);
     	}
     	if(hp <= 0) {
     		attacking = false;
@@ -116,7 +124,7 @@ public class Tower extends Entity {
     	this.target = target;
     }
 
-	public void setMapPos(int mapX, int mapY) {
+	public void setMapPos(int mapY, int mapX) {
 		this.mapX = mapX;
 		this.mapY = mapY;
 	}
@@ -127,6 +135,14 @@ public class Tower extends Entity {
 	
 	public int getMapY() {
 		return this.mapY;
+	}
+	
+	public void setZIndexBy(int i) {
+		this.setZIndex(screen.getTowers().getChildren().size+i);
+	}
+	
+	public int getZOrder() {
+		return this.mapY+(this.mapX*17);
 	}
     
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
@@ -139,11 +155,13 @@ public class Tower extends Entity {
     	if(tower == Cards.wtfisthis) {
     		return new Tower(screen, Assets.wtfisthis, x, y, 32, 32, team, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getAttackSpeed(), Assets.bullet, 5, 5);
     	} else if(tower == Cards.buddhaGold) {
-    		return new BuddhaGold(screen, team, x, y, tower.getHealth(), tower.getDamage(), tower.getRange(), 5, 200);
+    		return new BuddhaGold(screen, team, x, y, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getCustom(), tower.getAttackSpeed());
     	} else if(tower == Cards.dummy) {
     		Tower t = new Tower(screen, Assets.dummySpin, x, y, 32, 32, team, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getAttackSpeed());
     		t.setDeath(Assets.dummyDeath, 1, 1, 1);
     		return t;
+    	} else if(tower == Cards.lazorRed) {
+    		return new Tower(screen, Assets.lazorRed, x, y, 32, 64, team, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getAttackSpeed(), Assets.heatOrb, 5, 5);
     	} else {
     		return null;
     	}

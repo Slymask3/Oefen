@@ -16,6 +16,12 @@ public class Tile {
 	public static int WATER = 7;
 	public static int WATER_LEFT = 8;
 	public static int WATER_RIGHT = 9;
+	public static int WATER_TOP = 60;
+	public static int WATER_BOTTOM = 61;
+	public static int WATER_TOPLEFT_CORNER = 62;
+	public static int WATER_TOPRIGHT_CORNER = 63;
+	public static int WATER_BOTTOMLEFT_CORNER = 64;
+	public static int WATER_BOTTOMRIGHT_CORNER = 65;
 	public static int GEM_BLUE = 11;
 	public static int GEM_GREEN = 12;
 	public static int GEM_GRAY = 13;

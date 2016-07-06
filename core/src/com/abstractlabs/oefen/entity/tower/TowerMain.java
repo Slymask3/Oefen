@@ -19,6 +19,12 @@ public class TowerMain extends Tower {
 		xhp = team=="Blue"?2:1218;
 		yhp = 122+13;
 		font = Font.create(Font.sufrimeda, 30, 2);
+		
+//		if(team == "Blue") {
+//			this.setOrder(3+(17*screen.getMap().getBlueStart()));
+//		} else {
+//			this.setOrder(32+(17*screen.getMap().getRedStart()));
+//		}
 	}
 	
 	@Override
@@ -56,5 +62,6 @@ public class TowerMain extends Tower {
 		if(Settings.showHitbox) {
 	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
+		//font.draw(batch, this.getZIndex()+"", x+16, y+16);
     }
 }

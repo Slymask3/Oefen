@@ -140,14 +140,18 @@ public abstract class Card extends ImprovedButton {
         
         int nrh=front.getRegionHeight(), nrw=front.getRegionWidth();
         if(front.getRegionHeight() > 48) {
+        	double ratio = (double)front.getRegionWidth()/front.getRegionHeight();
+//        	System.out.println(ratio);
         	nrh = 48;
+        	nrw = (int)(ratio*48);
         }
-        if(front.getRegionWidth() > 48) {
-        	nrw = 48;
-        }
+//        if(front.getRegionWidth() > 48) {
+//        	nrw = 48;
+//        }
         
         batch.setColor(1, 1, 1, 1);
-        batch.draw(front, this.getX()+((64-nrw)/2), this.getY()+5+((64-nrh)/2), nrw, nrh);
+        batch.draw(front, this.getX()+((64-nrw)/2), this.getY()+5+((64-nrh)/2), (float)nrw, (float)nrh);
         this.font.draw(batch, "$"+Math.round(cost), this.getX()+5, this.getY()+12);
+        //font.draw(batch, this.getZIndex()+"", getX()+32, getY()+32);
     }
 }

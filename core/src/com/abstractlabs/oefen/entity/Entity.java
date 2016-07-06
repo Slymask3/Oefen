@@ -29,6 +29,7 @@ public abstract class Entity extends Actor {
 	protected int maxhp;
 	protected Map mapObj;
     protected int attackspeed;
+    protected int order;
 
 	public Entity(ScreenGame screen, TextureRegion texture, float x, float y, float width, float height, String team, int hp, int dmg, int range, int attackspeed) {
     	this.texture = texture;
@@ -62,6 +63,9 @@ public abstract class Entity extends Actor {
     		yp--;
     		xp=0;
     	}
+    	
+//    	this.setZIndex(0);
+    	this.order = 0;
     }
 	
 	public Entity(ScreenGame screen, TextureRegion texture, float x, float y, float width, float height) {
@@ -79,6 +83,14 @@ public abstract class Entity extends Actor {
     @Override
     public void draw(Batch batch, float alpha){
         batch.draw(texture, x, y, width, height);
+    }
+    
+    public void setOrder(int order) {
+    	this.order = order;
+    }
+    
+    public int getOrder() {
+    	return this.order;
     }
     
     public ScreenGame getScreen() {
@@ -127,6 +139,10 @@ public abstract class Entity extends Actor {
     	this.hp -= amount;
     }
     
+    public void heal(int amount) {
+    	this.hp += amount;
+    }
+    
     public boolean isDead() {
     	return hp<=0?true:false;
     }
@@ -165,4 +181,17 @@ public abstract class Entity extends Actor {
     public void setAttackSpeed(int speed) {
     	this.attackspeed = speed;
     }
+    
+    public int getHealth() {
+    	return this.hp;
+    }
+    
+    public int getMaxHealth() {
+    	return this.maxhp;
+    }
+    
+//    public void setZIndex (int index) {
+//		Array<Actor> children = getParent().getChildren();
+//		children.insert(index, this);
+//	}
 }

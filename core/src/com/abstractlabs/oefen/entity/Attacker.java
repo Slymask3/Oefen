@@ -6,6 +6,7 @@ import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.entity.attacker.Crystal;
+import com.abstractlabs.oefen.entity.attacker.Healer;
 import com.abstractlabs.oefen.entity.other.Projectile;
 import com.abstractlabs.oefen.entity.other.TempText;
 import com.abstractlabs.oefen.screen.ScreenGame;
@@ -97,74 +98,45 @@ public class Attacker extends Entity {
     
     @Override
     public void act(float delta){
-        if(walking){
+        actWalking();
+        actAttacking();
+        removeIfDead();
+    }
+    
+    protected void actWalking() {
+    	if(walking){
         	int xcoord = (int) (((xc)-64)/32);
         	int ycoord = (int) (((yc)-122-13)/32);
-//        	int xcoord = Math.round(((x)-64)/32);
-//        	int ycoord = Math.round(((y)-122)/32);
-//        	System.out.println("["+this.toString()+"] x="+x+" | y="+y+" | xc="+xcoord+" | yc="+ycoord+" | tile="+map[ycoord][xcoord]);
-//        	if(isPath(map[ycoord][xcoord+1])) {
-//                texture = walkRight;
-//                x+=speed;
-//                System.out.println("Walking Right");
-//        	} else if(isPath(map[ycoord][xcoord-1])) {
-//                texture = walkLeft;
-//                x-=speed;
-//                System.out.println("Walking Left");
-//        	}
-//        	
-//        	if(isPath(map[ycoord+1][xcoord])) {
-//                texture = walkUp;
-//                y+=speed;
-//                System.out.println("Walking Up");
-//        	} else if(isPath(map[ycoord-1][xcoord])) {
-//                texture = walkDown;
-//                y-=speed;
-//                System.out.println("Walking Down");
-//        	}
         	
         	if(team == "Blue") {
 	        	if(map[ycoord][xcoord] == 2) {
-	//                y+=speed;
 	                dir = 2;
-	                //System.out.println("Walking Up");
 	        	} else if(map[ycoord][xcoord] == 3) {
-	//                x+=speed;
 	                dir = 0;
-	                //System.out.println("Walking Right");
 	        	} else if(map[ycoord][xcoord] == 4) {
-	//                y-=speed;
 	                dir = 3;
-	                //System.out.println("Walking Down");
 	        	} else if(map[ycoord][xcoord] == 5) {
-	//                x+=speed;
 	                dir = 0;
-	                //System.out.println("Walking Right");
 	        	} else if(map[ycoord][xcoord] == 0 || map[ycoord][xcoord] == 20) {
 	        		dir = -1;
-	                //System.out.println("Stopped");
 	        	}
 	        	
 	        	if(dir==0) { //right
-	        		//x+=speed;
 	        		setXY(x+=speed, y);
 	        		xc = x;
 	        		yc = y;
 	                texture = walkRight;
 	        	} else if(dir==1) { //left
-	        		//x-=speed;
 	        		setXY(x-=speed, y);
 	        		xc = x+16;
 	        		yc = y+16;
 	                texture = walkLeft;
 	        	} else if(dir==2) { //up
-	        		//y+=speed;
 	        		setXY(x, y+=speed);
 	        		xc = x;
 	        		yc = y-10;
 	                texture = walkUp;
 	        	} else if(dir==3) { //down
-	        		//y-=speed;
 	        		setXY(x, y-=speed);
 	        		xc = x+16;
 	        		yc = y+16;
@@ -184,25 +156,21 @@ public class Attacker extends Entity {
 	        	}
 	        	
 	        	if(dir==0) { //right
-	        		//x+=speed;
 	        		setXY(x+=speed, y);
 	        		xc = x;
 	        		yc = y;
 	                texture = walkRight;
 	        	} else if(dir==1) { //left
-	        		//x-=speed;
 	        		setXY(x-=speed, y);
 	        		xc = x+30;
 	        		yc = y+16;
 	                texture = walkLeft;
 	        	} else if(dir==2) { //up
-	        		//y+=speed;
 	        		setXY(x, y+=speed);
 	        		xc = x;
 	        		yc = y-10;
 	                texture = walkUp;
 	        	} else if(dir==3) { //down
-	        		//y-=speed;
 	        		setXY(x, y-=speed);
 	        		xc = x+16;
 	        		yc = y+16;
@@ -210,7 +178,10 @@ public class Attacker extends Entity {
 	        	}
         	}
         }
-        if(attacking) {
+    }
+    
+    protected void actAttacking() {
+    	if(attacking) {
         	if(dir==0) { //right
         		this.texture = attackRight;
         	} else if(dir==1) { //left
@@ -222,11 +193,9 @@ public class Attacker extends Entity {
         	}
         	
         	tick++;
-        	//System.out.println(tick);
         	if(tick >= 100 && target != null) {
         		
         		if(projectile != null) {
-        			//System.out.println("requesting projectile");
         			Projectile arrow = getProjectile();
             		this.getStage().addActor(arrow);
         		}
@@ -240,15 +209,13 @@ public class Attacker extends Entity {
         		}
         	}
         }
-        
-        if(isDead()) {
+    }
+    
+    protected void removeIfDead() {
+    	if(isDead()) {
         	this.remove();
         }
     }
-    
-//    private boolean isPath(int tile) {
-//    	return tile==1||tile==2||tile==3||tile==4||tile==5||tile==6||tile==10;
-//    }
     
     public void setWalking(boolean bool) {
     	this.walking = bool;
@@ -262,14 +229,22 @@ public class Attacker extends Entity {
     public void damage(int amount) {
     	this.hp -= amount;
     	TempText temp = new TempText(screen, "-"+amount, x, y, 1f, 0f, 0f);
-    	if(this.getParent() != null) {
-        	this.getParent().addActor(temp);
-    	}
+//    	if(this.getParent() != null) {
+//        	this.getParent().addActor(temp);
+//    	}
+    	screen.getStage().addActor(temp);
     	if(hp <= 0) {
     		attacking = false;
     		walking = false;
     	}
     	//System.out.println("["+team+"] hp="+hp+" | maxhp="+maxhp+" | dmg by="+amount);
+    }
+    
+    @Override
+    public void heal(int amount) {
+    	this.hp += amount;
+    	TempText temp = new TempText(screen, "+"+amount, x, y, 0f, 1f, 0f);
+    	screen.getStage().addActor(temp);
     }
     
     public void setTarget(Entity target) {
@@ -340,9 +315,22 @@ public class Attacker extends Entity {
 				  Assets.arcaneOrb, 16, 16);
     	} else if(attacker == Cards.brainmonster) {
     		return new Attacker(screen, Assets.brainmonsterWalkDown, Assets.brainmonsterWalkUp, Assets.brainmonsterWalkLeft, Assets.brainmonsterWalkRight,
-  				  Assets.brainmonsterWalkDown, Assets.brainmonsterWalkUp, Assets.brainmonsterWalkLeft, Assets.brainmonsterWalkRight, 
-  				  x, y, attacker.getMoveSpeed(), 16, 25, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
-				  Assets.gasOrb, 16, 16);
+    				  Assets.brainmonsterWalkDown, Assets.brainmonsterWalkUp, Assets.brainmonsterWalkLeft, Assets.brainmonsterWalkRight, 
+    				  x, y, attacker.getMoveSpeed(), 16, 25, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+  				  Assets.gasOrb, 16, 16);
+      	} else if(attacker == Cards.elfHealer) {
+    		return new Healer(screen, Assets.elfHealerWalkDown, Assets.elfHealerWalkUp, Assets.elfHealerWalkLeft, Assets.elfHealerWalkRight,
+  				  Assets.elfHealerSpellDown, Assets.elfHealerSpellUp, Assets.elfHealerSpellLeft, Assets.elfHealerSpellRight, 
+  				  x, y, 32, 32, team, attacker.getMoveSpeed(), attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+  				  attacker.getCustom());
+    	} else if(attacker == Cards.viking) {
+    		return new Attacker(screen, Assets.vikingWalkDown, Assets.vikingWalkUp, Assets.vikingWalkLeft, Assets.vikingWalkRight,
+  				  Assets.vikingWalkDown, Assets.vikingWalkUp, Assets.vikingWalkLeft, Assets.vikingWalkRight, 
+  				  x, y, attacker.getMoveSpeed(), 16, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.imp) {
+    		return new Attacker(screen, Assets.impWalkDown, Assets.impWalkUp, Assets.impWalkLeft, Assets.impWalkRight,
+  				  Assets.impAttackDown, Assets.impAttackUp, Assets.impAttackLeft, Assets.impAttackRight, 
+  				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
     	} else {
     		return null;
     	}

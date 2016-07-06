@@ -74,12 +74,12 @@ public class Spell extends Entity {
     			}
     		}
     	}
-    	for(int i=0; i<screen.getTowers().size(); i++) {
-    		if(this.rangebox.overlaps(screen.getTowers().get(i).hitbox) && this.team != screen.getTowers().get(i).getTeam()) {
-    			screen.getTowers().get(i).damage(dmg);
+    	for(int i=0; i<screen.getTowers().getChildren().size; i++) {
+    		if(this.rangebox.overlaps(((Tower)screen.getTowers().getChildren().get(i)).hitbox) && this.team != ((Tower)screen.getTowers().getChildren().get(i)).getTeam()) {
+    			((Tower)screen.getTowers().getChildren().get(i)).damage(dmg);
     			
-    			if(screen.getTowers().get(i).isDead()) {
-    				screen.getTowers().remove(i);
+    			if(((Tower)screen.getTowers().getChildren().get(i)).isDead()) {
+    				((Tower)screen.getTowers().getChildren().get(i)).remove();
 //    				screen.getTowers().get(i).remove();
     			}
     		}

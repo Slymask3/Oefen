@@ -51,11 +51,16 @@ public class Assets {
 	public static Animation waterBottomRight;
 	public static Animation waterTopLeft;
 	public static Animation waterTopRight;
+	public static Animation waterTopLeftCorner;
+	public static Animation waterTopRightCorner;
+	public static Animation waterBottomLeftCorner;
+	public static Animation waterBottomRightCorner;
 
 	public static Texture towers;
 	public static TextureRegion mainTower;
 	public static TextureRegion wtfisthis;
 	public static TextureRegion budhaGold;
+	public static TextureRegion lazorRed;
 
 	public static Texture dummy;
 	public static Animation dummySpin;
@@ -76,6 +81,9 @@ public class Assets {
 	public static TextureRegion cardExplosion;
 	public static TextureRegion cardMage;
 	public static TextureRegion cardBrainmonster;
+	public static TextureRegion cardElfHealer;
+	public static TextureRegion cardViking;
+	public static TextureRegion cardImp;
 	
 	public static Texture goblin;
 	public static Animation goblinWalkUp;
@@ -159,6 +167,32 @@ public class Assets {
 	public static Animation brainmonsterWalkLeft;
 	public static Animation brainmonsterWalkRight;
 	
+	public static Texture elfHealer;
+	public static Animation elfHealerWalkUp;
+	public static Animation elfHealerWalkDown;
+	public static Animation elfHealerWalkLeft;
+	public static Animation elfHealerWalkRight;
+	public static Animation elfHealerSpellUp;
+	public static Animation elfHealerSpellDown;
+	public static Animation elfHealerSpellLeft;
+	public static Animation elfHealerSpellRight;
+	
+	public static Texture viking;
+	public static Animation vikingWalkUp;
+	public static Animation vikingWalkDown;
+	public static Animation vikingWalkLeft;
+	public static Animation vikingWalkRight;
+	
+	public static Texture imp;
+	public static Animation impWalkUp;
+	public static Animation impWalkDown;
+	public static Animation impWalkLeft;
+	public static Animation impWalkRight;
+	public static Animation impAttackUp;
+	public static Animation impAttackDown;
+	public static Animation impAttackLeft;
+	public static Animation impAttackRight;
+	
 	public static TextureRegion hpbar;
 	
 	public static Texture hp;
@@ -180,6 +214,9 @@ public class Assets {
 	
 	public static Texture explosionSheet;
 	public static Animation explosion;
+	
+	public static Texture turtleshellSheet;
+	public static Animation turtleshell;
 	
 	public static Texture checkbox;
 	public static TextureRegion unchecked;
@@ -287,6 +324,18 @@ public class Assets {
 		waterTopRight = new Animation(0.5f, 
 				new TextureRegion(tiles, 12*32, 1*32, 32, 32), 
 				new TextureRegion(tiles, 15*32, 1*32, 32, 32));
+		waterTopLeftCorner = new Animation(0.5f, 
+				new TextureRegion(tiles, 12*32, 4*32, 32, 32), 
+				new TextureRegion(tiles, 14*32, 4*32, 32, 32));
+		waterTopRightCorner = new Animation(0.5f, 
+				new TextureRegion(tiles, 13*32, 4*32, 32, 32), 
+				new TextureRegion(tiles, 15*32, 4*32, 32, 32));
+		waterBottomLeftCorner = new Animation(0.5f, 
+				new TextureRegion(tiles, 12*32, 5*32, 32, 32), 
+				new TextureRegion(tiles, 14*32, 5*32, 32, 32));
+		waterBottomRightCorner = new Animation(0.5f, 
+				new TextureRegion(tiles, 13*32, 5*32, 32, 32), 
+				new TextureRegion(tiles, 15*32, 5*32, 32, 32));
 		
 		//Towers
 		towers = loadTexture("gfx/towers.png");
@@ -294,6 +343,7 @@ public class Assets {
 		mainTower = new TextureRegion(towers, 0*32, 1*32, 32, 64);
 		wtfisthis = new TextureRegion(towers, 0*32, 0*32, 32, 32);
 		budhaGold = new TextureRegion(towers, 2*32, 0*32, 32, 32);
+		lazorRed = new TextureRegion(towers, 1*32, 1*32, 32, 64);
 		dummySpin = new Animation(0.3f, 
 				new TextureRegion(dummy, 0*64, 0*64, 64, 64), 
 				new TextureRegion(dummy, 1*64, 0*64, 64, 64), 
@@ -790,6 +840,137 @@ public class Assets {
 				new TextureRegion(brainmonster, 0*32, 3*49, 32, 49), 
 				new TextureRegion(brainmonster, 1*32, 3*49, 32, 49), 
 				new TextureRegion(brainmonster, 2*32, 3*49, 32, 49));
+		elfHealer = loadTexture("gfx/elfHealer.png");
+		elfHealerWalkUp = new Animation(0.5f, 
+				new TextureRegion(elfHealer, 0*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 7*64, 8*64, 64, 64), 
+				new TextureRegion(elfHealer, 8*64, 8*64, 64, 64));
+		elfHealerWalkLeft = new Animation(0.5f, 
+				new TextureRegion(elfHealer, 0*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 7*64, 9*64, 64, 64), 
+				new TextureRegion(elfHealer, 8*64, 9*64, 64, 64));
+		elfHealerWalkDown = new Animation(0.5f, 
+				new TextureRegion(elfHealer, 0*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 7*64, 10*64, 64, 64), 
+				new TextureRegion(elfHealer, 8*64, 10*64, 64, 64));
+		elfHealerWalkRight = new Animation(0.3f, 
+				new TextureRegion(elfHealer, 0*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 7*64, 11*64, 64, 64), 
+				new TextureRegion(elfHealer, 8*64, 11*64, 64, 64));
+		elfHealerSpellUp = new Animation(0.2f, 
+				new TextureRegion(elfHealer, 0*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 0*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 0*64, 64, 64));
+		elfHealerSpellLeft = new Animation(0.2f, 
+				new TextureRegion(elfHealer, 0*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 1*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 1*64, 64, 64));
+		elfHealerSpellDown = new Animation(0.2f, 
+				new TextureRegion(elfHealer, 0*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 2*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 2*64, 64, 64));
+		elfHealerSpellRight = new Animation(0.2f, 
+				new TextureRegion(elfHealer, 0*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 1*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 2*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 3*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 4*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 5*64, 3*64, 64, 64), 
+				new TextureRegion(elfHealer, 6*64, 3*64, 64, 64));
+		viking = loadTexture("gfx/viking.png");
+		vikingWalkDown = new Animation(0.2f, 
+				new TextureRegion(viking, 0*32, 0*64, 32, 64), 
+				new TextureRegion(viking, 1*32, 0*64, 32, 64), 
+				new TextureRegion(viking, 2*32, 0*64, 32, 64));
+		vikingWalkLeft = new Animation(0.2f, 
+				new TextureRegion(viking, 0*32, 1*64, 32, 64), 
+				new TextureRegion(viking, 1*32, 1*64, 32, 64), 
+				new TextureRegion(viking, 2*32, 1*64, 32, 64));
+		vikingWalkRight = new Animation(0.2f, 
+				new TextureRegion(viking, 0*32, 2*64, 32, 64), 
+				new TextureRegion(viking, 1*32, 2*64, 32, 64), 
+				new TextureRegion(viking, 2*32, 2*64, 32, 64));
+		vikingWalkUp = new Animation(0.2f, 
+				new TextureRegion(viking, 0*32, 3*64, 32, 64), 
+				new TextureRegion(viking, 1*32, 3*64, 32, 64), 
+				new TextureRegion(viking, 2*32, 3*64, 32, 64));
+		imp = loadTexture("gfx/imp.png");
+		impWalkDown = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 0*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 0*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 0*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 0*64, 64, 64));
+		impWalkUp = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 1*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 1*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 1*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 1*64, 64, 64));
+		impWalkRight = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 2*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 2*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 2*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 2*64, 64, 64));
+		impWalkLeft = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 3*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 3*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 3*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 3*64, 64, 64));
+		impAttackDown = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 4*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 4*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 4*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 4*64, 64, 64));
+		impAttackUp = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 5*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 5*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 5*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 5*64, 64, 64));
+		impAttackRight = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 6*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 6*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 6*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 6*64, 64, 64));
+		impAttackLeft = new Animation(0.2f, 
+				new TextureRegion(imp, 0*64, 7*64, 64, 64), 
+				new TextureRegion(imp, 1*64, 7*64, 64, 64), 
+				new TextureRegion(imp, 2*64, 7*64, 64, 64), 
+				new TextureRegion(imp, 3*64, 7*64, 64, 64));
 		
 		//Other
 		hpbar = new TextureRegion(tiles, 0, 480, 32, 4);
@@ -843,6 +1024,24 @@ public class Assets {
 				new TextureRegion(explosionSheet, 8*89, 0*89, 89, 89),
 				new TextureRegion(explosionSheet, 9*89, 0*89, 89, 89),
 				new TextureRegion(explosionSheet, 10*89, 0*89, 89, 89));
+		turtleshellSheet = loadTexture("gfx/turtleshell.png");
+		turtleshell = new Animation(0.1f,
+				new TextureRegion(explosionSheet, 0*128, 0*128, 128, 128),
+				new TextureRegion(explosionSheet, 1*128, 0*128, 128, 128),
+				new TextureRegion(explosionSheet, 2*128, 0*128, 128, 128),
+				new TextureRegion(explosionSheet, 3*128, 0*128, 128, 128),
+				new TextureRegion(explosionSheet, 0*128, 1*128, 128, 128),
+				new TextureRegion(explosionSheet, 1*128, 1*128, 128, 128),
+				new TextureRegion(explosionSheet, 2*128, 1*128, 128, 128),
+				new TextureRegion(explosionSheet, 3*128, 1*128, 128, 128),
+				new TextureRegion(explosionSheet, 0*128, 2*128, 128, 128),
+				new TextureRegion(explosionSheet, 1*128, 2*128, 128, 128),
+				new TextureRegion(explosionSheet, 2*128, 2*128, 128, 128),
+				new TextureRegion(explosionSheet, 3*128, 2*128, 128, 128),
+				new TextureRegion(explosionSheet, 0*128, 3*128, 128, 128),
+				new TextureRegion(explosionSheet, 1*128, 3*128, 128, 128),
+				new TextureRegion(explosionSheet, 2*128, 3*128, 128, 128),
+				new TextureRegion(explosionSheet, 3*128, 3*128, 128, 128));
 
 		//Cards
 		cards = loadTexture("gfx/cards.png");
@@ -860,6 +1059,9 @@ public class Assets {
 		cardExplosion = new TextureRegion(explosionSheet, 4*89, 0*89, 89, 89);
 		cardMage = new TextureRegion(mage, 0*16, 1*32, 16, 32);
 		cardBrainmonster = new TextureRegion(brainmonster, 0*32, 0*49, 32, 49);
+		cardElfHealer = new TextureRegion(elfHealer, 0*64, 2*64, 64, 64);
+		cardViking = new TextureRegion(viking, 1*32, 0*64, 32, 64);
+		cardImp = new TextureRegion(imp, 0*64, 0*64, 64, 64);
 
 		//Checkbox
 		checkbox = loadTexture("gfx/checkbox.png");
@@ -868,7 +1070,7 @@ public class Assets {
 
 		//UI
 		ui = loadTexture("gfx/cardinfo.png");
-		cardinfo = new TextureRegion(ui, 0, 0, 128, 80);
+		cardinfo = new TextureRegion(ui, 0, 0, 128, 90);
 
 		//Sounds
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
@@ -894,7 +1096,11 @@ public class Assets {
 		knight.dispose();
 		golem.dispose();
 		mage.dispose();
+		brainmonster.dispose();
+		elfHealer.dispose();
 		bloodSheet.dispose();
+		explosionSheet.dispose();
+		turtleshellSheet.dispose();
 		projectiles.dispose();
 		checkbox.dispose();
 		clickSound.dispose();

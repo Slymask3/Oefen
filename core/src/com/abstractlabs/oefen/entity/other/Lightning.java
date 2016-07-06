@@ -1,7 +1,5 @@
 package com.abstractlabs.oefen.entity.other;
 
-import java.util.Random;
-
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -25,16 +23,16 @@ public class Lightning extends Projectile {
 		sr.setColor(0,1,1,1);
 		sr.begin(ShapeType.Line);
 		//TODO simulate lightning
-		//sr.line(x, y, xd, yd);
-		Random rand = new Random();
-		int times = rand.nextInt(5);
-		
-		for(int i=0; i<times; i++) {
-			sr.line(xd, yd, xd+10, yd+10);
-			xd = xd+10;
-			yd = yd+10;
-		}
-		sr.line(xd, yd, x, y);
+		sr.line(x, y, xd, yd);
+//		Random rand = new Random();
+//		int times = rand.nextInt(5);
+//		
+//		for(int i=0; i<times; i++) {
+//			sr.line(xd, yd, xd+10, yd+10);
+//			xd = xd+10;
+//			yd = yd+10;
+//		}
+//		sr.line(xd, yd, x, y);
 		
 		sr.end();
 		batch.enableBlending();

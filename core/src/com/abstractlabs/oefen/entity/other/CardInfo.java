@@ -22,6 +22,8 @@ public class CardInfo extends Entity {
 	@Override
     public void draw(Batch batch, float alpha){
 		batch.draw(Assets.cardinfo, x, y);
+        font.draw(batch, card.getCardsObj().getName(), x+10, y+80);
+        font.setColor(1, 1, 0, 1);
         font.draw(batch, "Cost: $"+Math.round(card.getCost()), x+10, y+70);
         font.draw(batch, "Health: "+card.getHealth(), x+10, y+60);
         font.draw(batch, "Damage: "+card.getDamage(), x+10, y+50);
@@ -30,5 +32,6 @@ public class CardInfo extends Entity {
         if(card.getClass() == CardAttacker.class) {
             font.draw(batch, "Move Speed: "+card.getMoveSpeed(), x+10, y+20);
         }
+        font.setColor(1, 1, 1, 1);
     }
 }

@@ -180,11 +180,17 @@ public class Map {
 				mapPath[i][k] = 0;
 				mapOverlay[i][k] = -1;
 				mapTowers[i][k] = k<18?0:9;
+				
+				if(i==0) {
+					mapPath[i][k] = 9;
+					mapTiles[i][k] = Tile.WATER_BOTTOM;
+					mapTowers[i][k] = 2;
+				}
 			}
 		}
 		
 		//Starting point
-		int start = rand.nextInt(17);
+		int start = rand.nextInt(16)+1;
 		mapTiles[start][3] = 1;
 		mapPath[start][3] = 1;
 		mapPath[start][2] = 1;
@@ -196,7 +202,7 @@ public class Map {
 			int turn = rand.nextInt(2);
 			if(turn == 0) {
 				int temp = rand.nextInt(2);
-				if(temp == 0 && start != 0) { //turn up
+				if(temp == 0 && start != 1) { //turn up
 					mapTiles[start][3+i] = 2;
 					mapPath[start][3+i] = 2;
 					mapTowers[start][3+i] = 2;
@@ -258,7 +264,7 @@ public class Map {
 		
 		for(int i=0; i<mapTiles.length; i++) {
 			for(int k=waterStart; k<waterEnd+1; k++) {
-				if(mapTiles[i][k] == 0 || mapTiles[i][k] == 20) {
+				if(mapTiles[i][k] == 0 || mapTiles[i][k] == 20 || mapTiles[i][k] == Tile.WATER_BOTTOM) {
 					mapTiles[i][k] = 7;
 				} else if(mapTiles[i][k] == 1 || mapTiles[i][k] == 2 || mapTiles[i][k] == 3 || mapTiles[i][k] == 4 || mapTiles[i][k] == 5 || mapTiles[i][k] == 30) {
 					mapOverlay[i][k] = mapTiles[i][k];
@@ -271,6 +277,9 @@ public class Map {
 			for(int k=waterStart; k<waterEnd+1; k+=(waterEnd-waterStart)) {
 				if(mapTiles[i][k] == 7) {
 					mapTiles[i][k] = k==waterStart?8:9;
+				}
+				if(i==0) {
+					mapTiles[i][k] = k==waterStart?Tile.WATER_TOPRIGHT_CORNER:Tile.WATER_TOPLEFT_CORNER;
 				}
 			}
 		}
