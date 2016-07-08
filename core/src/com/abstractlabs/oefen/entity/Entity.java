@@ -190,6 +190,8 @@ public abstract class Entity extends Actor {
     	return this.maxhp;
     }
     
+    public abstract void findTarget();
+    
 //    public void setZIndex (int index) {
 //		Array<Actor> children = getParent().getChildren();
 //		children.insert(index, this);

@@ -9,6 +9,7 @@ import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class Spell extends Entity {
 	protected Animation animation;
@@ -17,13 +18,13 @@ public class Spell extends Entity {
     public Spell(ScreenGame screen, Animation animation, float x, float y, float width, float height, String team, int dmg, int range) {
     	super(screen, null, x, y, width, height, team, 0, dmg, range, 0);
     	this.animation = animation;
-    	dealDamage();
+    	onSpawn();
     }
 
     public Spell(ScreenGame screen, TextureRegion texture, float x, float y, float width, float height, String team, int dmg, int range) {
     	super(screen, texture, x, y, width, height, team, 0, dmg, range, 0);
     	this.animation = null;
-    	dealDamage();
+    	onSpawn();
     }
     
     @Override
@@ -63,7 +64,7 @@ public class Spell extends Entity {
         rangebox.setY(pY+(height/2)-range-32);
     }
     
-    private void dealDamage() {
+    protected void onSpawn() {
     	for(int i=0; i<screen.getAttackers().size(); i++) {
     		if(this.rangebox.overlaps(screen.getAttackers().get(i).hitbox) && this.team != screen.getAttackers().get(i).getTeam()) {
     			screen.getAttackers().get(i).damage(dmg);
@@ -75,16 +76,22 @@ public class Spell extends Entity {
     		}
     	}
     	for(int i=0; i<screen.getTowers().getChildren().size; i++) {
-    		if(this.rangebox.overlaps(((Tower)screen.getTowers().getChildren().get(i)).hitbox) && this.team != ((Tower)screen.getTowers().getChildren().get(i)).getTeam()) {
-    			((Tower)screen.getTowers().getChildren().get(i)).damage(dmg);
-    			
-    			if(((Tower)screen.getTowers().getChildren().get(i)).isDead()) {
-    				((Tower)screen.getTowers().getChildren().get(i)).remove();
-//    				screen.getTowers().get(i).remove();
-    			}
+    		for(int j=0; j<((Group)screen.getTowers().getChildren().get(i)).getChildren().size; j++) {
+    			Tower tower = (Tower)((Group)screen.getTowers().getChildren().get(i)).getChildren().get(j);
+	    		if(this.rangebox.overlaps(tower.hitbox) && this.team != tower.getTeam()) {
+	    			tower.damage(dmg);
+	    			if(tower.isDead()) {
+	    				tower.remove();
+	//    				screen.getTowers().get(i).remove();
+	    			}
+	    		}
     		}
     	}
     }
+    
+    //no targets for spells
+    @Override
+    public void findTarget() {}
     
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
 

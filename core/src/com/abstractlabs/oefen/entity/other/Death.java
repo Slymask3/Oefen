@@ -44,4 +44,8 @@ public class Death extends Entity {
     		this.getParent().removeActor(this);
     	}
     }
+
+	//no targets for death entity
+	@Override
+	public void findTarget() {}
 }

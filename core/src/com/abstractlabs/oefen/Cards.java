@@ -85,7 +85,7 @@ public class Cards {
 	public static Cards golem          = new Cards("Attacker", "Golem",            Assets.cardGolem,         600,  0.8f, 200,  7, 16, 100,  0);
 	public static Cards mage           = new Cards("Attacker", "Mage",             Assets.cardMage,           50,  1.1f,  25, 11, 48,  50,  0);
 	public static Cards brainmonster   = new Cards("Attacker", "Brain Monster",    Assets.cardBrainmonster,   50,  1.2f, 110,  6, 48,  20,  0);
-	public static Cards elfHealer      = new Cards("Attacker", "Elf Healer",       Assets.cardElfHealer,      50,  1.1f,  60,  1, 48, 100, 10);//Heal Amount
+	public static Cards elfHealer      = new Cards("Attacker", "Elf Healer",       Assets.cardElfHealer,      50,  1.1f,  60,  0, 48,  50,  5);//Heal Amount
 	public static Cards viking         = new Cards("Attacker", "Viking",           Assets.cardViking,        101,    1f,  80,  9, 16, 100,  0);
 	public static Cards imp            = new Cards("Attacker", "Imp",              Assets.cardImp,            70,    1f,  30, 10, 16,  80,  0);
 	////////////////////Towers//////////////////////Type////////Name///////////////Texture//////////////////Price/Speed///HP/DMG/Range/AS//Custom/

@@ -40,4 +40,8 @@ public class TempText extends Entity {
     		this.getParent().removeActor(this);
     	}
     }
+
+	//no targets for temptext entity
+	@Override
+	public void findTarget() {}
 }

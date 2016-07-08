@@ -34,4 +34,8 @@ public class CardInfo extends Entity {
         }
         font.setColor(1, 1, 1, 1);
     }
+
+	//no targets for cardinfo entity
+	@Override
+	public void findTarget() {}
 }

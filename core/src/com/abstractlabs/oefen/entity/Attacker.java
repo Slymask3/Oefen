@@ -13,6 +13,7 @@ import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class Attacker extends Entity {
 	protected Animation texture;
@@ -97,7 +98,8 @@ public class Attacker extends Entity {
     }
     
     @Override
-    public void act(float delta){
+    public void act(float delta) {
+    	findTarget();
         actWalking();
         actAttacking();
         removeIfDead();
@@ -193,7 +195,7 @@ public class Attacker extends Entity {
         	}
         	
         	tick++;
-        	if(tick >= 100 && target != null) {
+        	if(tick >= attackspeed && target != null) {
         		
         		if(projectile != null) {
         			Projectile arrow = getProjectile();
@@ -242,7 +244,11 @@ public class Attacker extends Entity {
     
     @Override
     public void heal(int amount) {
-    	this.hp += amount;
+    	if(hp+amount > maxhp) {
+    		hp = maxhp;
+    	} else {
+    		hp += amount;
+    	}
     	TempText temp = new TempText(screen, "+"+amount, x, y, 0f, 1f, 0f);
     	screen.getStage().addActor(temp);
     }
@@ -258,6 +264,45 @@ public class Attacker extends Entity {
     
     public void setMoveSpeed(float speed) {
     	this.speed = speed;
+    }
+    
+    @Override
+    public void findTarget() {
+    	if(target == null) {
+	    	for(int i=0; i<screen.getAttackers().size(); i++) {
+	    		Attacker a = screen.getAttackers().get(i);
+	    		if(this.team != a.getTeam() && this.rangebox.overlaps(a.getHitboxRectangle())) {
+	    			this.target = a;
+        			this.attacking = true;
+        			this.walking = false;
+	    		}
+	    	}
+    	}
+    	if(target == null) {
+	    	for(int i=0; i<screen.getTowers().getChildren().size; i++) {
+	    		Group g = (Group)screen.getTowers().getChildren().get(i);
+	    		for(int j=0; j<g.getChildren().size; j++) {
+	        		Tower t = (Tower)g.getChildren().get(j);
+	        		if(this.team != t.getTeam() && this.rangebox.overlaps(t.getHitboxRectangle())) {
+	        			this.target = t;
+	        			this.attacking = true;
+	        			this.walking = false;
+	        		}
+	        	}
+	    	}
+    	}
+    	
+    	if(target != null) {
+    		if(target.isDead()) { //if tagrets dead
+    			target = null;
+    			this.attacking = false;
+    			this.walking = true;
+    		} else if(!this.rangebox.overlaps(target.getHitboxRectangle())) { //if target leaves the entity's range
+    			target = null;
+    			this.attacking = false;
+    			this.walking = true;
+    		}
+    	}
     }
     
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
@@ -319,6 +364,7 @@ public class Attacker extends Entity {
     				  x, y, attacker.getMoveSpeed(), 16, 25, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
   				  Assets.gasOrb, 16, 16);
       	} else if(attacker == Cards.elfHealer) {
+//    		System.out.println("[Attacker] heal=="+attacker.getCustom());
     		return new Healer(screen, Assets.elfHealerWalkDown, Assets.elfHealerWalkUp, Assets.elfHealerWalkLeft, Assets.elfHealerWalkRight,
   				  Assets.elfHealerSpellDown, Assets.elfHealerSpellUp, Assets.elfHealerSpellLeft, Assets.elfHealerSpellRight, 
   				  x, y, 32, 32, team, attacker.getMoveSpeed(), attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),

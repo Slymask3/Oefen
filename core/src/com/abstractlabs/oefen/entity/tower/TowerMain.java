@@ -6,6 +6,7 @@ import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.screen.ScreenGame;
+import com.abstractlabs.oefen.screen.ScreenMainMenu;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
@@ -15,7 +16,7 @@ public class TowerMain extends Tower {
     BitmapFont font;
 	
 	public TowerMain(ScreenGame screen, String team, float x, float y) {
-		super(screen, Assets.mainTower, x, y, 32, 64, team, 1000, 10, 80, 20, Assets.arrow, 15, 3);
+		super(screen, Assets.mainTower, x, y, 32, 64, team, 1000, 5, 80, 20, Assets.arrow, 15, 3);
 		xhp = team=="Blue"?2:1218;
 		yhp = 122+13;
 		font = Font.create(Font.sufrimeda, 30, 2);
@@ -63,5 +64,12 @@ public class TowerMain extends Tower {
 	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
 		//font.draw(batch, this.getZIndex()+"", x+16, y+16);
+    }
+    
+	@Override
+    protected void removeIfDead() {
+    	if(isDead()) {
+        	this.screen.getOefen().setScreen(new ScreenMainMenu(this.screen.getOefen()));
+        }
     }
 }

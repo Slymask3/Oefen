@@ -84,9 +84,15 @@ public class Tower extends Entity {
     int tick;
     @Override
     public void act(float delta){
-        if(attacking) {
+    	findTarget();
+    	actAttacking();
+        removeIfDead();
+    }
+    
+    protected void actAttacking() {
+    	if(attacking) {
         	tick++;
-        	if(tick >= 100 && target != null) {
+        	if(tick >= attackspeed && target != null) {
         		Projectile arrow = new Projectile(screen, projectile, pw, ph, x+(width/2), y+(height/2), target.x+(target.width/2), target.y+(target.height/2));
         		this.getStage().addActor(arrow);
         		
@@ -98,8 +104,10 @@ public class Tower extends Entity {
         		}
         	}
         }
-        
-        if(isDead()) {
+    }
+    
+    protected void removeIfDead() {
+    	if(isDead()) {
         	this.remove();
         }
     }
@@ -118,6 +126,17 @@ public class Tower extends Entity {
     	if(hp <= 0) {
     		attacking = false;
     	}
+    }
+    
+    @Override
+    public void heal(int amount) {
+    	if(hp+amount > maxhp) {
+    		hp = maxhp;
+    	} else {
+    		hp += amount;
+    	}
+    	TempText temp = new TempText(screen, "+"+amount, x, y, 0f, 1f, 0f);
+    	screen.getStage().addActor(temp);
     }
     
     public void setTarget(Entity target) {
@@ -145,6 +164,29 @@ public class Tower extends Entity {
 		return this.mapY+(this.mapX*17);
 	}
     
+	@Override
+    public void findTarget() {
+    	if(target == null) {
+	    	for(int i=0; i<screen.getAttackers().size(); i++) {
+	    		Attacker a = screen.getAttackers().get(i);
+	    		if(this.team != a.getTeam() && this.rangebox.overlaps(a.getHitboxRectangle())) {
+	    			this.target = a;
+        			this.attacking = true;
+	    		}
+	    	}
+    	}
+    	
+    	if(target != null) {
+    		if(target.isDead()) { //if tagrets dead
+    			target = null;
+    			this.attacking = false;
+    		} else if(!this.rangebox.overlaps(target.getHitboxRectangle())) { //if target leaves the entity's range
+    			target = null;
+    			this.attacking = false;
+    		}
+    	}
+    }
+	
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
 
 //    public static String WTFISTHIS = "wtf";

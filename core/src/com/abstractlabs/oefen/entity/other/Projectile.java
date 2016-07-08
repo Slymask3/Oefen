@@ -70,4 +70,8 @@ public class Projectile extends Entity {
     		this.remove();
     	}
     }
+
+	//no targets for projectile entity (target is set on the attacker/tower that creates this projectile)
+	@Override
+	public void findTarget() {}
 }

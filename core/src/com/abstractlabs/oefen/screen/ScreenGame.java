@@ -22,12 +22,13 @@ import com.abstractlabs.oefen.entity.Attacker;
 import com.abstractlabs.oefen.entity.Spell;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.entity.other.CardInfo;
-import com.abstractlabs.oefen.entity.other.Death;
 import com.abstractlabs.oefen.entity.tower.TowerMain;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -67,6 +68,9 @@ public class ScreenGame extends ScreenAdapter {
 	
 	Deck deck;
 	
+	GlyphLayout layout;
+	BitmapFont font;
+	
 	public ScreenGame (Oefen game) {
 		this.game = game;
 
@@ -79,6 +83,9 @@ public class ScreenGame extends ScreenAdapter {
 
         rand = new Random();
 
+        layout = new GlyphLayout();
+        font = Font.create(Font.sufrimeda, 26, 1);
+        
         for(int i=0; i<subtowers.length; i++) {
         	subtowers[i] = new Group();
         	subtowers[i].setZIndex(i);
@@ -380,6 +387,23 @@ public class ScreenGame extends ScreenAdapter {
 	    		texture.flip(xflip, yflip);
 		    }
 	    }
+
+		font.setColor(0, 1, 0.3f, 1);
+		layout.setText(font, "Slymask3");
+		font.draw(game.batch, layout, 5, Oefen.HEIGHT-5);
+
+		font.setColor(0.7f, 0.7f, 0.7f, 1);
+		layout.setText(font, "1020 LP");
+		font.draw(game.batch, layout, 5, Oefen.HEIGHT-10-layout.height);
+		
+		font.setColor(1, 0, 0.3f, 1);
+		layout.setText(font, "HotMixtape");
+		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-5);
+
+		font.setColor(0.7f, 0.7f, 0.7f, 1);
+		layout.setText(font, "1060 LP");
+		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-10-layout.height);
+		
 		game.batch.end();
 		
 	    stage.act(Gdx.graphics.getDeltaTime());
@@ -427,100 +451,100 @@ public class ScreenGame extends ScreenAdapter {
 //			}
 //		}
 		
-		checkForCollision();
+		//checkForCollision();
 	}
 	
-	private void checkForCollision() {
-		//loop through attackers and towers, and check if one's rangebox collides with one's hitbox. if so, then attack
-		for (int i = attackers.size() - 1; i >= 0; i--) {
-		    Attacker attacker = attackers.get(i); //main attacker.
-		    for (int j = attackers.size() - 1; j >= 0; j--) { //loop through attackers whom we check for hitboxes.
-		    	Attacker defender = attackers.get(j);
-		        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
-		        	attacker.setTarget(defender);
-		        	attacker.setWalking(false);
-		        	attacker.setAttacking(true);
-		        	
-		        	if(attacker.isDead()) {
-		        		Death death = attacker.getDeath();
-		        		stage.addActor(death);
-		        		attackers.remove(i);
-		        		attacker.remove();
-		        		attacker = null;
-		        	}
-		        	if(defender.isDead()) {
-		        		Death death = defender.getDeath();
-		        		stage.addActor(death);
-		        		attackers.remove(j);
-		        		defender.remove();
-		        		defender = null;
-		        	}
-		        }
-		    }
-		    for (int j=0; j<subtowers.length; j++) { //loop though all rows. (17 rows)
-		    	if(subtowers[j].getChildren().size > 0) {
-			    	for(int l=0; l<subtowers[j].getChildren().size; l++) { //loop through all towers inside each row
-			    		Tower defender = (Tower)subtowers[j].getChildren().get(l);
-				        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
-				        	attacker.setTarget(defender);
-				        	attacker.setWalking(false);
-				        	attacker.setAttacking(true);
-				        	
-				        	if(attacker.isDead()) {
-				        		Death death = attacker.getDeath();
-				        		stage.addActor(death);
-				        		attackers.remove(i);
-				        		attacker.remove();
-				        		attacker = null;
-				        	}
-				        	if(defender.isDead()) {
-				        		map.getTowers()[defender.getMapY()][defender.getMapX()] = defender.getTeam()=="Blue"?0:9;
-				        		Death death = defender.getDeath();
-				        		stage.addActor(death);
-				        		//towers.remove(j);
-				        		defender.remove();
-				        		defender = null;
-				        	}
-				        }
-			    	}
-		    	}
-		    }
-		}
-		
-		//loop through all towers, and set the tower's target to the attacker that collides with it's range.
-		for (int i=0; i<subtowers.length; i++) { //loop though all rows. (17 rows)
-	    	if(subtowers[i].getChildren().size > 0) {
-		    	for(int l=0; l<subtowers[i].getChildren().size; l++) { //loop through all towers inside each row
-			    	Tower tower = (Tower)subtowers[i].getChildren().get(l);
-				    for (int j=0; j<attackers.size(); j++) {
-					    Attacker attacker = attackers.get(j);
-					    if(attacker != null && tower != null && attacker.getTeam() != tower.getTeam() && tower.getRangeRectangle().overlaps(attacker.getHitboxRectangle())) {
-					    	tower.setTarget(attacker);
-					    	tower.setAttacking(true);
-				        	
-				        	if(tower.isDead()) {
-				        		map.getTowers()[tower.getMapY()][tower.getMapX()] = tower.getTeam()=="Blue"?0:9;
-				        		Death death = tower.getDeath();
-				        		stage.addActor(death);
-				        		//towers.remove(i);
-				        		tower.remove();
-				        		tower = null;
-				        	}
-					    	if(attacker.isDead()) {
-				        		Death death = attacker.getDeath();
-				        		stage.addActor(death);
-				        		attackers.remove(j);
-				        		attacker.remove();
-				        		attacker = null;
-				        	}
-					    } else {
-					    	tower.setTarget(null);
-					    }
-				    }
-		    	}
-	    	}
-		}
-	}
+//	private void checkForCollision() {
+//		//loop through attackers and towers, and check if one's rangebox collides with one's hitbox. if so, then attack
+//		for (int i = attackers.size() - 1; i >= 0; i--) {
+//		    Attacker attacker = attackers.get(i); //main attacker.
+//		    for (int j = attackers.size() - 1; j >= 0; j--) { //loop through attackers whom we check for hitboxes.
+//		    	Attacker defender = attackers.get(j);
+//		        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
+//		        	attacker.setTarget(defender);
+//		        	attacker.setWalking(false);
+//		        	attacker.setAttacking(true);
+//		        	
+//		        	if(attacker.isDead()) {
+//		        		Death death = attacker.getDeath();
+//		        		stage.addActor(death);
+//		        		attackers.remove(i);
+//		        		attacker.remove();
+//		        		attacker = null;
+//		        	}
+//		        	if(defender.isDead()) {
+//		        		Death death = defender.getDeath();
+//		        		stage.addActor(death);
+//		        		attackers.remove(j);
+//		        		defender.remove();
+//		        		defender = null;
+//		        	}
+//		        }
+//		    }
+//		    for (int j=0; j<subtowers.length; j++) { //loop though all rows. (17 rows)
+//		    	if(subtowers[j].getChildren().size > 0) {
+//			    	for(int l=0; l<subtowers[j].getChildren().size; l++) { //loop through all towers inside each row
+//			    		Tower defender = (Tower)subtowers[j].getChildren().get(l);
+//				        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
+//				        	attacker.setTarget(defender);
+//				        	attacker.setWalking(false);
+//				        	attacker.setAttacking(true);
+//				        	
+//				        	if(attacker.isDead()) {
+//				        		Death death = attacker.getDeath();
+//				        		stage.addActor(death);
+//				        		attackers.remove(i);
+//				        		attacker.remove();
+//				        		attacker = null;
+//				        	}
+//				        	if(defender.isDead()) {
+//				        		map.getTowers()[defender.getMapY()][defender.getMapX()] = defender.getTeam()=="Blue"?0:9;
+//				        		Death death = defender.getDeath();
+//				        		stage.addActor(death);
+//				        		//towers.remove(j);
+//				        		defender.remove();
+//				        		defender = null;
+//				        	}
+//				        }
+//			    	}
+//		    	}
+//		    }
+//		}
+//		
+//		//loop through all towers, and set the tower's target to the attacker that collides with it's range.
+//		for (int i=0; i<subtowers.length; i++) { //loop though all rows. (17 rows)
+//	    	if(subtowers[i].getChildren().size > 0) {
+//		    	for(int l=0; l<subtowers[i].getChildren().size; l++) { //loop through all towers inside each row
+//			    	Tower tower = (Tower)subtowers[i].getChildren().get(l);
+//				    for (int j=0; j<attackers.size(); j++) {
+//					    Attacker attacker = attackers.get(j);
+//					    if(attacker != null && tower != null && attacker.getTeam() != tower.getTeam() && tower.getRangeRectangle().overlaps(attacker.getHitboxRectangle())) {
+//					    	tower.setTarget(attacker);
+//					    	tower.setAttacking(true);
+//				        	
+//				        	if(tower.isDead()) {
+//				        		map.getTowers()[tower.getMapY()][tower.getMapX()] = tower.getTeam()=="Blue"?0:9;
+//				        		Death death = tower.getDeath();
+//				        		stage.addActor(death);
+//				        		//towers.remove(i);
+//				        		tower.remove();
+//				        		tower = null;
+//				        	}
+//					    	if(attacker.isDead()) {
+//				        		Death death = attacker.getDeath();
+//				        		stage.addActor(death);
+//				        		attackers.remove(j);
+//				        		attacker.remove();
+//				        		attacker = null;
+//				        	}
+//					    } else {
+//					    	tower.setTarget(null);
+//					    }
+//				    }
+//		    	}
+//	    	}
+//		}
+//	}
 
 	@Override
 	public void render(float delta) {
@@ -556,5 +580,9 @@ public class ScreenGame extends ScreenAdapter {
 	
 	public Stage getStage() {
 		return this.stage;
+	}
+	
+	public Oefen getOefen() {
+		return this.game;
 	}
 }

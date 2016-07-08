@@ -1026,22 +1026,22 @@ public class Assets {
 				new TextureRegion(explosionSheet, 10*89, 0*89, 89, 89));
 		turtleshellSheet = loadTexture("gfx/turtleshell.png");
 		turtleshell = new Animation(0.1f,
-				new TextureRegion(explosionSheet, 0*128, 0*128, 128, 128),
-				new TextureRegion(explosionSheet, 1*128, 0*128, 128, 128),
-				new TextureRegion(explosionSheet, 2*128, 0*128, 128, 128),
-				new TextureRegion(explosionSheet, 3*128, 0*128, 128, 128),
-				new TextureRegion(explosionSheet, 0*128, 1*128, 128, 128),
-				new TextureRegion(explosionSheet, 1*128, 1*128, 128, 128),
-				new TextureRegion(explosionSheet, 2*128, 1*128, 128, 128),
-				new TextureRegion(explosionSheet, 3*128, 1*128, 128, 128),
-				new TextureRegion(explosionSheet, 0*128, 2*128, 128, 128),
-				new TextureRegion(explosionSheet, 1*128, 2*128, 128, 128),
-				new TextureRegion(explosionSheet, 2*128, 2*128, 128, 128),
-				new TextureRegion(explosionSheet, 3*128, 2*128, 128, 128),
-				new TextureRegion(explosionSheet, 0*128, 3*128, 128, 128),
-				new TextureRegion(explosionSheet, 1*128, 3*128, 128, 128),
-				new TextureRegion(explosionSheet, 2*128, 3*128, 128, 128),
-				new TextureRegion(explosionSheet, 3*128, 3*128, 128, 128));
+				new TextureRegion(turtleshellSheet, 0*128, 0*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 1*128, 0*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 2*128, 0*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 3*128, 0*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 0*128, 1*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 1*128, 1*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 2*128, 1*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 3*128, 1*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 0*128, 2*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 1*128, 2*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 2*128, 2*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 3*128, 2*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 0*128, 3*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 1*128, 3*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 2*128, 3*128, 128, 128),
+				new TextureRegion(turtleshellSheet, 3*128, 3*128, 128, 128));
 
 		//Cards
 		cards = loadTexture("gfx/cards.png");
