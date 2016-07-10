@@ -2,9 +2,9 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
+import com.abstractlabs.oefen.card.Cards;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -38,10 +38,10 @@ public class Spell extends Entity {
     	}
     	
     	if(Settings.showRangebox) {
-            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+            Range.drawRectangle(batch, screen.getOefen().sr, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
         }
 		if(Settings.showHitbox) {
-			Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+			Range.drawRectangle(batch, screen.getOefen().sr, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
     }
     
@@ -65,13 +65,12 @@ public class Spell extends Entity {
     }
     
     protected void onSpawn() {
-    	for(int i=0; i<screen.getAttackers().size(); i++) {
-    		if(this.rangebox.overlaps(screen.getAttackers().get(i).hitbox) && this.team != screen.getAttackers().get(i).getTeam()) {
-    			screen.getAttackers().get(i).damage(dmg);
-    			
-    			if(screen.getAttackers().get(i).isDead()) {
-    				screen.getAttackers().remove(i);
-//    				screen.getAttackers().get(i).remove();
+    	for(int i=0; i<screen.getAttackers().getChildren().size; i++) {
+    		Attacker a = (Attacker)screen.getAttackers().getChildren().get(i);
+    		if(this.rangebox.overlaps(a.hitbox) && this.team != a.getTeam()) {
+    			a.damage(dmg);
+    			if(a.isDead()) {
+    				a.remove();
     			}
     		}
     	}

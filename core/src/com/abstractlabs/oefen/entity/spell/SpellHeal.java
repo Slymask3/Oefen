@@ -1,6 +1,7 @@
 package com.abstractlabs.oefen.entity.spell;
 
 import com.abstractlabs.oefen.Animation;
+import com.abstractlabs.oefen.entity.Attacker;
 import com.abstractlabs.oefen.entity.Spell;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.screen.ScreenGame;
@@ -14,9 +15,10 @@ public class SpellHeal extends Spell {
 	
 	@Override
 	protected void onSpawn() {
-    	for(int i=0; i<screen.getAttackers().size(); i++) {
-    		if(this.rangebox.overlaps(screen.getAttackers().get(i).getHitboxRectangle()) && this.team == screen.getAttackers().get(i).getTeam() && screen.getAttackers().get(i).getHealth() < screen.getAttackers().get(i).getMaxHealth()) {
-    			screen.getAttackers().get(i).heal(dmg);
+    	for(int i=0; i<screen.getAttackers().getChildren().size; i++) {
+    		Attacker a = (Attacker)screen.getAttackers().getChildren().get(i);
+    		if(this.rangebox.overlaps(a.getHitboxRectangle()) && this.team == a.getTeam() && a.getHealth() < a.getMaxHealth()) {
+    			a.heal(dmg);
     			//System.out.println("[onSpawn-Tower] heal=="+this.dmg);
     		}
     	}

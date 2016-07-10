@@ -58,10 +58,10 @@ public class TowerMain extends Tower {
         font.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
-            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+            Range.drawRectangle(batch, screen.getOefen().sr, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
         }
 		if(Settings.showHitbox) {
-	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+	        Range.drawRectangle(batch, screen.getOefen().sr, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
 		//font.draw(batch, this.getZIndex()+"", x+16, y+16);
     }

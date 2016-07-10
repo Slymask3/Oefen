@@ -1,8 +1,9 @@
-package com.abstractlabs.oefen;
+package com.abstractlabs.oefen.card;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.abstractlabs.oefen.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Cards {

@@ -29,11 +29,18 @@ public class Font {
 	public static BitmapFont create(FileHandle fh, float dp, float bw, float r, float g, float b, float a) {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fh);
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
-		parameter.size = (int)(dp * Gdx.graphics.getDensity());
+//		double ratio = (double)Gdx.graphics.getHeight()/Gdx.graphics.getWidth();
+//		double density = (double)Gdx.graphics.getDensity()*dp;
+//		parameter.size = (int) (density*ratio);
+//		System.out.println("dp="+dp+" | ratio="+ratio+" | size="+parameter.size+" | density="+Gdx.graphics.getDensity()+" | d/dp="+density);
+//		parameter.size = (int)(dp * Gdx.graphics.getDensity());
+//		parameter.size = (int) density;
+		parameter.size = (int) (dp*0.6);
 		parameter.borderColor = new Color(r,g,b,a);
 		parameter.borderWidth = bw;
 		BitmapFont font = generator.generateFont(parameter);
 		generator.dispose();
+//		font.getData().setScale(Gdx.graphics.getDensity());
 		return font;
 	}
 }

@@ -4,32 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
-import com.abstractlabs.oefen.Deck;
 import com.abstractlabs.oefen.Font;
-import com.abstractlabs.oefen.ImprovedButton.ImprovedButtonStyle;
-import com.abstractlabs.oefen.Map;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Settings;
-import com.abstractlabs.oefen.Tile;
+import com.abstractlabs.oefen.User;
 import com.abstractlabs.oefen.card.Card;
 import com.abstractlabs.oefen.card.CardAttacker;
 import com.abstractlabs.oefen.card.CardSpell;
 import com.abstractlabs.oefen.card.CardTower;
+import com.abstractlabs.oefen.card.Cards;
+import com.abstractlabs.oefen.card.Deck;
 import com.abstractlabs.oefen.entity.Attacker;
 import com.abstractlabs.oefen.entity.Spell;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.entity.other.CardInfo;
 import com.abstractlabs.oefen.entity.tower.TowerMain;
+import com.abstractlabs.oefen.gui.ImprovedButton.ImprovedButtonStyle;
+import com.abstractlabs.oefen.map.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -51,9 +49,10 @@ public class ScreenGame extends ScreenAdapter {
 	Stage stage;
 	Viewport vp;
 	Random rand;
-	List<Attacker> attackers = new ArrayList<Attacker>();
+//	List<Attacker> attackers = new ArrayList<Attacker>();
 	//List<Tower> towers = new ArrayList<Tower>();
 	
+	Group attackers = new Group();
 	Group towers = new Group();
 	
 //	List<Group> subtowers = new ArrayList<Group>();
@@ -71,11 +70,17 @@ public class ScreenGame extends ScreenAdapter {
 	GlyphLayout layout;
 	BitmapFont font;
 	
-	public ScreenGame (Oefen game) {
+	User blue, red;
+	
+	public ScreenGame (Oefen game, User blue, User red) {
 		this.game = game;
-
+		this.blue = blue;
+		this.red = red;
+		
+//		System.out.println(DB.getName(game.db));
+		
 		guiCam = new OrthographicCamera(Oefen.WIDTH, Oefen.HEIGHT);
-		guiCam.position.set(Oefen.WIDTH / 2, Oefen.HEIGHT / 2, 0);
+		guiCam.position.set(Oefen.WIDTH/2, Oefen.HEIGHT/2, 0);
 		
 		vp = new FitViewport(Oefen.WIDTH, Oefen.HEIGHT);
 		stage = new Stage(vp);
@@ -106,7 +111,7 @@ public class ScreenGame extends ScreenAdapter {
         subtowers[16-map.getRedStart()].addActor(towerRed);
         //towers.add(towerRed);
         
-        List<Card> cards = new ArrayList<Card>();
+//        List<Card> cards = new ArrayList<Card>();
 
 //        cards.add(new CardAttacker(this, Cards.goblin, Assets.clickSound, "Blue")); //1
 //        cards.add(new CardAttacker(this, Assets.cardGoblin, Assets.clickSound, 500, "Red", Attacker.GOBLIN, 1f, 30, 7, 16, 100)); //2
@@ -140,15 +145,30 @@ public class ScreenGame extends ScreenAdapter {
 //        cards.add(new CardTower(this, Assets.wtfisthis, Assets.clickSound, 6, "Red", Tower.WTFISTHIS, 100, 8, 48, 50)); //30
         
         //random deck boii
-        for(int i=0; i<30; i++) {
-        	int r = rand.nextInt(Cards.all.size());
+//        for(int i=0; i<30; i++) {
+//        	int r = rand.nextInt(Cards.all.size());
+//        	String team = rand.nextInt(2)==0?"Blue":"Red";
+//        	if(Cards.all.get(r).getType() == "Attacker") {
+//                cards.add(new CardAttacker(this, Cards.all.get(r), Assets.clickSound, team));
+//        	} else if(Cards.all.get(r).getType() == "Tower") {
+//                cards.add(new CardTower(this, Cards.all.get(r), Assets.clickSound, team));
+//        	} else if(Cards.all.get(r).getType() == "Spell") {
+//                cards.add(new CardSpell(this, Cards.all.get(r), Assets.clickSound, team));
+//        	}
+//        }
+//        
+//        deck = new Deck(cards);
+        
+        List<Card> cards = new ArrayList<Card>();
+        for(int i=0; i<blue.getCards().length; i++) {
+        	//int r = rand.nextInt(Cards.all.size());
         	String team = rand.nextInt(2)==0?"Blue":"Red";
-        	if(Cards.all.get(r).getType() == "Attacker") {
-                cards.add(new CardAttacker(this, Cards.all.get(r), Assets.clickSound, team));
-        	} else if(Cards.all.get(r).getType() == "Tower") {
-                cards.add(new CardTower(this, Cards.all.get(r), Assets.clickSound, team));
-        	} else if(Cards.all.get(r).getType() == "Spell") {
-                cards.add(new CardSpell(this, Cards.all.get(r), Assets.clickSound, team));
+        	if(Cards.all.get(blue.getCards()[i]).getType() == "Attacker") {
+                cards.add(new CardAttacker(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
+        	} else if(Cards.all.get(blue.getCards()[i]).getType() == "Tower") {
+                cards.add(new CardTower(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
+        	} else if(Cards.all.get(blue.getCards()[i]).getType() == "Spell") {
+                cards.add(new CardSpell(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
         	}
         }
         
@@ -180,8 +200,8 @@ public class ScreenGame extends ScreenAdapter {
         				CardAttacker cardAttacker = (CardAttacker)card;
         				Attacker attacker = cardAttacker.createAttacker();
         				attacker.setWalking(true);
-        				stage.addActor(attacker);
-        				attackers.add(attacker);
+        				attackers.addActor(attacker);
+        				//attackers.add(attacker);
         			} else if(card.getClass() == CardTower.class) { //Tower
         				CardTower cardTower = (CardTower)card;
         				if(!cardTower.isSelected()) {
@@ -290,19 +310,15 @@ public class ScreenGame extends ScreenAdapter {
         this.stage.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				System.out.println(actor+" has been changed");
+//				System.out.println(actor+" has been changed");
 			}
         });
-        
-//        for(int i=0; i<610; i++) {
-////        	towers.addActor(new TowerEmpty(this));
-//        	towers.addActor(new TowerMain(this, "Blue", -100, -100));
-//        }
         	
         for(int i=0; i<subtowers.length; i++) {
         	towers.addActor(subtowers[i]);
         }
-        
+
+        stage.addActor(attackers);
         stage.addActor(towers);
 	}
 
@@ -315,93 +331,28 @@ public class ScreenGame extends ScreenAdapter {
 		
 		guiCam.update();
 		game.batch.setProjectionMatrix(guiCam.combined);
+		game.sr.setProjectionMatrix(guiCam.combined);
 
 		game.batch.disableBlending();
 		game.batch.begin();
 		game.batch.draw(Assets.backgroundIngameRegion, 0, 0, Oefen.WIDTH, Oefen.HEIGHT);
 		
-		for(int i=0; i<map.getTiles().length; i++) {
-	    	for(int k=0; k<map.getTiles()[i].length; k++) {
-	    		TextureRegion texture = null;
-	    		boolean xflip = false, yflip = false;
-	    		if(map.getTiles()[i][k] == Tile.GRASS) { texture = Assets.grassTile; xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.PATH_HORIZONTAL) { texture = Assets.dirtTile; xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.PATH_BOTTOM_RIGHT) { texture = Assets.dirtCornerTile; xflip = true; yflip = true; } 
-	    		else if(map.getTiles()[i][k] == Tile.PATH_TOP_LEFT) { texture = Assets.dirtCornerTile; xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.PATH_TOP_RIGHT) { texture = Assets.dirtCornerTile; xflip = true; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.PATH_BOTTOM_LEFT) { texture = Assets.dirtCornerTile; xflip = false; yflip = true; }
-	    		else if(map.getTiles()[i][k] == Tile.BRIDGE) { texture = Assets.bridgeTile.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.WATER) { texture = Assets.water.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.WATER_LEFT) { texture = Assets.waterLeft.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.WATER_RIGHT) { texture = Assets.waterLeft.getKeyFrame(stateTime, Animation.LOOPING); xflip = true; yflip = false; } 
-	    		else if(map.getTiles()[i][k] == Tile.BRIDGE2) { texture = Assets.bridge2Tile.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_BLUE) { texture = Assets.gemBlue; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_GREEN) { texture = Assets.gemGreen; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_GRAY) { texture = Assets.gemGray; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_PURPLE) { texture = Assets.gemPurple; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_RED) { texture = Assets.gemRed; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GEM_ORANGE) { texture = Assets.gemOrange; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.GRASS_FLOWER) { texture = Assets.grassFlowerTile; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.PATH_VERTICAL) { texture = Assets.dirt2Tile; xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.STONE) { texture = Assets.waterStone.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.WATER_BOTTOM) { texture = Assets.waterBottom.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.WATER_TOPLEFT_CORNER) { texture = Assets.waterTopLeftCorner.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
-	    		else if(map.getTiles()[i][k] == Tile.WATER_TOPRIGHT_CORNER) { texture = Assets.waterTopRightCorner.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
-//	    		else if(map[i][k] == 11) { 
-//	    			Random rand = new Random();
-//	    			int n = rand.nextInt(5);
-//	    			if(n == 0) { texture = Assets.gemBlue; } 
-//	    			else if(n == 1) { texture = Assets.gemGreen; }
-//	    			else if(n == 2) { texture = Assets.gemGray; }
-//	    			else if(n == 3) { texture = Assets.gemPurple; }
-//	    			else if(n == 4) { texture = Assets.gemRed; }
-//	    			else if(n == 5) { texture = Assets.gemOrange; }
-//	    			xflip = false; yflip = false;
-//	    		} 
-	    		texture.flip(xflip, yflip);
-	    		game.batch.draw(texture, 64+k*32, (480+184)-(i*32)-32+2+13, 32, 32);
-//	    		game.batch.draw(texture, 24+k*48, (480+104)-(i*48)-48+2, 48, 48);
-	    		texture.flip(xflip, yflip);
-		    }
-	    }
-		game.batch.end();
-
-		game.batch.enableBlending();
-		game.batch.begin();
-		for(int i=0; i<map.getTiles().length; i++) {
-	    	for(int k=0; k<map.getTiles()[i].length; k++) {
-	    		TextureRegion texture = null;
-	    		boolean xflip = false, yflip = false;
-	    		if(map.getOverlay()[i][k] == Tile.NULL) { texture = Assets.blank; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.STONE) { texture = Assets.stone; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_HORIZONTAL) { texture = Assets.bridgeStoneHorizontal; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_VERTICAL) { texture = Assets.bridgeStoneVertical; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_BOTTOM_RIGHT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_TOP_LEFT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = false; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_TOP_RIGHT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = true; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.BRIDGE_STONE_BOTTOM_LEFT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = true; yflip = false; } 
-	    		else if(map.getOverlay()[i][k] == Tile.GRASS_FLOWER) { texture = Assets.grassFlowerTile; xflip = false; yflip = false; }
-	    		
-	    		texture.flip(xflip, yflip);
-	    		game.batch.draw(texture, 64+k*32, (480+184)-(i*32)-32+2+13, 32, 32);
-	    		texture.flip(xflip, yflip);
-		    }
-	    }
+		map.draw(game.batch, stateTime, 64, 647);
 
 		font.setColor(0, 1, 0.3f, 1);
-		layout.setText(font, "Slymask3");
+		layout.setText(font, blue.getUsername());
 		font.draw(game.batch, layout, 5, Oefen.HEIGHT-5);
 
 		font.setColor(0.7f, 0.7f, 0.7f, 1);
-		layout.setText(font, "1020 LP");
+		layout.setText(font, blue.getElo()+" OP");
 		font.draw(game.batch, layout, 5, Oefen.HEIGHT-10-layout.height);
 		
 		font.setColor(1, 0, 0.3f, 1);
-		layout.setText(font, "HotMixtape");
+		layout.setText(font, red.getUsername());
 		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-5);
 
 		font.setColor(0.7f, 0.7f, 0.7f, 1);
-		layout.setText(font, "1060 LP");
+		layout.setText(font, red.getElo()+" OP");
 		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-10-layout.height);
 		
 		game.batch.end();
@@ -411,140 +362,8 @@ public class ScreenGame extends ScreenAdapter {
 	}
 	
 	public void update() {
-//		for(int i=0; i<stage.getActors().size; i++) {
-//			if(stage.getActors().get(i) instanceof Tower) {
-//				Tower t = (Tower) stage.getActors().get(i);
-//				//t.setZIndex(t.getMapY()+(17*t.getMapX()));
-//				
-//				if(t.getMapY()+(17*t.getMapX()) > stage.getActors().size) {
-//					t.setZIndex(stage.getActors().size+1);
-//				} else {
-//					t.setZIndex(stage.getActors().size-1);
-//				}
-//			} else {
-//				stage.getActors().get(i).setZIndex(i);
-//			}
-//		}
 		
-		//Collections.sort(Arrays.asList(stage.getActors().toArray()), new ActorComparator());
-		
-//		Collections.sort(Arrays.asList(towers.getChildren().toArray()), new ActorComparator());
-//		
-//		for(int i=0; i<towers.getChildren().size; i++) {
-//			Tower t = (Tower) towers.getChildren().get(i);
-////			Tower tl = (Tower) towers.getChildren().get(towers.getChildren().size-1);
-////			if(t.getZOrder() > tl.getZOrder()) {
-////				t.setZIndex(towers.getChildren().size-1);
-////			} else if(t.getZOrder() == tl.getZOrder()) {
-////				//.setZIndex(i);
-////			} else {
-////				t.setZIndexBy(0);
-////			}
-//			t.setZIndex(t.getZOrder());
-//		}
-		
-		//System.out.println(towers);
-		
-//		for(int i=0; i<subtowers.length; i++) {
-//			for(int j=0; j<subtowers[i].getChildren().size; j++) {
-//				subtowers[i].setZIndex(((Tower)subtowers[i].getChildren().get(j)).getMapY());
-//			}
-//		}
-		
-		//checkForCollision();
 	}
-	
-//	private void checkForCollision() {
-//		//loop through attackers and towers, and check if one's rangebox collides with one's hitbox. if so, then attack
-//		for (int i = attackers.size() - 1; i >= 0; i--) {
-//		    Attacker attacker = attackers.get(i); //main attacker.
-//		    for (int j = attackers.size() - 1; j >= 0; j--) { //loop through attackers whom we check for hitboxes.
-//		    	Attacker defender = attackers.get(j);
-//		        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
-//		        	attacker.setTarget(defender);
-//		        	attacker.setWalking(false);
-//		        	attacker.setAttacking(true);
-//		        	
-//		        	if(attacker.isDead()) {
-//		        		Death death = attacker.getDeath();
-//		        		stage.addActor(death);
-//		        		attackers.remove(i);
-//		        		attacker.remove();
-//		        		attacker = null;
-//		        	}
-//		        	if(defender.isDead()) {
-//		        		Death death = defender.getDeath();
-//		        		stage.addActor(death);
-//		        		attackers.remove(j);
-//		        		defender.remove();
-//		        		defender = null;
-//		        	}
-//		        }
-//		    }
-//		    for (int j=0; j<subtowers.length; j++) { //loop though all rows. (17 rows)
-//		    	if(subtowers[j].getChildren().size > 0) {
-//			    	for(int l=0; l<subtowers[j].getChildren().size; l++) { //loop through all towers inside each row
-//			    		Tower defender = (Tower)subtowers[j].getChildren().get(l);
-//				        if(attacker != null && defender != null && attacker.getTeam() != defender.getTeam() && attacker.getRangeRectangle().overlaps(defender.getHitboxRectangle())) {
-//				        	attacker.setTarget(defender);
-//				        	attacker.setWalking(false);
-//				        	attacker.setAttacking(true);
-//				        	
-//				        	if(attacker.isDead()) {
-//				        		Death death = attacker.getDeath();
-//				        		stage.addActor(death);
-//				        		attackers.remove(i);
-//				        		attacker.remove();
-//				        		attacker = null;
-//				        	}
-//				        	if(defender.isDead()) {
-//				        		map.getTowers()[defender.getMapY()][defender.getMapX()] = defender.getTeam()=="Blue"?0:9;
-//				        		Death death = defender.getDeath();
-//				        		stage.addActor(death);
-//				        		//towers.remove(j);
-//				        		defender.remove();
-//				        		defender = null;
-//				        	}
-//				        }
-//			    	}
-//		    	}
-//		    }
-//		}
-//		
-//		//loop through all towers, and set the tower's target to the attacker that collides with it's range.
-//		for (int i=0; i<subtowers.length; i++) { //loop though all rows. (17 rows)
-//	    	if(subtowers[i].getChildren().size > 0) {
-//		    	for(int l=0; l<subtowers[i].getChildren().size; l++) { //loop through all towers inside each row
-//			    	Tower tower = (Tower)subtowers[i].getChildren().get(l);
-//				    for (int j=0; j<attackers.size(); j++) {
-//					    Attacker attacker = attackers.get(j);
-//					    if(attacker != null && tower != null && attacker.getTeam() != tower.getTeam() && tower.getRangeRectangle().overlaps(attacker.getHitboxRectangle())) {
-//					    	tower.setTarget(attacker);
-//					    	tower.setAttacking(true);
-//				        	
-//				        	if(tower.isDead()) {
-//				        		map.getTowers()[tower.getMapY()][tower.getMapX()] = tower.getTeam()=="Blue"?0:9;
-//				        		Death death = tower.getDeath();
-//				        		stage.addActor(death);
-//				        		//towers.remove(i);
-//				        		tower.remove();
-//				        		tower = null;
-//				        	}
-//					    	if(attacker.isDead()) {
-//				        		Death death = attacker.getDeath();
-//				        		stage.addActor(death);
-//				        		attackers.remove(j);
-//				        		attacker.remove();
-//				        		attacker = null;
-//				        	}
-//					    } else {
-//					    	tower.setTarget(null);
-//					    }
-//				    }
-//		    	}
-//	    	}
-//		}
-//	}
 
 	@Override
 	public void render(float delta) {
@@ -566,13 +385,9 @@ public class ScreenGame extends ScreenAdapter {
 		return this.map;
 	}
 	
-	public List<Attacker> getAttackers() {
+	public Group getAttackers() {
 		return this.attackers;
 	}
-	
-//	public List<Tower> getTowers() {
-//		return this.towers;
-//	}
 	
 	public Group getTowers() {
 		return this.towers;

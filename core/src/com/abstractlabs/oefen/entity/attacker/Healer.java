@@ -51,8 +51,8 @@ public class Healer extends AttackerSpell {
 	@Override
     public void findTarget() {
     	if(target == null) {
-	    	for(int i=0; i<screen.getAttackers().size(); i++) {
-	    		Attacker a = screen.getAttackers().get(i);
+	    	for(int i=0; i<screen.getAttackers().getChildren().size; i++) {
+	    		Attacker a = (Attacker)screen.getAttackers().getChildren().get(i);
 	    		if(this.team == a.getTeam() && this.rangebox.overlaps(a.getHitboxRectangle()) && a.getHealth() < a.getMaxHealth()) {
 	    			this.target = a;
         			this.attacking = true;

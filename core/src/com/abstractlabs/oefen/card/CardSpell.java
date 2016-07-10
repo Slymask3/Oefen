@@ -1,7 +1,6 @@
 package com.abstractlabs.oefen.card;
 
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.entity.Spell;
@@ -17,6 +16,10 @@ public class CardSpell extends Card {
 	 public CardSpell(ScreenGame screen, Cards card, Sound sound, String team) {
 		super(screen, Card.SPELL, card, sound, team);
 		this.selected = false;
+	}
+		
+	public CardSpell(Cards card, Sound sound, String team) {
+		this(null, card, sound, team);
 	}
 
 	public Spell createSpell() {
@@ -36,7 +39,7 @@ public class CardSpell extends Card {
 					batch.setColor(1, 1, 1, 1);
 					
 					if(Gdx.input.getX() >= 64+k*32 && Gdx.input.getX() < 64+k*32+32 && Oefen.HEIGHT-Gdx.input.getY() >= (480+184)-(i*32)-32+2+13 && Oefen.HEIGHT-Gdx.input.getY() < (480+184)-(i*32)-32+2+13+32) {
-						Range.drawCircle(batch, 64+k*32+16, (480+184)-(i*32)-32+2+13+16, range, 1, 0, 0);
+						Range.drawCircle(batch, screen.getOefen().sr, 64+k*32+16, (480+184)-(i*32)-32+2+13+16, range, 1, 0, 0);
 						batch.setColor(1, 1, 1, 0.5f);
 						batch.draw(front, 64+k*32, (480+184)-(i*32)-32+2+13, 32, 32);
 						batch.setColor(1, 1, 1, 1);

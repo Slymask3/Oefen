@@ -1,9 +1,8 @@
 package com.abstractlabs.oefen.card;
 
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Font;
-import com.abstractlabs.oefen.ImprovedButton;
+import com.abstractlabs.oefen.gui.ImprovedButton;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -50,6 +49,10 @@ public abstract class Card extends ImprovedButton {
 		this.dmg = card.getDamage();
 		this.range = card.getRange();
 		this.attackspeed = card.getAttackSpeed();
+	}
+	
+	public Card(String type, Cards card, Sound sound, String team) {
+		this(null, type, card, sound, team);
 	}
 	
 	public Cards getCardsObj() {

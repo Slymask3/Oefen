@@ -2,10 +2,10 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
+import com.abstractlabs.oefen.card.Cards;
 import com.abstractlabs.oefen.entity.other.Projectile;
 import com.abstractlabs.oefen.entity.other.TempText;
 import com.abstractlabs.oefen.entity.tower.BuddhaGold;
@@ -72,10 +72,10 @@ public class Tower extends Entity {
         batch.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
-            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+            Range.drawRectangle(batch, screen.getOefen().sr, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
         }
 		if(Settings.showHitbox) {
-			Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+			Range.drawRectangle(batch, screen.getOefen().sr, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
 		
 		//font.draw(batch, this.getZIndex()+"", x+16, y+16);
@@ -167,8 +167,8 @@ public class Tower extends Entity {
 	@Override
     public void findTarget() {
     	if(target == null) {
-	    	for(int i=0; i<screen.getAttackers().size(); i++) {
-	    		Attacker a = screen.getAttackers().get(i);
+	    	for(int i=0; i<screen.getAttackers().getChildren().size; i++) {
+	    		Attacker a = (Attacker)screen.getAttackers().getChildren().get(i);
 	    		if(this.team != a.getTeam() && this.rangebox.overlaps(a.getHitboxRectangle())) {
 	    			this.target = a;
         			this.attacking = true;

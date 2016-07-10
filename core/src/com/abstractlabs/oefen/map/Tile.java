@@ -1,5 +1,4 @@
-
-package com.abstractlabs.oefen;
+package com.abstractlabs.oefen.map;
 
 public class Tile {
 	public static int NULL = -1;
@@ -35,4 +34,16 @@ public class Tile {
 	public static int BRIDGE_STONE_TOP_LEFT = 3;
 	public static int BRIDGE_STONE_TOP_RIGHT = 4;
 	public static int BRIDGE_STONE_BOTTOM_LEFT = 5;
+
+	public static int TOWER_BLUE_ALLOWED = 0;
+	public static int TOWER_BLUE_TAKEN = 1;
+	public static int TOWER_NOTALLOWED = 2;
+	public static int TOWER_RED_ALLOWED = 9;
+	public static int TOWER_RED_TAKEN = 8;
+
+	public static int PATH_GO = 1;
+//	public static int PATH_TURN_UP = 2;
+//	public static int PATH_TURN_RIGHT = 3;
+//	public static int PATH_TURN_DOWN = 4;
+//	public static int PATH_TURN_RIGHT2 = 1;
 }

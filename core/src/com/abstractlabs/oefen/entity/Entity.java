@@ -2,8 +2,8 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Map;
 import com.abstractlabs.oefen.entity.other.Death;
+import com.abstractlabs.oefen.map.Map;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

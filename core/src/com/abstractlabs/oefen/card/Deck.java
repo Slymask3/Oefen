@@ -1,8 +1,6 @@
-package com.abstractlabs.oefen;
+package com.abstractlabs.oefen.card;
 
 import java.util.List;
-
-import com.abstractlabs.oefen.card.Card;
 
 public class Deck {
 	private List<Card> cards;

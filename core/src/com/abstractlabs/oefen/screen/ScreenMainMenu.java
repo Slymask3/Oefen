@@ -4,6 +4,7 @@ import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Settings;
+import com.abstractlabs.oefen.User;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,15 +17,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class ScreenMainMenu extends ScreenAdapter {
 	public Oefen game;
 	OrthographicCamera guiCam;
-	//Rectangle playBounds;
-	//Vector3 touchPoint;
-	//Button play;
-	
+	float stateTime;
 	Stage stage;
+	Viewport vp;
     TextButton button;
     TextButtonStyle textButtonStyle;
     //BitmapFont font;
@@ -35,7 +36,12 @@ public class ScreenMainMenu extends ScreenAdapter {
 		this.game = oefen;
 
 		guiCam = new OrthographicCamera(Oefen.WIDTH, Oefen.HEIGHT);
-		guiCam.position.set(Oefen.WIDTH / 2, Oefen.HEIGHT / 2, 0);
+		guiCam.position.set(Oefen.WIDTH/2, Oefen.HEIGHT/2, 0);
+		
+		vp = new FitViewport(Oefen.WIDTH, Oefen.HEIGHT);
+		stage = new Stage(vp);
+//        Gdx.input.setInputProcessor(stage);
+        
 		//playBounds = new Rectangle(50, 640-250, 200, 53);
 		//touchPoint = new Vector3();
 		//play = new Button();
@@ -49,7 +55,7 @@ public class ScreenMainMenu extends ScreenAdapter {
 		
 		//BitmapFont font2 = Font.createFont(Gdx.files.internal("gfx/sufrimeda.ttf"), 30);
 		
-		stage = new Stage();
+//		stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         //font = new BitmapFont(Gdx.files.internal("gfx/oefenfont2.fnt"));
         //font.getData().setScale(0.9f, 0.9f);
@@ -69,7 +75,10 @@ public class ScreenMainMenu extends ScreenAdapter {
             @Override
             public void clicked(InputEvent e, float x, float y) {
 				Assets.playSound(Assets.clickSound);
-				game.setScreen(new ScreenGame(game));
+//				game.setScreen(new ScreenGame(game, DB.getUser(game.db, "Slymask3"), DB.getUser(game.db, "HotMixtape")));
+				User sly = new User("Sly", 100, 100, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1,1,2,2,3,3,4,4,5,5,6,6});
+				User mix = new User("Mix", 100, 200, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1,1,2,2,3,3,4,4,5,5,6,6});
+				game.setScreen(new ScreenGame(game, sly, mix));
             }
         } );
 

@@ -2,9 +2,9 @@ package com.abstractlabs.oefen.entity;
 
 import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
-import com.abstractlabs.oefen.Cards;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
+import com.abstractlabs.oefen.card.Cards;
 import com.abstractlabs.oefen.entity.attacker.Crystal;
 import com.abstractlabs.oefen.entity.attacker.Healer;
 import com.abstractlabs.oefen.entity.other.Projectile;
@@ -90,10 +90,10 @@ public class Attacker extends Entity {
         batch.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
-            Range.drawRectangle(batch, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
+            Range.drawRectangle(batch, screen.getOefen().sr, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);
         }
 		if(Settings.showHitbox) {
-	        Range.drawRectangle(batch, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
+	        Range.drawRectangle(batch, screen.getOefen().sr, hitbox.x, hitbox.y, hitbox.width, hitbox.height, 0, 0, 1);
 		}
     }
     
@@ -269,8 +269,8 @@ public class Attacker extends Entity {
     @Override
     public void findTarget() {
     	if(target == null) {
-	    	for(int i=0; i<screen.getAttackers().size(); i++) {
-	    		Attacker a = screen.getAttackers().get(i);
+	    	for(int i=0; i<screen.getAttackers().getChildren().size; i++) {
+	    		Attacker a = (Attacker)screen.getAttackers().getChildren().get(i);
 	    		if(this.team != a.getTeam() && this.rangebox.overlaps(a.getHitboxRectangle())) {
 	    			this.target = a;
         			this.attacking = true;

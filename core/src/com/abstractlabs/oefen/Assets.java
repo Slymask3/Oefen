@@ -55,6 +55,21 @@ public class Assets {
 	public static Animation waterTopRightCorner;
 	public static Animation waterBottomLeftCorner;
 	public static Animation waterBottomRightCorner;
+	public static TextureRegion snowTile;
+	public static TextureRegion sandTile;
+	public static TextureRegion deadTree;
+	public static TextureRegion pathHorizontal;
+	public static TextureRegion pathVertical;
+	public static TextureRegion pathCorner;
+	public static TextureRegion sand2Tile;
+	public static TextureRegion roadHorizontal;
+	public static TextureRegion roadVertical;
+	public static TextureRegion roadCorner;
+	public static TextureRegion grass16;
+	public static TextureRegion flower16;
+	public static TextureRegion path16Horizontal;
+	public static TextureRegion path16Vertical;
+	public static TextureRegion path16Corner;
 
 	public static Texture towers;
 	public static TextureRegion mainTower;
@@ -336,6 +351,21 @@ public class Assets {
 		waterBottomRightCorner = new Animation(0.5f, 
 				new TextureRegion(tiles, 13*32, 5*32, 32, 32), 
 				new TextureRegion(tiles, 15*32, 5*32, 32, 32));
+		snowTile = new TextureRegion(tiles, 9*32, 1*32, 32, 32);
+		sandTile = new TextureRegion(tiles, 9*32, 2*32, 32, 32);
+		sand2Tile = new TextureRegion(tiles, 9*32, 3*32, 32, 32);
+		deadTree = new TextureRegion(tiles, 11*32, 4*32, 32, 32);
+		pathCorner = new TextureRegion(tiles, 6*32, 2*32, 32, 32);
+		pathHorizontal = new TextureRegion(tiles, 7*32, 2*32, 32, 32);
+		pathVertical = new TextureRegion(tiles, 8*32, 2*32, 32, 32);
+		roadCorner = new TextureRegion(tiles, 6*32, 3*32, 32, 32);
+		roadHorizontal = new TextureRegion(tiles, 7*32, 3*32, 32, 32);
+		roadVertical = new TextureRegion(tiles, 8*32, 3*32, 32, 32);
+		grass16 = new TextureRegion(tiles, 5*32, 0*32, 32, 32);
+		flower16 = new TextureRegion(tiles, 7*32, 0*32, 32, 32);
+		path16Corner = new TextureRegion(tiles, 6*32, 0*32, 32, 32);
+		path16Horizontal = new TextureRegion(tiles, 2*32, 0*32, 32, 32);
+		path16Vertical = new TextureRegion(tiles, 8*32, 0*32, 32, 32);
 		
 		//Towers
 		towers = loadTexture("gfx/towers.png");

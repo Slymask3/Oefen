@@ -1,4 +1,4 @@
-package com.abstractlabs.oefen;
+package com.abstractlabs.oefen.gui;
 
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Batch;
