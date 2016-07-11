@@ -17,31 +17,27 @@ public class Assets {
 	public static TextureRegion playClick;
 
 	public static Texture tiles;
-	public static TextureRegion voidTile;
-	public static TextureRegion grassTile;
-	public static TextureRegion dirtTile;
-	public static TextureRegion dirt2Tile;
-	public static TextureRegion dirtCornerTile;
-	public static Animation waterTile;
-	public static Animation waterCornerTile;
-	public static Animation bridgeTile;
-	public static Animation bridge2Tile;
-	public static Animation waterSideTile;
+	public static TextureRegion blank;
 	public static TextureRegion hoverTile;
+	public static TextureRegion grass;
+	public static TextureRegion flower;
+	public static TextureRegion dirtHorizontal;
+	public static TextureRegion dirtVertical;
+	public static TextureRegion dirtCorner;
 	public static TextureRegion gemBlue;
 	public static TextureRegion gemGreen;
 	public static TextureRegion gemGray;
 	public static TextureRegion gemPurple;
 	public static TextureRegion gemRed;
 	public static TextureRegion gemOrange;
-	public static TextureRegion grassFlowerTile;
-	public static Animation waterStone;
-	public static TextureRegion stone;
-	public static TextureRegion blank;
 	public static TextureRegion bridgeStoneHorizontal;
 	public static TextureRegion bridgeStoneVertical;
 	public static TextureRegion bridgeStoneCornerBottomRight;
 	public static TextureRegion bridgeStoneCornerTopLeft;
+	public static TextureRegion bridgeStone2Horizontal;
+	public static TextureRegion bridgeStone2Vertical;
+	public static TextureRegion bridgeStone2CornerBottomRight;
+	public static TextureRegion bridgeStone2CornerTopLeft;
 	public static Animation water;
 	public static Animation waterLeft;
 	public static Animation waterRight;
@@ -55,13 +51,13 @@ public class Assets {
 	public static Animation waterTopRightCorner;
 	public static Animation waterBottomLeftCorner;
 	public static Animation waterBottomRightCorner;
-	public static TextureRegion snowTile;
-	public static TextureRegion sandTile;
+	public static TextureRegion snow;
+	public static TextureRegion sand;
 	public static TextureRegion deadTree;
 	public static TextureRegion pathHorizontal;
 	public static TextureRegion pathVertical;
 	public static TextureRegion pathCorner;
-	public static TextureRegion sand2Tile;
+	public static TextureRegion sand2;
 	public static TextureRegion roadHorizontal;
 	public static TextureRegion roadVertical;
 	public static TextureRegion roadCorner;
@@ -261,57 +257,31 @@ public class Assets {
 
 		//Tiles
 		tiles = loadTexture("gfx/tiles.png");
-		voidTile = new TextureRegion(tiles, 0*32, 0*32, 32, 32);
-		grassTile = new TextureRegion(tiles, 14*32, 0*32, 32, 32);
-		dirtTile = new TextureRegion(tiles, 2*32, 1*32, 32, 32);
-		dirt2Tile = new TextureRegion(tiles, 8*32, 1*32, 32, 32);
-		dirtCornerTile = new TextureRegion(tiles, 6*32, 1*32, 32, 32);
-		waterTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*32, 9*32, 32, 32), 
-				new TextureRegion(tiles, 1*32, 9*32, 32, 32), 
-				new TextureRegion(tiles, 2*32, 9*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 9*32, 32, 32));
-		waterCornerTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*32, 5*32, 32, 32), 
-				new TextureRegion(tiles, 1*32, 5*32, 32, 32), 
-				new TextureRegion(tiles, 2*32, 5*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 5*32, 32, 32));
-		bridgeTile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*32, 10*32, 32, 32), 
-				new TextureRegion(tiles, 1*32, 10*32, 32, 32), 
-				new TextureRegion(tiles, 2*32, 10*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 10*32, 32, 32));
-		bridge2Tile = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*32, 11*32, 32, 32), 
-				new TextureRegion(tiles, 1*32, 11*32, 32, 32), 
-				new TextureRegion(tiles, 2*32, 11*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 11*32, 32, 32));
-		waterSideTile = new Animation(5.0f, 
-//				new TextureRegion(tiles, 0*32, 8*32, 32, 32), 
-//				new TextureRegion(tiles, 1*32, 8*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 8*32, 32, 32)); 
-//				new TextureRegion(tiles, 3*32, 8*32, 32, 32)); 
-//				new TextureRegion(tiles, 2*32, 8*32, 32, 32));
-//				new TextureRegion(tiles, 1*32, 8*32, 32, 32));
-		hoverTile = new TextureRegion(tiles, 0*32, 15*32, 32, 32);
-		gemBlue   = new TextureRegion(tiles, 0*32, 2*32, 32, 32);
-		gemGreen  = new TextureRegion(tiles, 1*32, 2*32, 32, 32);
-		gemGray   = new TextureRegion(tiles, 2*32, 2*32, 32, 32);
-		gemPurple = new TextureRegion(tiles, 3*32, 2*32, 32, 32);
-		gemRed    = new TextureRegion(tiles, 4*32, 2*32, 32, 32);
-		gemOrange = new TextureRegion(tiles, 5*32, 2*32, 32, 32);
-		grassFlowerTile = new TextureRegion(tiles, 15*32, 0*32, 32, 32);
-		waterStone = new Animation(0.5f, 
-				new TextureRegion(tiles, 0*32, 12*32, 32, 32), 
-				new TextureRegion(tiles, 1*32, 12*32, 32, 32), 
-				new TextureRegion(tiles, 2*32, 12*32, 32, 32), 
-				new TextureRegion(tiles, 3*32, 12*32, 32, 32));
-		stone = new TextureRegion(tiles, 9*32, 0*32, 32, 32);
-		blank = new TextureRegion(tiles, 0*32, 0*32, 32, 32);
-		bridgeStoneHorizontal = new TextureRegion(tiles, 10*32, 0*32, 32, 32);
-		bridgeStoneVertical = new TextureRegion(tiles, 12*32, 0*32, 32, 32);
-		bridgeStoneCornerBottomRight = new TextureRegion(tiles, 11*32, 0*32, 32, 32);
-		bridgeStoneCornerTopLeft = new TextureRegion(tiles, 13*32, 0*32, 32, 32);
+		blank = new TextureRegion(tiles, 0*32, 15*32, 32, 32);
+		grass = new TextureRegion(tiles, 0*32, 0*32, 32, 32);
+		flower = new TextureRegion(tiles, 1*32, 0*32, 32, 32);
+		dirtCorner = new TextureRegion(tiles, 2*32, 0*32, 32, 32);
+		dirtHorizontal = new TextureRegion(tiles, 3*32, 0*32, 32, 32);
+		dirtVertical = new TextureRegion(tiles, 4*32, 0*32, 32, 32);
+		
+		hoverTile = new TextureRegion(tiles, 15*32, 15*32, 32, 32);
+		gemBlue   = new TextureRegion(tiles, 10*32, 0*32, 32, 32);
+		gemGreen  = new TextureRegion(tiles, 11*32, 0*32, 32, 32);
+		gemGray   = new TextureRegion(tiles, 12*32, 0*32, 32, 32);
+		gemPurple = new TextureRegion(tiles, 13*32, 0*32, 32, 32);
+		gemRed    = new TextureRegion(tiles, 14*32, 0*32, 32, 32);
+		gemOrange = new TextureRegion(tiles, 15*32, 0*32, 32, 32);
+		
+		bridgeStoneHorizontal = new TextureRegion(tiles, 5*32, 0*32, 32, 32);
+		bridgeStoneCornerBottomRight = new TextureRegion(tiles, 6*32, 0*32, 32, 32);
+		bridgeStoneVertical = new TextureRegion(tiles, 7*32, 0*32, 32, 32);
+		bridgeStoneCornerTopLeft = new TextureRegion(tiles, 8*32, 0*32, 32, 32);
+		
+		bridgeStone2Horizontal = new TextureRegion(tiles, 5*32, 1*32, 32, 32);
+		bridgeStone2CornerBottomRight = new TextureRegion(tiles, 6*32, 1*32, 32, 32);
+		bridgeStone2Vertical = new TextureRegion(tiles, 7*32, 1*32, 32, 32);
+		bridgeStone2CornerTopLeft = new TextureRegion(tiles, 8*32, 1*32, 32, 32);
+		
 		water = new Animation(0.5f, 
 				new TextureRegion(tiles, 11*32, 2*32, 32, 32), 
 				new TextureRegion(tiles, 14*32, 2*32, 32, 32));
@@ -351,21 +321,22 @@ public class Assets {
 		waterBottomRightCorner = new Animation(0.5f, 
 				new TextureRegion(tiles, 13*32, 5*32, 32, 32), 
 				new TextureRegion(tiles, 15*32, 5*32, 32, 32));
-		snowTile = new TextureRegion(tiles, 9*32, 1*32, 32, 32);
-		sandTile = new TextureRegion(tiles, 9*32, 2*32, 32, 32);
-		sand2Tile = new TextureRegion(tiles, 9*32, 3*32, 32, 32);
-		deadTree = new TextureRegion(tiles, 11*32, 4*32, 32, 32);
-		pathCorner = new TextureRegion(tiles, 6*32, 2*32, 32, 32);
-		pathHorizontal = new TextureRegion(tiles, 7*32, 2*32, 32, 32);
-		pathVertical = new TextureRegion(tiles, 8*32, 2*32, 32, 32);
-		roadCorner = new TextureRegion(tiles, 6*32, 3*32, 32, 32);
-		roadHorizontal = new TextureRegion(tiles, 7*32, 3*32, 32, 32);
-		roadVertical = new TextureRegion(tiles, 8*32, 3*32, 32, 32);
-		grass16 = new TextureRegion(tiles, 5*32, 0*32, 32, 32);
-		flower16 = new TextureRegion(tiles, 7*32, 0*32, 32, 32);
-		path16Corner = new TextureRegion(tiles, 6*32, 0*32, 32, 32);
-		path16Horizontal = new TextureRegion(tiles, 2*32, 0*32, 32, 32);
-		path16Vertical = new TextureRegion(tiles, 8*32, 0*32, 32, 32);
+		
+		snow = new TextureRegion(tiles, 0*32, 4*32, 32, 32);
+		sand = new TextureRegion(tiles, 0*32, 1*32, 32, 32);
+		sand2 = new TextureRegion(tiles, 0*32, 5*32, 32, 32);
+		deadTree = new TextureRegion(tiles, 1*32, 1*32, 32, 32);
+		pathCorner = new TextureRegion(tiles, 2*32, 1*32, 32, 32);
+		pathHorizontal = new TextureRegion(tiles, 3*32, 1*32, 32, 32);
+		pathVertical = new TextureRegion(tiles, 4*32, 1*32, 32, 32);
+		roadCorner = new TextureRegion(tiles, 2*32, 2*32, 32, 32);
+		roadHorizontal = new TextureRegion(tiles, 3*32, 2*32, 32, 32);
+		roadVertical = new TextureRegion(tiles, 4*32, 2*32, 32, 32);
+		grass16 = new TextureRegion(tiles, 0*32, 5*32, 32, 32);
+		flower16 = new TextureRegion(tiles, 1*32, 5*32, 32, 32);
+		path16Corner = new TextureRegion(tiles, 2*32, 3*32, 32, 32);
+		path16Horizontal = new TextureRegion(tiles, 3*32, 3*32, 32, 32);
+		path16Vertical = new TextureRegion(tiles, 4*32, 3*32, 32, 32);
 		
 		//Towers
 		towers = loadTexture("gfx/towers.png");

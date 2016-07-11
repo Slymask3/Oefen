@@ -78,25 +78,21 @@ public class Map {
 	    		TextureRegion texture = null;
 	    		boolean xflip = false, yflip = false;
 	    		if(mapTiles[i][k] == Tile.GRASS) { texture = k<split?blueSkin.getGrass():redSkin.getGrass(); xflip = false; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.PATH_HORIZONTAL) { texture = Assets.dirtTile; xflip = false; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.PATH_BOTTOM_RIGHT) { texture = Assets.dirtCornerTile; xflip = true; yflip = true; } 
-	    		else if(mapTiles[i][k] == Tile.PATH_TOP_LEFT) { texture = Assets.dirtCornerTile; xflip = false; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.PATH_TOP_RIGHT) { texture = Assets.dirtCornerTile; xflip = true; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.PATH_BOTTOM_LEFT) { texture = Assets.dirtCornerTile; xflip = false; yflip = true; }
-	    		else if(mapTiles[i][k] == Tile.BRIDGE) { texture = Assets.bridgeTile.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
+	    		else if(mapTiles[i][k] == Tile.PATH_HORIZONTAL) { texture = Assets.dirtHorizontal; xflip = false; yflip = false; } 
+	    		else if(mapTiles[i][k] == Tile.PATH_BOTTOM_RIGHT) { texture = Assets.dirtCorner; xflip = true; yflip = true; } 
+	    		else if(mapTiles[i][k] == Tile.PATH_TOP_LEFT) { texture = Assets.dirtCorner; xflip = false; yflip = false; } 
+	    		else if(mapTiles[i][k] == Tile.PATH_TOP_RIGHT) { texture = Assets.dirtCorner; xflip = true; yflip = false; } 
+	    		else if(mapTiles[i][k] == Tile.PATH_BOTTOM_LEFT) { texture = Assets.dirtCorner; xflip = false; yflip = true; }
 	    		else if(mapTiles[i][k] == Tile.WATER) { texture = Assets.water.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
 	    		else if(mapTiles[i][k] == Tile.WATER_LEFT) { texture = Assets.waterLeft.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.WATER_RIGHT) { texture = Assets.waterLeft.getKeyFrame(stateTime, Animation.LOOPING); xflip = true; yflip = false; } 
-	    		else if(mapTiles[i][k] == Tile.BRIDGE2) { texture = Assets.bridge2Tile.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
+	    		else if(mapTiles[i][k] == Tile.WATER_RIGHT) { texture = Assets.waterLeft.getKeyFrame(stateTime, Animation.LOOPING); xflip = true; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_BLUE) { texture = Assets.gemBlue; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_GREEN) { texture = Assets.gemGreen; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_GRAY) { texture = Assets.gemGray; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_PURPLE) { texture = Assets.gemPurple; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_RED) { texture = Assets.gemRed; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.GEM_ORANGE) { texture = Assets.gemOrange; xflip = false; yflip = false; }
-	    		else if(mapTiles[i][k] == Tile.GRASS_FLOWER) { texture = Assets.grassFlowerTile; xflip = false; yflip = false; }
-	    		else if(mapTiles[i][k] == Tile.PATH_VERTICAL) { texture = Assets.dirt2Tile; xflip = false; yflip = false; }
-	    		else if(mapTiles[i][k] == Tile.STONE) { texture = Assets.waterStone.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
+	    		else if(mapTiles[i][k] == Tile.PATH_VERTICAL) { texture = Assets.dirtVertical; xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.WATER_BOTTOM) { texture = Assets.waterBottom.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.WATER_TOPLEFT_CORNER) { texture = Assets.waterTopLeftCorner.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
 	    		else if(mapTiles[i][k] == Tile.WATER_TOPRIGHT_CORNER) { texture = Assets.waterTopRightCorner.getKeyFrame(stateTime, Animation.LOOPING); xflip = false; yflip = false; }
@@ -138,14 +134,12 @@ public class Map {
 	    		TextureRegion texture = null;
 	    		boolean xflip = false, yflip = false;
 	    		if(mapOverlay2[i][k] == Tile.NULL) { texture = Assets.blank; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.STONE) { texture = Assets.stone; xflip = false; yflip = false; } 
 	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_HORIZONTAL) { texture = Assets.bridgeStoneHorizontal; xflip = false; yflip = false; } 
 	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_VERTICAL) { texture = Assets.bridgeStoneVertical; xflip = false; yflip = false; } 
 	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_RIGHT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = false; yflip = false; } 
 	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_LEFT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = false; yflip = false; } 
 	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_RIGHT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = true; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_LEFT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = true; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.GRASS_FLOWER) { texture = Assets.grassFlowerTile; xflip = false; yflip = false; }
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_LEFT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = true; yflip = false; }
 	    		
 	    		texture.flip(xflip, yflip);
 	    		batch.draw(texture, x+k*32, y-(i*32), 32, 32);
@@ -423,6 +417,11 @@ public class Map {
 			}
 		}
 
-        return new Map(mapPath, mapTiles, mapOverlay1, mapOverlay2, mapTowers, blueStart, redStart, Skin.city, Skin.x16, waterEnd);
+		System.out.println(Skins.grassAll);
+
+		Skin skinBlue = Skin.getRandomSkin();
+		Skin skinRed = Skin.getRandomSkin();
+		
+        return new Map(mapPath, mapTiles, mapOverlay1, mapOverlay2, mapTowers, blueStart, redStart, skinBlue, skinRed, waterEnd);
 	}
 }

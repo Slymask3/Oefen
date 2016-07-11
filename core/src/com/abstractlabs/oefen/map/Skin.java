@@ -1,5 +1,7 @@
 package com.abstractlabs.oefen.map;
 
+import java.util.Random;
+
 import com.abstractlabs.oefen.Assets;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -56,8 +58,19 @@ public class Skin {
 	
 	///////////////////////////////////////////////////////// STATIC CLASS START //////////////////////////////////////////////////////////////////
 
-	public static Skin classic = new Skin(Assets.grassTile, Assets.grassFlowerTile, Assets.dirtTile, Assets.dirt2Tile, Assets.dirtCornerTile);
-	public static Skin desert = new Skin(Assets.sand2Tile, Assets.deadTree, Assets.pathHorizontal, Assets.pathVertical, Assets.pathCorner);
-	public static Skin city = new Skin(Assets.grassTile, Assets.grassFlowerTile, Assets.roadHorizontal, Assets.roadVertical, Assets.roadCorner);
+	public static Skin classic = new Skin(Assets.grass, Assets.flower, Assets.dirtHorizontal, Assets.dirtVertical, Assets.dirtCorner);
+	public static Skin desert = new Skin(Assets.sand, Assets.deadTree, Assets.pathHorizontal, Assets.pathVertical, Assets.pathCorner);
+	public static Skin city = new Skin(Assets.grass, Assets.flower, Assets.roadHorizontal, Assets.roadVertical, Assets.roadCorner);
 	public static Skin x16 = new Skin(Assets.grass16, Assets.flower16, Assets.path16Horizontal, Assets.path16Vertical, Assets.path16Corner);
+
+	public static Skin getRandomSkin() {
+		Random rand = new Random();
+		Road road = Skins.roadAll.get(rand.nextInt(Skins.roadAll.size()));
+		Skin skin = new Skin(Skins.grassAll.get(rand.nextInt(Skins.grassAll.size())).get(),
+			 			     Skins.flowerAll.get(rand.nextInt(Skins.flowerAll.size())).get(),
+			 			     road.getHorizontal(),
+			 			     road.getVertical(),
+			 			     road.getCorner());
+		return skin;
+	}
 }
