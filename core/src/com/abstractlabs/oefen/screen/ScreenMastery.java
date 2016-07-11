@@ -47,7 +47,7 @@ public class ScreenMastery extends ScreenAdapter {
 		guiCam = new OrthographicCamera(Oefen.WIDTH, Oefen.HEIGHT);
 		guiCam.position.set(Oefen.WIDTH / 2, Oefen.HEIGHT / 2, 0);
 		
-		BitmapFont font2 = Font.createFont(Gdx.files.internal("gfx/sufrimeda.ttf"), 30);
+		BitmapFont font2 = Font.create(Font.sufrimeda, 30);
 
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);

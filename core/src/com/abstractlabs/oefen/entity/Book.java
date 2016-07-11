@@ -22,7 +22,7 @@ public class Book extends Group{
 	@Override
 	public void draw(Batch batch, float alpha) {
 		state += Gdx.graphics.getDeltaTime();
-		batch.draw(bookFrames.getKeyFrame(state, Animation.ANIMATION_LOOPING), x, y);
+		batch.draw(bookFrames.getKeyFrame(state, Animation.LOOPING), x, y);
 	}
 	
 	public void changeAnimation() {
