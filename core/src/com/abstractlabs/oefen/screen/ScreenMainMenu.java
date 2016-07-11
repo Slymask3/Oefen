@@ -27,7 +27,9 @@ public class ScreenMainMenu extends ScreenAdapter {
 	Stage stage;
 	Viewport vp;
     TextButton button;
+
     TextButton buttonM;
+
     TextButtonStyle textButtonStyle;
     //BitmapFont font;
     Skin skin;
@@ -82,7 +84,7 @@ public class ScreenMainMenu extends ScreenAdapter {
 				game.setScreen(new ScreenGame(game, sly, mix));
             }
         } );
-        
+
         buttonM = new TextButton("Mastery"/*+Gdx.graphics.getDensity()*/, textButtonStyle);
         buttonM.addAction(Actions.scaleTo(50, 50, 0.5f));
         buttonM.addListener( new ClickListener() {
@@ -97,6 +99,9 @@ public class ScreenMainMenu extends ScreenAdapter {
 		button.setPosition(50, 640-250);
         
 		stage.addActor(buttonM);
+
+		button.setPosition(50, 640-250);
+        
         stage.addActor(button);
         Gdx.input.setInputProcessor(stage);
 	}

@@ -11,7 +11,7 @@ public class Assets {
 	public static Texture backgroundIngame;
 	public static TextureRegion backgroundIngameRegion;
 	public static Texture backgroundMastery;
-	
+
 	public static Texture buttons;
 	public static TextureRegion play;
 	public static TextureRegion playHover;
@@ -73,6 +73,7 @@ public class Assets {
 	public static TextureRegion wtfisthis;
 	public static TextureRegion budhaGold;
 	public static TextureRegion lazorRed;
+
 	
 	public static Texture book;
 	public static Animation bookStill;
@@ -993,7 +994,6 @@ public class Assets {
 		bookStill = new Animation(0f, 
 				new TextureRegion(book, 0*1000, 0*700, 1000, 700));
 
-		
 		//Other
 		hpbar = new TextureRegion(tiles, 0, 480, 32, 4);
 
