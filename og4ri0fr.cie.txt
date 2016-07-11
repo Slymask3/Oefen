@@ -1,0 +1,59 @@
+﻿Merge remote-tracking branch 'origin/master'
+
+# Conflicts:
+#	core/src/com/abstractlabs/oefen/Assets.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 8 different commits each, respectively.
+#   (use "git pull" to merge the remote branch into yours)
+#
+# All conflicts fixed but you are still merging.
+#
+# Changes to be committed:
+#	modified:   .gitignore
+#	modified:   android/assets/gfx/background_ingame.png
+#	new file:   android/assets/gfx/background_mainmenu.png
+#	new file:   android/assets/gfx/buttons.png
+#	new file:   android/assets/gfx/buttons.txt
+#	new file:   android/assets/gfx/goblin.png
+#	new file:   android/assets/gfx/map.csv
+#	new file:   android/assets/gfx/map.tmx
+#	new file:   android/assets/gfx/myfont.ttf
+#	new file:   android/assets/gfx/myfont2.otf
+#	new file:   android/assets/gfx/oefenfont.fnt
+#	new file:   android/assets/gfx/oefenfont.png
+#	new file:   android/assets/gfx/oefenfont2.fnt
+#	new file:   android/assets/gfx/oefenfont2.png
+#	new file:   android/assets/gfx/sufrimeda.ttf
+#	modified:   android/assets/gfx/tiles.png
+#	modified:   android/assets/gfx/towers.png
+#	copied:     android/assets/gfx/towers.png -> android/assets/gfx/towers64.png
+#	modified:   android/src/com/abstractlabs/oefen/AndroidLauncher.java
+#	modified:   build.gradle
+#	modified:   core/src/com/abstractlabs/oefen/Assets.java
+#	new file:   core/src/com/abstractlabs/oefen/Font.java
+#	modified:   core/src/com/abstractlabs/oefen/Oefen.java
+#	modified:   core/src/com/abstractlabs/oefen/Settings.java
+#	new file:   core/src/com/abstractlabs/oefen/entity/Attacker.java
+#	new file:   core/src/com/abstractlabs/oefen/entity/Book.java
+#	modified:   core/src/com/abstractlabs/oefen/entity/Entity.java
+#	new file:   core/src/com/abstractlabs/oefen/entity/Goblin.java
+#	new file:   core/src/com/abstractlabs/oefen/entity/Skeleton.java
+#	modified:   core/src/com/abstractlabs/oefen/entity/Tower.java
+#	new file:   core/src/com/abstractlabs/oefen/entity/Wtfisthis.java
+#	modified:   core/src/com/abstractlabs/oefen/screen/ScreenGame.java
+#	new file:   core/src/com/abstractlabs/oefen/screen/ScreenMainMenu.java
+#	new file:   core/src/com/abstractlabs/oefen/screen/ScreenMastery.java
+#	modified:   desktop/src/com/abstractlabs/oefen/desktop/DesktopLauncher.java
+#	new file:   yvm4ag10.0xj.txt
+#
+
