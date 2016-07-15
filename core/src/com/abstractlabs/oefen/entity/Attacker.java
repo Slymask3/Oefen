@@ -5,6 +5,7 @@ import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Range;
 import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.card.Cards;
+import com.abstractlabs.oefen.entity.attacker.AttackerLazor;
 import com.abstractlabs.oefen.entity.attacker.Crystal;
 import com.abstractlabs.oefen.entity.attacker.Healer;
 import com.abstractlabs.oefen.entity.other.Projectile;
@@ -196,9 +197,10 @@ public class Attacker extends Entity {
         	
         	tick++;
         	if(tick >= attackspeed && target != null) {
-        		
+    			//System.out.println("attacking... projectile: "+projectile);
         		if(projectile != null) {
         			Projectile arrow = getProjectile();
+        			//System.out.println("added arrow: "+arrow);
             		this.getStage().addActor(arrow);
         		}
         		
@@ -305,6 +307,10 @@ public class Attacker extends Entity {
     	}
     }
     
+    public void setProjectileTexture(TextureRegion texture) {
+    	this.projectile = texture;
+    }
+    
     ///////////////////////////////////////////////////////////// STATIC CLASS START ///////////////////////////////////////////////////////
 
 //    public static String GOBLIN = "Goblin";
@@ -377,7 +383,20 @@ public class Attacker extends Entity {
     		return new Attacker(screen, Assets.impWalkDown, Assets.impWalkUp, Assets.impWalkLeft, Assets.impWalkRight,
   				  Assets.impAttackDown, Assets.impAttackUp, Assets.impAttackLeft, Assets.impAttackRight, 
   				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
-    	} else {
+    	} else if(attacker == Cards.flameSkull) {
+    		return new Attacker(screen, Assets.flameSkullWalkDown, Assets.flameSkullWalkUp, Assets.flameSkullWalkLeft, Assets.flameSkullWalkRight,
+  				  Assets.flameSkullWalkDown, Assets.flameSkullWalkUp, Assets.flameSkullWalkLeft, Assets.flameSkullWalkRight, 
+  				  x, y, attacker.getMoveSpeed(), 32, 32, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+				  Assets.heatOrb, 5, 5);
+    	} else if(attacker == Cards.chest) {
+    		return new Attacker(screen, Assets.chestWalkDown, Assets.chestWalkUp, Assets.chestWalkLeft, Assets.chestWalkRight,
+  				  Assets.chestWalkDown, Assets.chestWalkUp, Assets.chestWalkLeft, Assets.chestWalkRight, 
+  				  x, y, attacker.getMoveSpeed(), 16, 24, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed());
+    	} else if(attacker == Cards.eyeball) {
+    		return new AttackerLazor(screen, Assets.eyeballWalkDown, Assets.eyeballWalkUp, Assets.eyeballWalkLeft, Assets.eyeballWalkRight,
+    				  x, y, attacker.getMoveSpeed(), 16, 16, team, attacker.getHealth(), attacker.getDamage(), attacker.getRange(), attacker.getAttackSpeed(),
+    				  0, 1, 0);
+      	} else {
     		return null;
     	}
     }

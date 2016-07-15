@@ -65,10 +65,10 @@ public class Tower extends Entity {
         batch.setColor(1, 1, 1, 1);
         
         batch.setColor(1, 0, 0, 1);
-        batch.draw(Assets.hpbar, x, y+height);
+        batch.draw(Assets.hpbar, x, y+height-4);
         batch.setColor(0, 1, 0, 1);
         double php = (double)hp/maxhp;
-        batch.draw(Assets.hpbar, x, y+height, Math.round(php*32), 4);
+        batch.draw(Assets.hpbar, x, y+height-4, Math.round(php*32), 4);
         batch.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
@@ -204,6 +204,8 @@ public class Tower extends Entity {
     		return t;
     	} else if(tower == Cards.lazorRed) {
     		return new Tower(screen, Assets.lazorRed, x, y, 32, 64, team, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getAttackSpeed(), Assets.heatOrb, 5, 5);
+    	} else if(tower == Cards.flowerPurple) {
+    		return new Tower(screen, Assets.flowerPurple, x, y, 32, 64, team, tower.getHealth(), tower.getDamage(), tower.getRange(), tower.getAttackSpeed(), Assets.arcaneOrb, 5, 5);
     	} else {
     		return null;
     	}

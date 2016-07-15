@@ -105,7 +105,7 @@ public class DB {
 				cards[i] = Math.toIntExact((Long) cardso[i]);
 			}
 
-			return new User(name, exp, elo, cards);
+			return new User(name, exp, elo, cards, "Blue");
 		} catch (ParseException e) {
 			e.printStackTrace();
 			return null;
@@ -130,7 +130,7 @@ public class DB {
 					}
 					int exp = Math.toIntExact((Long)user.get("exp"));
 					int elo = Math.toIntExact((Long)user.get("elo"));
-					return new User(name, exp, elo, cards);
+					return new User(name, exp, elo, cards, "Blue");
 				}
 			}
 		} catch (ParseException e) {}

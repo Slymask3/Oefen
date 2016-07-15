@@ -3,6 +3,7 @@ package com.abstractlabs.oefen.card;
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Range;
+import com.abstractlabs.oefen.User;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
@@ -15,18 +16,18 @@ public class CardTower extends Card {
 	private boolean selected;
 	private int towerAvailable;
 	
-	public CardTower(ScreenGame screen, Cards card, Sound sound, String team) {
-		super(screen, Card.TOWER, card, sound, team);
+	public CardTower(ScreenGame screen, Cards card, Sound sound, User user) {
+		super(screen, Card.TOWER, card, sound, user);
 		this.selected = false;
-		this.towerAvailable = team=="Blue"?0:9;
+		this.towerAvailable = user.getTeam()=="Blue"?0:9;
 	}
 	
-	public CardTower(Cards card, Sound sound, String team) {
-		this(null, card, sound, team);
+	public CardTower(Cards card, Sound sound, User user) {
+		this(null, card, sound, user);
 	}
 
 	public Tower createTower() {
-		return Tower.createTower(screen, card, towerX, towerY, team);
+		return Tower.createTower(screen, card, towerX, towerY, user.getTeam());
 	}
 	
 	@Override

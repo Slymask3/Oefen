@@ -3,6 +3,7 @@ package com.abstractlabs.oefen.card;
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Range;
+import com.abstractlabs.oefen.User;
 import com.abstractlabs.oefen.entity.Spell;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
@@ -13,17 +14,17 @@ public class CardSpell extends Card {
 	private float spellX, spellY;
 	private boolean selected;
 	
-	 public CardSpell(ScreenGame screen, Cards card, Sound sound, String team) {
-		super(screen, Card.SPELL, card, sound, team);
+	 public CardSpell(ScreenGame screen, Cards card, Sound sound, User user) {
+		super(screen, Card.SPELL, card, sound, user);
 		this.selected = false;
 	}
 		
-	public CardSpell(Cards card, Sound sound, String team) {
-		this(null, card, sound, team);
+	public CardSpell(Cards card, Sound sound, User user) {
+		this(null, card, sound, user);
 	}
 
 	public Spell createSpell() {
-		return Spell.createSpell(screen, card, spellX, spellY, team);
+		return Spell.createSpell(screen, card, spellX, spellY, user.getTeam());
 	}
 	
 	@Override

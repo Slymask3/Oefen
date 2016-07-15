@@ -2,6 +2,7 @@ package com.abstractlabs.oefen.card;
 
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Font;
+import com.abstractlabs.oefen.User;
 import com.abstractlabs.oefen.gui.ImprovedButton;
 import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
@@ -23,27 +24,26 @@ public abstract class Card extends ImprovedButton {
 	protected ScreenGame screen;
 	protected Cards card;
 	protected BitmapFont font;
-	protected float cost;
+	protected int cost;
 	protected String type;
 	protected Color color;
 	protected TextureRegion front;
-	protected String team;
+	protected User user;
 	protected float speed;
 	protected int hp, dmg, range, attackspeed;
 	
-	public Card(ScreenGame screen, String type, Cards card, Sound sound, String team) {
+	public Card(ScreenGame screen, String type, Cards card, Sound sound, User user) {
 		super(new ImprovedButtonStyle(Assets.card, sound));
         //this.setPosition(x, y);
 		this.card = card;
         this.cost = card.getPrice();
         this.font = Font.create(Font.sufrimeda, 15, 1);
-        this.font.setColor(1, 1, 0, 1);
         this.type = type;
         this.color = type==Card.ATTACKER?new Color(1,0.3f,0.3f,1):type==Card.TOWER?new Color(0.5f,0.5f,1,1):new Color(0,1,0,1);
         this.front = card.getTexture();
         this.setColor(color);
         this.screen = screen;
-        this.team = team;
+        this.user = user;
 		this.speed = card.getMoveSpeed();
 		this.hp = card.getHealth();
 		this.dmg = card.getDamage();
@@ -51,15 +51,15 @@ public abstract class Card extends ImprovedButton {
 		this.attackspeed = card.getAttackSpeed();
 	}
 	
-	public Card(String type, Cards card, Sound sound, String team) {
-		this(null, type, card, sound, team);
+	public Card(String type, Cards card, Sound sound, User user) {
+		this(null, type, card, sound, user);
 	}
 	
 	public Cards getCardsObj() {
 		return this.card;
 	}
 	
-	public float getCost() {
+	public int getCost() {
 		return this.cost;
 	}
 	
@@ -154,6 +154,13 @@ public abstract class Card extends ImprovedButton {
         
         batch.setColor(1, 1, 1, 1);
         batch.draw(front, this.getX()+((64-nrw)/2), this.getY()+5+((64-nrh)/2), (float)nrw, (float)nrh);
+        
+        if(this.cost <= user.getGold()) {
+            this.font.setColor(1, 1, 0, 1);
+        } else {
+            this.font.setColor(1, 0, 0, 1);
+        }
+        
         this.font.draw(batch, "$"+Math.round(cost), this.getX()+5, this.getY()+12);
         //font.draw(batch, this.getZIndex()+"", getX()+32, getY()+32);
     }

@@ -5,6 +5,7 @@ import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.Oefen;
 import com.abstractlabs.oefen.Settings;
 import com.abstractlabs.oefen.User;
+import com.abstractlabs.oefen.card.Cards;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -79,8 +80,12 @@ public class ScreenMainMenu extends ScreenAdapter {
             public void clicked(InputEvent e, float x, float y) {
 				Assets.playSound(Assets.clickSound);
 //				game.setScreen(new ScreenGame(game, DB.getUser(game.db, "Slymask3"), DB.getUser(game.db, "HotMixtape")));
-				User sly = new User("Sly", 100, 100, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1,1,2,2,3,3,4,4,5,5,6,6});
-				User mix = new User("Mix", 100, 200, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,1,1,2,2,3,3,4,4,5,5,6,6});
+				int[] cards = new int[30];
+				for(int i=0; i<Cards.all.size(); i++) {
+					cards[i] = Cards.all.get(i).getID();
+				}
+				User sly = new User("Sly", 100, 100, cards, "Blue");
+				User mix = new User("Mix", 100, 200, cards, "Red");
 				game.setScreen(new ScreenGame(game, sly, mix));
             }
         } );

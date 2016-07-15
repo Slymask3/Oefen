@@ -19,6 +19,9 @@ import com.abstractlabs.oefen.entity.Attacker;
 import com.abstractlabs.oefen.entity.Spell;
 import com.abstractlabs.oefen.entity.Tower;
 import com.abstractlabs.oefen.entity.other.CardInfo;
+import com.abstractlabs.oefen.entity.other.Cloud;
+import com.abstractlabs.oefen.entity.other.MainTowerHealth;
+import com.abstractlabs.oefen.entity.other.UserBars;
 import com.abstractlabs.oefen.entity.tower.TowerMain;
 import com.abstractlabs.oefen.gui.ImprovedButton.ImprovedButtonStyle;
 import com.abstractlabs.oefen.map.Map;
@@ -26,14 +29,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.CheckBox.CheckBoxStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -49,13 +51,12 @@ public class ScreenGame extends ScreenAdapter {
 	Stage stage;
 	Viewport vp;
 	Random rand;
-//	List<Attacker> attackers = new ArrayList<Attacker>();
-	//List<Tower> towers = new ArrayList<Tower>();
+
+	Group clouds = new Group();
+	Group cards = new Group();
 	
 	Group attackers = new Group();
 	Group towers = new Group();
-	
-//	List<Group> subtowers = new ArrayList<Group>();
 	
 	Group[] subtowers = new Group[17];
 	
@@ -67,12 +68,9 @@ public class ScreenGame extends ScreenAdapter {
 	
 	Deck deck;
 	
-	GlyphLayout layout;
-	BitmapFont font;
-	
 	User blue, red;
 	
-	public ScreenGame (Oefen game, User blue, User red) {
+	public ScreenGame (Oefen game, final User blue, final User red) {
 		this.game = game;
 		this.blue = blue;
 		this.red = red;
@@ -88,15 +86,12 @@ public class ScreenGame extends ScreenAdapter {
 
         rand = new Random();
 
-        layout = new GlyphLayout();
-        font = Font.create(Font.sufrimeda, 26, 1);
-        
         for(int i=0; i<subtowers.length; i++) {
         	subtowers[i] = new Group();
         	subtowers[i].setZIndex(i);
         }
         
-        Tower towerBlue = new TowerMain(this, "Blue", 64+2*32, 122+13+(map.getBlueStart())*32);
+        TowerMain towerBlue = new TowerMain(this, "Blue", 64+2*32, 122+13+(map.getBlueStart())*32);
 //        towerBlue.setMapPos(16-map.getBlueStart(), 35-2);
         towerBlue.setMapPos(map.getBlueStart(), 2);
 //        towerBlue.setZIndex(1000+(map.getBlueStart()+(17*2)));
@@ -104,7 +99,7 @@ public class ScreenGame extends ScreenAdapter {
         subtowers[16-map.getBlueStart()].addActor(towerBlue);
         //towers.add(towerBlue);
         
-        Tower towerRed = new TowerMain(this, "Red", 64+33*32, 122+13+(map.getRedStart())*32);
+        TowerMain towerRed = new TowerMain(this, "Red", 64+33*32, 122+13+(map.getRedStart())*32);
 //        towerRed.setMapPos(16-map.getRedStart(), 35-33);
         towerRed.setMapPos(map.getRedStart(), 33);
 //        towerRed.setZIndex(1000+(map.getBlueStart()+(17*33)));
@@ -159,20 +154,20 @@ public class ScreenGame extends ScreenAdapter {
 //        
 //        deck = new Deck(cards);
         
-        List<Card> cards = new ArrayList<Card>();
+        List<Card> cardsList = new ArrayList<Card>();
         for(int i=0; i<blue.getCards().length; i++) {
         	//int r = rand.nextInt(Cards.all.size());
-        	String team = rand.nextInt(2)==0?"Blue":"Red";
+//        	String team = rand.nextInt(2)==0?"Blue":"Red";
         	if(Cards.all.get(blue.getCards()[i]).getType() == "Attacker") {
-                cards.add(new CardAttacker(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
+        		cardsList.add(new CardAttacker(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, blue));
         	} else if(Cards.all.get(blue.getCards()[i]).getType() == "Tower") {
-                cards.add(new CardTower(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
+        		cardsList.add(new CardTower(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, blue));
         	} else if(Cards.all.get(blue.getCards()[i]).getType() == "Spell") {
-                cards.add(new CardSpell(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, team));
+        		cardsList.add(new CardSpell(this, Cards.all.get(blue.getCards()[i]), Assets.clickSound, blue));
         	}
         }
         
-        deck = new Deck(cards);
+        deck = new Deck(cardsList);
         
         for(int i=0; i<deck.getCards().size(); i++) {
         	final Card card = deck.getCards().get(i);
@@ -190,7 +185,7 @@ public class ScreenGame extends ScreenAdapter {
         		}
         		@Override
         		public boolean longPress(Actor actor, float x, float y) {
-        			stage.addActor(cardinfo);
+        			cards.addActor(cardinfo);
 					return true;
         		}
         		@Override
@@ -198,21 +193,28 @@ public class ScreenGame extends ScreenAdapter {
         			//System.out.println("count=="+count+" | button=="+button);
         			if(card.getClass() == CardAttacker.class) { //Attacker
         				CardAttacker cardAttacker = (CardAttacker)card;
-        				Attacker attacker = cardAttacker.createAttacker();
-        				attacker.setWalking(true);
-        				attackers.addActor(attacker);
+        				if(cardAttacker.getCost() <= blue.getGold()) {
+            				Attacker attacker = cardAttacker.createAttacker();
+            				attacker.setWalking(true);
+            				attackers.addActor(attacker);
+            				blue.setGold(blue.getGold()-cardAttacker.getCost());
+        				}
         				//attackers.add(attacker);
         			} else if(card.getClass() == CardTower.class) { //Tower
         				CardTower cardTower = (CardTower)card;
         				if(!cardTower.isSelected()) {
-            				cardTower.select();
+	        				if(cardTower.getCost() <= blue.getGold()) {
+	        					cardTower.select();
+	        				}
         				} else {
         					cardTower.cancel();
         				}
         			} else if(card.getClass() == CardSpell.class) { //Spell
         				CardSpell cardSpell = (CardSpell)card;
         				if(!cardSpell.isSelected()) {
-        					cardSpell.select();
+	        				if(cardSpell.getCost() <= blue.getGold()) {
+	        					cardSpell.select();
+	        				}
         				} else {
         					cardSpell.cancel();
         				}
@@ -220,36 +222,39 @@ public class ScreenGame extends ScreenAdapter {
         			cardinfo.remove();
         		}
         	});
-        	stage.addActor(card);
+        	cards.addActor(card);
         }
         
-        this.stage.addListener(new ClickListener() {
+        this.stage.addListener(new ActorGestureListener() {
         	@Override
-    		public void clicked(InputEvent e, float x, float y) { //if stage is clicked.
+        	public void tap (InputEvent event, float x, float y, int count, int button) { //if stage is clicked.
 	        	for(int i=0; i<deck.getCards().size(); i++) { //loop through all the cards
 	        		if(deck.getCards().get(i).getClass() == CardTower.class) { //if the card is a tower
 						CardTower cardTower = (CardTower)deck.getCards().get(i); //cast as cardtower
 						if(cardTower.isSelected()) { //if this card is selected
-							for(int o=0; o<map.getTowers().length; o++) { //loop through all the tiles
-								for(int p=0; p<map.getTowers()[o].length; p++) { //^^
-									if(x >= 64+p*32 && x < 64+p*32+32 && y >= (480+184)-(o*32)-32+2+13 && y < (480+184)-(o*32)-32+2+13+32) { //if mouse is inside a tile
-										if(map.getTowers()[o][p] == cardTower.getTowerAvailable()) { //if the tile is green
-											//System.out.println("card is selected and stage is clicked");
-											cardTower.setTowerXY(64+p*32, (480+184)-(o*32)-32+2+13);
-											Tower tower = cardTower.createTower();
-											tower.setMapPos(o, p);
-											subtowers[o].addActor(tower);
-											//towers.add(tower);
-											map.getTowers()[o][p] = 1;
-											//tower.setOrder((o+(17*p)));
-											cardTower.cancel();
+	        				if(cardTower.getCost() <= blue.getGold()) {
+								for(int o=0; o<map.getTowers().length; o++) { //loop through all the tiles
+									for(int p=0; p<map.getTowers()[o].length; p++) { //^^
+										if(x >= 64+p*32 && x < 64+p*32+32 && y >= (480+184)-(o*32)-32+2+13 && y < (480+184)-(o*32)-32+2+13+32) { //if mouse is inside a tile
+											if(map.getTowers()[o][p] == cardTower.getTowerAvailable()) { //if the tile is green
+												//System.out.println("card is selected and stage is clicked");
+												cardTower.setTowerXY(64+p*32, (480+184)-(o*32)-32+2+13);
+												Tower tower = cardTower.createTower();
+												tower.setMapPos(o, p);
+												subtowers[o].addActor(tower);
+												//towers.add(tower);
+												map.getTowers()[o][p] = 1;
+												//tower.setOrder((o+(17*p)));
+												cardTower.cancel();
+					            				blue.setGold(blue.getGold()-cardTower.getCost());
+											} else {
+												//player trying to place on a red square.
+												//play sound to let them know it wont work.
+											}
 										} else {
-											//player trying to place on a red square.
-											//play sound to let them know it wont work.
+											//player trying to place outside the game board.
+											//maybe play sound to let them know theyre crazy.
 										}
-									} else {
-										//player trying to place outside the game board.
-										//maybe play sound to let them know theyre crazy.
 									}
 								}
 							}
@@ -257,16 +262,19 @@ public class ScreenGame extends ScreenAdapter {
 					} else if(deck.getCards().get(i).getClass() == CardSpell.class) { //if the card is a spell
 						CardSpell cardSpell = (CardSpell)deck.getCards().get(i); //cast as cardspell
 						if(cardSpell.isSelected()) { //if this card is selected
-							for(int o=0; o<map.getTowers().length; o++) { //loop through all the tiles
-								for(int p=0; p<map.getTowers()[o].length; p++) { //^^
-									if(x >= 64+p*32 && x < 64+p*32+32 && y >= (480+184)-(o*32)-32+2+13 && y < (480+184)-(o*32)-32+2+13+32) { //if mouse is inside a tile
-										cardSpell.setSpellXY(64+p*32, (480+184)-(o*32)-32+2+13);
-										Spell spell = cardSpell.createSpell();
-	//									spell.setMapPos(o, p);
-										stage.addActor(spell);
-	//									spells.add(spell);
-	//									map.getTowers()[o][p] = 1;
-										cardSpell.cancel();
+							if(cardSpell.getCost() <= blue.getGold()) {
+								for(int o=0; o<map.getTowers().length; o++) { //loop through all the tiles
+									for(int p=0; p<map.getTowers()[o].length; p++) { //^^
+										if(x >= 64+p*32 && x < 64+p*32+32 && y >= (480+184)-(o*32)-32+2+13 && y < (480+184)-(o*32)-32+2+13+32) { //if mouse is inside a tile
+											cardSpell.setSpellXY(64+p*32, (480+184)-(o*32)-32+2+13);
+											Spell spell = cardSpell.createSpell();
+		//									spell.setMapPos(o, p);
+											stage.addActor(spell);
+		//									spells.add(spell);
+		//									map.getTowers()[o][p] = 1;
+											cardSpell.cancel();
+				            				blue.setGold(blue.getGold()-cardSpell.getCost());
+										}
 									}
 								}
 							}
@@ -280,32 +288,32 @@ public class ScreenGame extends ScreenAdapter {
         style.font = Font.create(Font.sufrimeda, 25);
         style.checkboxOff = new TextureRegionDrawable(Assets.unchecked);
         style.checkboxOn = new TextureRegionDrawable(Assets.checked);
-        final CheckBox check = new CheckBox("Hitbox", style);
-        check.setPosition(10, 32);
-        check.addListener(new ClickListener() {
+        final CheckBox hitbox = new CheckBox("Hitbox", style);
+        hitbox.setPosition(10, 32);
+        hitbox.addListener(new ClickListener() {
         	@Override
     		public void clicked(InputEvent e, float x, float y) {
-        		if(!check.isChecked()) {
+        		if(!hitbox.isChecked()) {
         			Settings.showHitbox = false;
         		} else {
         			Settings.showHitbox = true;
         		}
+//        		Cloud cloud = new Cloud();
+//        		clouds.addActor(cloud);
         	}
         });
-        stage.addActor(check);
-        final CheckBox check2 = new CheckBox("Rangebox", style);
-        check2.setPosition(10, 10);
-        check2.addListener(new ClickListener() {
+        final CheckBox rangebox = new CheckBox("Rangebox", style);
+        rangebox.setPosition(10, 10);
+        rangebox.addListener(new ClickListener() {
         	@Override
     		public void clicked(InputEvent e, float x, float y) {
-        		if(!check2.isChecked()) {
+        		if(!rangebox.isChecked()) {
         			Settings.showRangebox = false;
         		} else {
         			Settings.showRangebox = true;
         		}
         	}
         });
-        stage.addActor(check2);
         
         this.stage.addListener(new ChangeListener() {
 			@Override
@@ -320,12 +328,25 @@ public class ScreenGame extends ScreenAdapter {
 
         stage.addActor(attackers);
         stage.addActor(towers);
+
+        stage.addActor(clouds);
+        
+        Image background = new Image(Assets.backgroundIngame);
+        background.setX(0);
+        background.setY(0);
+        
+        stage.addActor(background);
+        stage.addActor(new MainTowerHealth(towerBlue));
+        stage.addActor(new MainTowerHealth(towerRed));
+        stage.addActor(new UserBars(blue, red));
+        stage.addActor(cards);
+        stage.addActor(hitbox);
+        stage.addActor(rangebox);
 	}
 
 	public void draw () {
-		GL20 gl = Gdx.gl;
-		gl.glClearColor(1, 0, 0, 1);
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl.glClearColor(1, 0, 0, 1);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		stateTime += Gdx.graphics.getDeltaTime();
 		
@@ -333,36 +354,46 @@ public class ScreenGame extends ScreenAdapter {
 		game.batch.setProjectionMatrix(guiCam.combined);
 		game.sr.setProjectionMatrix(guiCam.combined);
 
-		game.batch.disableBlending();
+		//game.batch.disableBlending();
 		game.batch.begin();
-		game.batch.draw(Assets.backgroundIngameRegion, 0, 0, Oefen.WIDTH, Oefen.HEIGHT);
 		
 		map.draw(game.batch, stateTime, 64, 647);
-
-		font.setColor(0, 1, 0.3f, 1);
-		layout.setText(font, blue.getUsername());
-		font.draw(game.batch, layout, 5, Oefen.HEIGHT-5);
-
-		font.setColor(0.7f, 0.7f, 0.7f, 1);
-		layout.setText(font, blue.getElo()+" OP");
-		font.draw(game.batch, layout, 5, Oefen.HEIGHT-10-layout.height);
 		
-		font.setColor(1, 0, 0.3f, 1);
-		layout.setText(font, red.getUsername());
-		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-5);
-
-		font.setColor(0.7f, 0.7f, 0.7f, 1);
-		layout.setText(font, red.getElo()+" OP");
-		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-10-layout.height);
+//		font.setColor(0, 1, 0.3f, 1);
+//		layout.setText(font, blue.getUsername());
+//		font.draw(game.batch, layout, 5, Oefen.HEIGHT-5);
+//
+//		font.setColor(0.7f, 0.7f, 0.7f, 1);
+//		layout.setText(font, blue.getElo()+" OP");
+//		font.draw(game.batch, layout, 5, Oefen.HEIGHT-10-layout.height);
+//		
+//		font.setColor(1, 0, 0.3f, 1);
+//		layout.setText(font, red.getUsername());
+//		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-5);
+//
+//		font.setColor(0.7f, 0.7f, 0.7f, 1);
+//		layout.setText(font, red.getElo()+" OP");
+//		font.draw(game.batch, layout, Oefen.WIDTH-5-layout.width, Oefen.HEIGHT-10-layout.height);
 		
 		game.batch.end();
 		
 	    stage.act(Gdx.graphics.getDeltaTime());
 	    stage.draw();
+	    
+//	    game.batch.enableBlending();
+//	    game.batch.begin();
+//		game.batch.draw(Assets.backgroundIngameRegion, 0, 0, Oefen.WIDTH, Oefen.HEIGHT);
+//		game.batch.end();
 	}
 	
+	private int ticks = 0;
 	public void update() {
-		
+		ticks++;
+		if(ticks>=1000) {
+			clouds.addActor(new Cloud());
+			ticks=0;
+			//System.out.println("cloud spawned");
+		}
 	}
 
 	@Override

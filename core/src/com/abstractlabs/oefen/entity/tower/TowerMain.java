@@ -39,7 +39,7 @@ public class TowerMain extends Tower {
         batch.setColor(1, 1, 1, 1);
 
         double php = (double)hp/maxhp;
-        double php2 = (double)(maxhp-hp)/maxhp;
+//        double php2 = (double)(maxhp-hp)/maxhp;
         
         batch.setColor(1, 0, 0, 1);
         batch.draw(Assets.hpbar, x, y+45);
@@ -47,15 +47,15 @@ public class TowerMain extends Tower {
         batch.draw(Assets.hpbar, x, y+45, Math.round(php*32), 4);
         batch.setColor(1, 1, 1, 1);
         
-        batch.setColor(1, 0, 0, 1);
-        batch.draw(Assets.mainhp, xhp, yhp, 60, 544);
-        batch.setColor(0, 1, 0, 1);
-        batch.draw(Assets.mainhp, xhp, yhp, 60, Math.round(php*544));
-        batch.setColor(1, 1, 1, 1);
-        
-        font.setColor((float)(php2), (float)php, 0, 1);
-        font.draw(batch, hp+"", xhp, 400, 60, 1, true);
-        font.setColor(1, 1, 1, 1);
+//        batch.setColor(1, 0, 0, 1);
+//        batch.draw(Assets.mainhp, xhp, yhp, 60, 544);
+//        batch.setColor(0, 1, 0, 1);
+//        batch.draw(Assets.mainhp, xhp, yhp, 60, Math.round(php*544));
+//        batch.setColor(1, 1, 1, 1);
+//        
+//        font.setColor((float)(php2), (float)php, 0, 1);
+//        font.draw(batch, hp+"", xhp, 400, 60, 1, true);
+//        font.setColor(1, 1, 1, 1);
         
         if(Settings.showRangebox) {
             Range.drawRectangle(batch, screen.getOefen().sr, rangebox.x, rangebox.y, rangebox.width, rangebox.height, 1, 0, 0);

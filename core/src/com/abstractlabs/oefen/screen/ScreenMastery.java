@@ -1,6 +1,5 @@
 package com.abstractlabs.oefen.screen;
 
-import com.abstractlabs.oefen.Animation;
 import com.abstractlabs.oefen.Assets;
 import com.abstractlabs.oefen.Font;
 import com.abstractlabs.oefen.Oefen;
@@ -10,12 +9,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -37,7 +32,7 @@ public class ScreenMastery extends ScreenAdapter {
     
     float state = 0;
     
-    private TextureRegion currentFrame;
+//    private TextureRegion currentFrame;
     
     final Book book = new Book(140, 20);
     
@@ -51,7 +46,7 @@ public class ScreenMastery extends ScreenAdapter {
 
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
-		font = new BitmapFont(Gdx.files.internal("gfx/oefenfont2.fnt"));
+//		font = new BitmapFont(Gdx.files.internal("gfx/oefenfont2.fnt"));
 		skin = new Skin();
 		buttonAtlas = new TextureAtlas(Gdx.files.internal("gfx/buttons.txt"));
 		skin.addRegions(buttonAtlas);

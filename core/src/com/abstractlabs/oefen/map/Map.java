@@ -134,18 +134,25 @@ public class Map {
 	    		TextureRegion texture = null;
 	    		boolean xflip = false, yflip = false;
 	    		if(mapOverlay2[i][k] == Tile.NULL) { texture = Assets.blank; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_HORIZONTAL) { texture = Assets.bridgeStoneHorizontal; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_VERTICAL) { texture = Assets.bridgeStoneVertical; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_RIGHT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_LEFT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = false; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_RIGHT) { texture = Assets.bridgeStoneCornerTopLeft; xflip = true; yflip = false; } 
-	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_LEFT) { texture = Assets.bridgeStoneCornerBottomRight; xflip = true; yflip = false; }
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_HORIZONTAL) { texture = k<split?blueSkin.getBridgeHorizontal():redSkin.getBridgeHorizontal(); xflip = false; yflip = false; } 
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_VERTICAL) { texture = k<split?blueSkin.getBridgeVertical():redSkin.getBridgeVertical(); xflip = false; yflip = false; } 
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_RIGHT) { texture = k<split?blueSkin.getBridgeCornerBottomRight():redSkin.getBridgeCornerBottomRight(); xflip = false; yflip = false; } 
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_LEFT) { texture = k<split?blueSkin.getBridgeCornerTopLeft():redSkin.getBridgeCornerTopLeft(); xflip = false; yflip = false; } 
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_TOP_RIGHT) { texture = k<split?blueSkin.getBridgeCornerTopLeft():redSkin.getBridgeCornerTopLeft(); xflip = true; yflip = false; } 
+	    		else if(mapOverlay2[i][k] == Tile.BRIDGE_STONE_BOTTOM_LEFT) { texture = k<split?blueSkin.getBridgeCornerBottomRight():redSkin.getBridgeCornerBottomRight(); xflip = true; yflip = false; }
 	    		
 	    		texture.flip(xflip, yflip);
 	    		batch.draw(texture, x+k*32, y-(i*32), 32, 32);
 	    		texture.flip(xflip, yflip);
 		    }
 	    }
+		
+		//water at the top.
+		for(int i=0; i<2; i++) {
+			for(int j=0; j<36; j++) {
+				batch.draw(Assets.water.getKeyFrame(stateTime, Animation.LOOPING), x+j*32, y-(i*32)+64, 32, 32);
+			}
+		}
 	}
 
 	/////////////////////////////////////////////////// Static Class Start ///////////////////////////////////////////////////
@@ -390,6 +397,8 @@ public class Map {
 		//Water
 		int waterStart = rand.nextInt(4)+13;
 		int waterEnd = rand.nextInt(4)+16;
+		int splitamount = (waterEnd-waterStart-1)/2;
+		int split = waterEnd-splitamount;
 		
 		for(int i=0; i<mapTiles.length; i++) {
 			for(int k=waterStart; k<waterEnd+1; k++) {
@@ -422,6 +431,6 @@ public class Map {
 		Skin skinBlue = Skin.getRandomSkin();
 		Skin skinRed = Skin.getRandomSkin();
 		
-        return new Map(mapPath, mapTiles, mapOverlay1, mapOverlay2, mapTowers, blueStart, redStart, skinBlue, skinRed, waterEnd);
+        return new Map(mapPath, mapTiles, mapOverlay1, mapOverlay2, mapTowers, blueStart, redStart, skinBlue, skinRed, split);
 	}
 }

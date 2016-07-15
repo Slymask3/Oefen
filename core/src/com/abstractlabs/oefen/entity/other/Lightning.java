@@ -4,15 +4,14 @@ import com.abstractlabs.oefen.screen.ScreenGame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 
 public class Lightning extends Projectile {
-	private ShapeRenderer sr;
+	//private ShapeRenderer sr;
 	
 	public Lightning(ScreenGame screen, float x, float y, float xd, float yd) {
 		super(screen, null, 0, 0, x, y, xd, yd);
-		sr = new ShapeRenderer();
+		//sr = new ShapeRenderer();
 //		System.out.println("lightning created");
 	}
 	
@@ -20,10 +19,10 @@ public class Lightning extends Projectile {
     public void draw(Batch batch, float alpha) {
         batch.end();
 		Gdx.gl.glEnable(GL20.GL_BLEND);
-		sr.setColor(0,1,1,1);
-		sr.begin(ShapeType.Line);
+		screen.getOefen().sr.setColor(0,1,1,1);
+		screen.getOefen().sr.begin(ShapeType.Line);
 		//TODO simulate lightning
-		sr.line(x, y, xd, yd);
+		screen.getOefen().sr.line(x, y, xd, yd);
 //		Random rand = new Random();
 //		int times = rand.nextInt(5);
 //		
@@ -33,8 +32,9 @@ public class Lightning extends Projectile {
 //			yd = yd+10;
 //		}
 //		sr.line(xd, yd, x, y);
-		
-		sr.end();
+
+		screen.getOefen().sr.setColor(1,1,1,1);
+		screen.getOefen().sr.end();
 		batch.enableBlending();
 		batch.begin();
     }

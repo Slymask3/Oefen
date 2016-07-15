@@ -17,6 +17,13 @@ public class BuddhaGold extends Tower {
 	
     @Override
     public void act(float delta){
+    	findTarget();
+    	actAttacking();
+    	actGenerate();
+        removeIfDead();
+    }
+    
+    private void actGenerate(){
     	tick++;
     	if(tick >= interval) {
     		tick = 0;

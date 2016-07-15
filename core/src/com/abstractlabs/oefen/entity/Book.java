@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
-public class Book extends Group{
+public class Book extends Group {
 	Animation bookFrames;
 	float x, y;
 	float state = 0;

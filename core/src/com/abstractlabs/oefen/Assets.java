@@ -1,5 +1,8 @@
 package com.abstractlabs.oefen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -53,12 +56,15 @@ public class Assets {
 	public static Animation waterBottomLeftCorner;
 	public static Animation waterBottomRightCorner;
 	public static TextureRegion snow;
+	public static TextureRegion puddle;
 	public static TextureRegion sand;
 	public static TextureRegion deadTree;
 	public static TextureRegion pathHorizontal;
 	public static TextureRegion pathVertical;
 	public static TextureRegion pathCorner;
 	public static TextureRegion sand2;
+	public static TextureRegion pavement;
+	public static TextureRegion rock;
 	public static TextureRegion roadHorizontal;
 	public static TextureRegion roadVertical;
 	public static TextureRegion roadCorner;
@@ -67,13 +73,17 @@ public class Assets {
 	public static TextureRegion path16Horizontal;
 	public static TextureRegion path16Vertical;
 	public static TextureRegion path16Corner;
+	public static TextureRegion woodBridgeHorizontal;
+	public static TextureRegion woodBridgeVertical;
+	public static TextureRegion woodBridgeCornerBottomRight;
+	public static TextureRegion woodBridgeCornerTopLeft;
 
 	public static Texture towers;
 	public static TextureRegion mainTower;
 	public static TextureRegion wtfisthis;
 	public static TextureRegion budhaGold;
 	public static TextureRegion lazorRed;
-
+	public static TextureRegion flowerPurple;
 	
 	public static Texture book;
 	public static Animation bookStill;
@@ -101,6 +111,9 @@ public class Assets {
 	public static TextureRegion cardElfHealer;
 	public static TextureRegion cardViking;
 	public static TextureRegion cardImp;
+	public static TextureRegion cardFlameSkull;
+	public static TextureRegion cardChest;
+	public static TextureRegion cardEyeball;
 	
 	public static Texture goblin;
 	public static Animation goblinWalkUp;
@@ -210,6 +223,25 @@ public class Assets {
 	public static Animation impAttackLeft;
 	public static Animation impAttackRight;
 	
+	public static Texture flameSkull;
+	public static Animation flameSkullWalkUp;
+	public static Animation flameSkullWalkDown;
+	public static Animation flameSkullWalkLeft;
+	public static Animation flameSkullWalkRight;
+	
+	public static Texture chest;
+	public static Animation chestWalkUp;
+	public static Animation chestWalkDown;
+	public static Animation chestWalkLeft;
+	public static Animation chestWalkRight;
+	
+	public static Texture eyeball;
+	public static Animation eyeballWalkUp;
+	public static Animation eyeballWalkDown;
+	public static Animation eyeballWalkLeft;
+	public static Animation eyeballWalkRight;
+	
+	public static Texture hpbarSheet;
 	public static TextureRegion hpbar;
 	
 	public static Texture hp;
@@ -242,10 +274,17 @@ public class Assets {
 	public static Texture ui;
 	public static TextureRegion cardinfo;
 	
+	public static Texture cloudSheet;
+	public static TextureRegion cloud;
+	
 	public static Sound clickSound;
 
-	public static Texture loadTexture(String file) {
-		return new Texture(Gdx.files.internal(file));
+	private static List<Texture> textures = new ArrayList<Texture>();
+	
+	private static Texture loadTexture(String file) {
+		Texture texture = new Texture(Gdx.files.internal(file));
+		textures.add(texture);
+		return texture;
 	}
 
 	public static void load () {
@@ -330,12 +369,15 @@ public class Assets {
 				new TextureRegion(tiles, 15*32, 5*32, 32, 32));
 		
 		snow = new TextureRegion(tiles, 0*32, 4*32, 32, 32);
+		puddle = new TextureRegion(tiles, 1*32, 4*32, 32, 32);
 		sand = new TextureRegion(tiles, 0*32, 1*32, 32, 32);
 		sand2 = new TextureRegion(tiles, 0*32, 5*32, 32, 32);
 		deadTree = new TextureRegion(tiles, 1*32, 1*32, 32, 32);
 		pathCorner = new TextureRegion(tiles, 2*32, 1*32, 32, 32);
 		pathHorizontal = new TextureRegion(tiles, 3*32, 1*32, 32, 32);
 		pathVertical = new TextureRegion(tiles, 4*32, 1*32, 32, 32);
+		pavement = new TextureRegion(tiles, 0*32, 2*32, 32, 32);
+		rock = new TextureRegion(tiles, 1*32, 2*32, 32, 32);
 		roadCorner = new TextureRegion(tiles, 2*32, 2*32, 32, 32);
 		roadHorizontal = new TextureRegion(tiles, 3*32, 2*32, 32, 32);
 		roadVertical = new TextureRegion(tiles, 4*32, 2*32, 32, 32);
@@ -345,13 +387,17 @@ public class Assets {
 		path16Horizontal = new TextureRegion(tiles, 3*32, 3*32, 32, 32);
 		path16Vertical = new TextureRegion(tiles, 4*32, 3*32, 32, 32);
 		
+		woodBridgeHorizontal = new TextureRegion(tiles, 5*32, 2*32, 32, 32);
+		woodBridgeCornerBottomRight = new TextureRegion(tiles, 6*32, 2*32, 32, 32);
+		woodBridgeVertical = new TextureRegion(tiles, 7*32, 2*32, 32, 32);
+		woodBridgeCornerTopLeft = new TextureRegion(tiles, 8*32, 2*32, 32, 32);
+		
 		//Towers
 		towers = loadTexture("gfx/towers.png");
 		dummy = loadTexture("gfx/dummy.png");
 		mainTower = new TextureRegion(towers, 0*32, 1*32, 32, 64);
 		wtfisthis = new TextureRegion(towers, 0*32, 0*32, 32, 32);
 		budhaGold = new TextureRegion(towers, 2*32, 0*32, 32, 32);
-		lazorRed = new TextureRegion(towers, 1*32, 1*32, 32, 64);
 		dummySpin = new Animation(0.3f, 
 				new TextureRegion(dummy, 0*64, 0*64, 64, 64), 
 				new TextureRegion(dummy, 1*64, 0*64, 64, 64), 
@@ -368,6 +414,8 @@ public class Assets {
 				new TextureRegion(dummy, 3*64, 1*64, 64, 64), 
 				new TextureRegion(dummy, 4*64, 1*64, 64, 64), 
 				new TextureRegion(dummy, 5*64, 1*64, 64, 64));
+		lazorRed = new TextureRegion(towers, 1*32, 1*32, 32, 64);
+		flowerPurple = new TextureRegion(towers, 2*32, 1*32, 32, 64);
 
 		//Attackers
 		goblin = loadTexture("gfx/goblin.png");
@@ -979,6 +1027,57 @@ public class Assets {
 				new TextureRegion(imp, 1*64, 7*64, 64, 64), 
 				new TextureRegion(imp, 2*64, 7*64, 64, 64), 
 				new TextureRegion(imp, 3*64, 7*64, 64, 64));
+		flameSkull = loadTexture("gfx/flameSkull.png");
+		flameSkullWalkDown = new Animation(0.2f, 
+				new TextureRegion(flameSkull, 0*32, 0*32, 32, 32), 
+				new TextureRegion(flameSkull, 1*32, 0*32, 32, 32), 
+				new TextureRegion(flameSkull, 2*32, 0*32, 32, 32));
+		flameSkullWalkUp = new Animation(0.2f, 
+				new TextureRegion(flameSkull, 0*32, 1*32, 32, 32), 
+				new TextureRegion(flameSkull, 1*32, 1*32, 32, 32), 
+				new TextureRegion(flameSkull, 2*32, 1*32, 32, 32));
+		flameSkullWalkRight = new Animation(0.2f, 
+				new TextureRegion(flameSkull, 0*32, 2*32, 32, 32), 
+				new TextureRegion(flameSkull, 1*32, 2*32, 32, 32), 
+				new TextureRegion(flameSkull, 2*32, 2*32, 32, 32));
+		flameSkullWalkLeft = new Animation(0.2f, 
+				new TextureRegion(flameSkull, 0*32, 3*32, 32, 32), 
+				new TextureRegion(flameSkull, 1*32, 3*32, 32, 32), 
+				new TextureRegion(flameSkull, 2*32, 3*32, 32, 32));
+		chest = loadTexture("gfx/chest.png");
+		chestWalkRight = new Animation(0.2f, 
+				new TextureRegion(chest, 0*16, 0*24, 16, 24), 
+				new TextureRegion(chest, 1*16, 0*24, 16, 24), 
+				new TextureRegion(chest, 2*16, 0*24, 16, 24));
+		chestWalkLeft = new Animation(0.2f, 
+				new TextureRegion(chest, 0*16, 1*24, 16, 24), 
+				new TextureRegion(chest, 1*16, 1*24, 16, 24), 
+				new TextureRegion(chest, 2*16, 1*24, 16, 24));
+		chestWalkDown = new Animation(0.2f, 
+				new TextureRegion(chest, 0*16, 2*24, 16, 24), 
+				new TextureRegion(chest, 1*16, 2*24, 16, 24), 
+				new TextureRegion(chest, 2*16, 2*24, 16, 24));
+		chestWalkUp = new Animation(0.2f, 
+				new TextureRegion(chest, 0*16, 3*24, 16, 24), 
+				new TextureRegion(chest, 1*16, 3*24, 16, 24), 
+				new TextureRegion(chest, 2*16, 3*24, 16, 24));
+		eyeball = loadTexture("gfx/eyeball.png");
+		eyeballWalkDown = new Animation(0.2f, 
+				new TextureRegion(eyeball, 0*16, 0*16, 16, 16), 
+				new TextureRegion(eyeball, 1*16, 0*16, 16, 16), 
+				new TextureRegion(eyeball, 2*16, 0*16, 16, 16));
+		eyeballWalkUp = new Animation(0.2f, 
+				new TextureRegion(eyeball, 0*16, 1*16, 16, 16), 
+				new TextureRegion(eyeball, 1*16, 1*16, 16, 16), 
+				new TextureRegion(eyeball, 2*16, 1*16, 16, 16));
+		eyeballWalkRight = new Animation(0.2f, 
+				new TextureRegion(eyeball, 0*16, 2*16, 16, 16), 
+				new TextureRegion(eyeball, 1*16, 2*16, 16, 16), 
+				new TextureRegion(eyeball, 2*16, 2*16, 16, 16));
+		eyeballWalkLeft = new Animation(0.2f, 
+				new TextureRegion(eyeball, 0*16, 3*16, 16, 16), 
+				new TextureRegion(eyeball, 1*16, 3*16, 16, 16), 
+				new TextureRegion(eyeball, 2*16, 3*16, 16, 16));
 		
 		//Book
 		book = loadTexture("gfx/book.png");
@@ -995,7 +1094,8 @@ public class Assets {
 				new TextureRegion(book, 0*1000, 0*700, 1000, 700));
 
 		//Other
-		hpbar = new TextureRegion(tiles, 0, 480, 32, 4);
+		hpbarSheet = loadTexture("gfx/hp.png");
+		hpbar = new TextureRegion(hpbarSheet, 0, 0, 32, 4);
 
 		hp = loadTexture("gfx/mainhp.png");
 		mainhp = new TextureRegion(hp, 0, 0, 60, 544);
@@ -1084,6 +1184,9 @@ public class Assets {
 		cardElfHealer = new TextureRegion(elfHealer, 0*64, 2*64, 64, 64);
 		cardViking = new TextureRegion(viking, 1*32, 0*64, 32, 64);
 		cardImp = new TextureRegion(imp, 0*64, 0*64, 64, 64);
+		cardFlameSkull = new TextureRegion(flameSkull, 2*32, 0*32, 32, 32);
+		cardChest = new TextureRegion(chest, 2*16, 2*24, 16, 24);
+		cardEyeball = new TextureRegion(eyeball, 0*16, 0*16, 16, 16);
 
 		//Checkbox
 		checkbox = loadTexture("gfx/checkbox.png");
@@ -1094,6 +1197,10 @@ public class Assets {
 		ui = loadTexture("gfx/cardinfo.png");
 		cardinfo = new TextureRegion(ui, 0, 0, 128, 90);
 
+		//Clouds
+		cloudSheet = loadTexture("gfx/cloud.png");
+		cloud = new TextureRegion(cloudSheet, 0, 0, 921, 408);
+		
 		//Sounds
 		clickSound = Gdx.audio.newSound(Gdx.files.internal("sound/click.mp3"));
 	}
@@ -1103,28 +1210,9 @@ public class Assets {
 	}
 	
 	public static void dispose() {
-		backgroundMainMenu.dispose();
-		backgroundIngame.dispose();
-		buttons.dispose();
-		tiles.dispose();
-		towers.dispose();
-		dummy.dispose();
-		cards.dispose();
-		goblin.dispose();
-		goblinDarkMage.dispose();
-		spiderRed.dispose();
-		fairy.dispose();
-		crystalBlue.dispose();
-		knight.dispose();
-		golem.dispose();
-		mage.dispose();
-		brainmonster.dispose();
-		elfHealer.dispose();
-		bloodSheet.dispose();
-		explosionSheet.dispose();
-		turtleshellSheet.dispose();
-		projectiles.dispose();
-		checkbox.dispose();
+		for(int i=0; i<textures.size(); i++) {
+			textures.get(i).dispose();
+		}
 		clickSound.dispose();
 	}
 }

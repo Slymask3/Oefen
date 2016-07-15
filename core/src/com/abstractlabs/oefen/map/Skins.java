@@ -21,6 +21,7 @@ public class Skins {
 	public static List<Skins> pathVerticalAll = new ArrayList<Skins>();
 	public static List<Skins> pathCornerAll = new ArrayList<Skins>();
 	public static List<Road> roadAll = new ArrayList<Road>();
+	public static List<Bridge> bridgeAll = new ArrayList<Bridge>();
 	
 	public Skins(String type, TextureRegion texture) {
 		this.texture = texture;
@@ -47,11 +48,14 @@ public class Skins {
 	public static Skins grass16 = new Skins(GRASS, Assets.grass16);
 	public static Skins snow = new Skins(GRASS, Assets.snow);
 	public static Skins sand2 = new Skins(GRASS, Assets.sand2);
+	public static Skins pavement = new Skins(GRASS, Assets.pavement);
 	
 	//FLOWER
 	public static Skins flower = new Skins(FLOWER, Assets.flower);
 	public static Skins deadTree = new Skins(FLOWER, Assets.deadTree);
 	public static Skins flower16 = new Skins(FLOWER, Assets.flower16);
+	public static Skins rock = new Skins(FLOWER, Assets.rock);
+	public static Skins puddle = new Skins(FLOWER, Assets.puddle);
 	
 	//PATH_HORIZONTAL
 	public static Skins dirtHorizontal = new Skins(PATH_HORIZONTAL, Assets.dirtHorizontal);
@@ -76,4 +80,9 @@ public class Skins {
 	public static Road path = new Road(Assets.pathHorizontal, Assets.pathVertical, Assets.pathCorner);
 	public static Road road = new Road(Assets.roadHorizontal, Assets.roadVertical, Assets.roadCorner);
 	public static Road path16 = new Road(Assets.path16Horizontal, Assets.path16Vertical, Assets.path16Corner);
+	
+	//BRIDGE
+	public static Bridge stone = new Bridge(Assets.bridgeStoneHorizontal, Assets.bridgeStoneVertical, Assets.bridgeStoneCornerBottomRight, Assets.bridgeStoneCornerTopLeft);
+	public static Bridge stone2 = new Bridge(Assets.bridgeStone2Horizontal, Assets.bridgeStone2Vertical, Assets.bridgeStone2CornerBottomRight, Assets.bridgeStone2CornerTopLeft);
+	public static Bridge wood = new Bridge(Assets.woodBridgeHorizontal, Assets.woodBridgeVertical, Assets.woodBridgeCornerBottomRight, Assets.woodBridgeCornerTopLeft);
 }
